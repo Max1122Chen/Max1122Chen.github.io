@@ -1,0 +1,9 @@
+# files to ignore
+Saved/
+Intermediate/
+DerivedDataCache/
+.idea/
+.vs/
+Binaries/
+*.vsconfig
+*.sln
