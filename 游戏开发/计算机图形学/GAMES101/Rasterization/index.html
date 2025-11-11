@@ -1,0 +1,2859 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Max1122Chen">
+      
+      
+      
+        <link rel="prev" href="../Materials%20and%20Apperance/">
+      
+      
+        <link rel="next" href="../Ray%20Tracing/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Rasterization - Max1122Chen's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rasterization" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Max1122Chen&#39;s Blog" class="md-header__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Max1122Chen's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rasterization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Max1122Chen&#39;s Blog" class="md-nav__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Max1122Chen's Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    这是Max1122Chen的个人网站
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Unity
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Unity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Unity/RPG%20Core%20Combat%20Creator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RPG Core Combat Creator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Unity/Unity%20RPG%20%E6%95%99%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity RPG 教程跟学笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Unity/Unity%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发编程基础
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发编程基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20I/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part I
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20II/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part II
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏设计艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            游戏设计艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Idea
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Idea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/The%20Magic%20of%20Delicacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Magic of Delicacy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%A7%91%E6%8A%80%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏开发科技树
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏机制
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%84%9A%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88001/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏脚本设计方案001
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E5%88%9B%E6%84%8F%E7%BB%83%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏设计创意练习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    像素艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            像素艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E4%B9%8B%E7%AD%89%E8%B7%9D%E7%93%A6%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    像素艺术之等距视图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E6%B8%B8%E6%88%8F%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E5%88%9B%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏像素艺术创作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    分析
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%88%86%E6%9E%90/%E6%B8%B8%E6%88%8F%E5%BE%AA%E7%8E%AF%E8%AE%BE%E8%AE%A1Chapter01-Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏循环设计Chapter01-Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    现代游戏引擎
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            现代游戏引擎
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES104
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES104
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/00%20%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AF%BC%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎导论
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/01%20%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01 引擎架构分层
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/02%20%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02 如何构建游戏世界
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E5%BC%95%E6%93%8E%E5%B7%A5%E5%85%B7%E9%93%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    引擎工具链
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8EGameplay%E7%8E%A9%E6%B3%95%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎Gameplay玩法基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04 游戏引擎的渲染实践
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    网络游戏架构基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    虚幻5
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            虚幻5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/ALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALS学习笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/InventorySystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InventorySystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E4%BD%BF%E7%94%A8UE%E5%BC%80%E5%8F%91%E6%B8%B8%E6%88%8F%E5%89%8D%E7%BD%AE%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用UE开发游戏前置软件安装
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB2D%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻2D游戏
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB4.27ARPG%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻4.27ARPG示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5.5Lyra%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5.5Lyra示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5.5%E5%8E%9F%E7%94%9F%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻原生源码分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5CropOut%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5CropOut示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5GAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5GAS(GameplayAbilitySystem)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%85%B3%E5%8D%A1%E7%99%BD%E7%9B%92%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5关卡白盒搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5骨骼网格体动画系统
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%A2%9E%E5%BC%BA%E8%BE%93%E5%85%A5%E6%98%A0%E5%B0%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5增强输入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E6%9D%90%E8%B4%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5材质
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBAI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBGAS%E8%AF%BE%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻GAS课程跟学笔记（UE开发最佳实践）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBGamplay%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻Gamplay框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBUI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻UI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E4%B8%8EC%2B%2B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻与C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E5%99%A8%E5%92%8C%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻接口和委托
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%85%B3%E5%8D%A1%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻关卡序列
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻场景搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻基本要素
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻学习心得
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻开发策略
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E6%B8%B8%E6%88%8F%E5%AD%98%E6%A1%A3%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻游戏存档方式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻设计模式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    计算机图形学
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            计算机图形学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Make%20a%20Software%20Renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Make a Software Renderer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES101
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES101
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Advanced%20Topics%20in%20Rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics in Rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Animation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Animation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cameras%2C%20Lense%20%26%20Light%20Fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cameras, Lense & Light Fields
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Color%20and%20Perception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color and Perception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GAMES101%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GAMES101 作业笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Materials%20and%20Apperance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Material and Appearance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Rasterization
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rasterization
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      屏幕空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="屏幕空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      从正则立方体到屏幕空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      成像设备
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="成像设备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      阴极射线管
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代显示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      三角形的作用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三角形的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      光栅化的简单方法：采样
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      抗锯齿和反走样
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="抗锯齿和反走样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频域分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波 = 卷积 = 平均
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样 = 重复频率内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何反走样？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visibilityocclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visibility/Occlusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ray%20Tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ray Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Shading%20%26%20Texture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shading &amp; Texture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Viewing%20Transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Viewing Transformations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    线性代数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GraphicsAPI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            GraphicsAPI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GraphicsAPI/OpenGL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenGL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      屏幕空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="屏幕空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      从正则立方体到屏幕空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      成像设备
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="成像设备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      阴极射线管
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代显示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      三角形的作用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三角形的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      光栅化的简单方法：采样
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      抗锯齿和反走样
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="抗锯齿和反走样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频域分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波 = 卷积 = 平均
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样 = 重复频率内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何反走样？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visibilityocclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visibility/Occlusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="rasterization">Rasterization</h1>
+<p><img alt="image-20250921165002843" src="assets/image-20250921165002843.png" /></p>
+<p><img alt="image-20250921165101044" src="assets/image-20250921165101044.png" /></p>
+<p>Aspect ratio：宽高比</p>
+<p>中间两道红线（从相机连向上下宽的中点）所夹的角度：Vertical Field of View：垂直可视角度</p>
+<p><img alt="image-20250921165914817" src="assets/image-20250921165914817.png" /></p>
+<p>注意这里X轴指向屏幕向外，相机看向-Z方向，所以相机的right方向是X正方向</p>
+<p><img alt="image-20250921170204354" src="assets/image-20250921170204354.png" /></p>
+<h2 id="_1">屏幕空间</h2>
+<p><img alt="image-20250921170452827" src="assets/image-20250921170452827.png" /></p>
+<p>Raster：光栅 ==  德语中的“屏幕”</p>
+<h3 id="_2">从正则立方体到屏幕空间</h3>
+<p>每个像素是1*1的正方形</p>
+<p><img alt="image-20250921170940297" src="assets/image-20250921170940297.png" /></p>
+<p><img alt="image-20250921171152567" src="assets/image-20250921171152567.png" /></p>
+<p>把正则立方体XY平面变换成屏幕空间：</p>
+<p>先把[-1,1] 大小缩放成宽width，高height，很简单就是一个简单的缩放</p>
+<p>接着把拉完的平面的中心从（0，0）移动到（width/2，height/2），一个简单的平移，很简单。</p>
+<h3 id="_3">成像设备</h3>
+<h4 id="_4">阴极射线管</h4>
+<p><img alt="image-20250921172210053" src="assets/image-20250921172210053.png" /></p>
+<p>隔行扫描：</p>
+<p>利用人眼视觉暂留的效应，每次绘制只画一半，比如第一次只画奇数行，下一次只画偶数行</p>
+<p>容易造成画面撕裂</p>
+<h4 id="_5">现代显示</h4>
+<p><img alt="image-20250921172522381" src="assets/image-20250921172522381.png" /></p>
+<p>显存中的一块区域保存要显示的画面</p>
+<p>平板显示器：</p>
+<p><img alt="image-20250921172636036" src="assets/image-20250921172636036.png" /></p>
+<p>液晶显示器：</p>
+<p><img alt="image-20250921172713022" src="assets/image-20250921172713022.png" /></p>
+<p>发光二极管：</p>
+<p><img alt="image-20250921172923614" src="assets/image-20250921172923614.png" /></p>
+<p>电子书：</p>
+<p>刷新率很低</p>
+<p><img alt="image-20250921173014081" src="assets/image-20250921173014081.png" /></p>
+<h3 id="_6">三角形的作用</h3>
+<p><img alt="image-20250921182320437" src="assets/image-20250921182320437.png" /></p>
+<ul>
+<li>最基础的多边形</li>
+<li>可以用来分解其他多边形</li>
+<li>三角形一定是平的</li>
+<li>三角形的内外是确定的</li>
+</ul>
+<p><strong>怎么确定哪些像素亮哪些像素不亮？</strong></p>
+<p><img alt="image-20250921182531316" src="assets/image-20250921182531316.png" /></p>
+<h4 id="_7">光栅化的简单方法：采样</h4>
+<p>判断一个像素的中心点是不是在三角形内，是就让那个像素亮</p>
+<p><img alt="image-20250921182920171" src="assets/image-20250921182920171.png" /></p>
+<p><img alt="image-20250921183058739" src="assets/image-20250921183058739.png" /></p>
+<p>怎么判断一个点是不是在三角形内？</p>
+<p>很简单，用叉乘（见“线性代数.md”）</p>
+<p><img alt="image-20250921194344058" src="assets/image-20250921194344058.png" /></p>
+<p>点落在三角形的边界上时怎么办？自行规定</p>
+<p><img alt="image-20250921194515843" src="assets/image-20250921194515843.png" /></p>
+<p><strong>遍历屏幕空间优化：</strong></p>
+<p>只考虑紧密包围着三角形的“包围盒”内的像素</p>
+<p><img alt="image-20250921200143435" src="assets/image-20250921200143435.png" /></p>
+<p><strong>真正的屏幕：</strong></p>
+<p><img alt="image-20250921200356795" src="assets/image-20250921200356795.png" /></p>
+<p>三星（右边）的屏幕这种叫Bayer pattern</p>
+<p>打印机：</p>
+<p><img alt="image-20250921200613652" src="assets/image-20250921200613652.png" /></p>
+<p>现在我们使用的采样方法的问题：锯齿严重！！！</p>
+<p><img alt="image-20250921200859939" src="assets/image-20250921200859939.png" /></p>
+<h2 id="_8">抗锯齿和反走样</h2>
+<p><img alt="image-20250922140640994" src="assets/image-20250922140640994.png" /></p>
+<p>锯齿的学名-&gt;”走样“</p>
+<p>抗锯齿本质是一个采样的问题，采样本质是一个信号的问题，详细研究可能要前往<strong>”信号与系统“</strong></p>
+<p><img alt="image-20250922143244276" src="assets/image-20250922143244276.png" /></p>
+<p><img alt="image-20250922143346409" src="assets/image-20250922143346409.png" /></p>
+<p>采样会产生”瑕疵“</p>
+<p>摩尔纹：</p>
+<p><img alt="image-20250922143523601" src="assets/image-20250922143523601.png" /></p>
+<p>把左边的奇数行和奇数列去掉，再合在一起变成一张小的照片，再放大成原来的大小，就会变成右边的效果</p>
+<p><img alt="image-20250922143709277" src="assets/image-20250922143709277.png" /></p>
+<p><img alt="image-20250922143748324" src="assets/image-20250922143748324.png" /></p>
+<p><strong>采样走样的本质是信号变化得太快了，但采样的速度没有跟上它</strong></p>
+<p>采样之前先做模糊</p>
+<p><img alt="image-20250922143908842" src="assets/image-20250922143908842.png" /></p>
+<p><img alt="image-20250922143947285" src="assets/image-20250922143947285.png" /></p>
+<p><img alt="image-20250922144133692" src="assets/image-20250922144133692.png" /></p>
+<p>”先采样，再滤波“是不行的</p>
+<p><img alt="image-20250922144238583" src="assets/image-20250922144238583.png" /></p>
+<p><img alt="image-20250922144451258" src="assets/image-20250922144451258.png" /></p>
+<h3 id="_9">频域分析</h3>
+<p><img alt="image-20250922144524948" src="assets/image-20250922144524948.png" /></p>
+<p><img alt="image-20250922144644638" src="assets/image-20250922144644638.png" /></p>
+<p><img alt="image-20250922144959752" src="assets/image-20250922144959752.png" /></p>
+<p><img alt="image-20250922145210331" src="assets/image-20250922145210331.png" /></p>
+<p><strong>"采样走样的本质是信号变化得太快了，但采样的速度没有跟上它"</strong>的解释<img alt="image-20250922145705763" src="assets/image-20250922145705763.png" /></p>
+<p><strong>用一种采样频率，采两个频率截然不同的函数，采出来相同的结果，就是”走样“</strong></p>
+<p><img alt="image-20250922145944929" src="assets/image-20250922145944929.png" /></p>
+<p>什么是”滤波“？——把某些特定的频率删掉</p>
+<p><img alt="image-20250922150113262" src="assets/image-20250922150113262.png" /></p>
+<p>我们认为左边图像不同的空间代表了不同的”时域“（尽管它没有真正表示时间）</p>
+<p>我们把左边的时域变成了右边的频域</p>
+<p>右侧图越靠中心表示频率越低，越往外频率越高，越亮表示这个频率上携带的信息越多</p>
+<p><img alt="image-20250922150241772" src="assets/image-20250922150241772.png" /></p>
+<p>水平和竖直的两条线是怎么产生的？</p>
+<p>我们认为图像时”周期性“变换的，看似只有这张图，但是我们认为它是”平铺“的，上下左右都是这张图，而图片不同的边界重叠时就会导致剧烈的信号变化，从而产生了水平和竖直的亮线</p>
+<p>高通滤波：</p>
+<p><img alt="image-20250922151333901" src="assets/image-20250922151333901.png" /></p>
+<p>我们注意到，应用高通滤波之后，逆傅里叶变换得到的图片基本上是原来图片内部事物的分界线</p>
+<p>为什么高频信号是图像内的边界？</p>
+<p>图像的边界之所以是边界，就是因为它两侧图像的内容有比较明显的变化，例如黑白分界线，剧烈的变化-&gt;高频</p>
+<p>低通滤波：</p>
+<p><img alt="image-20250922151749936" src="assets/image-20250922151749936.png" /></p>
+<p>显然和高通滤波相反的是，边界信息被模糊了</p>
+<p>不低也不高通滤波</p>
+<p><img alt="image-20250922152052124" src="assets/image-20250922152052124.png" /></p>
+<p>提高通过的频率，边界越来越明显</p>
+<p><img alt="image-20250922152122247" src="assets/image-20250922152122247.png" /></p>
+<h4 id="_10"><strong>滤波 = 卷积 = 平均</strong></h4>
+<p><img alt="image-20250922152302029" src="assets/image-20250922152302029.png" /></p>
+<p>什么是卷积？以下是图形学中的<strong>简化定义</strong>：</p>
+<p><img alt="image-20250922152433597" src="assets/image-20250922152433597.png" /></p>
+<p>滤波器作为一个”滑动窗口“，在信号上滑动，上下两个3维向量做一个点乘（加权平均），最后把结果写在中间那格</p>
+<p><img alt="image-20250922152612369" src="assets/image-20250922152612369.png" /></p>
+<p>卷积定理：</p>
+<p>两个信号时域上的卷积=两个信号频域上的乘积</p>
+<p><img alt="image-20250922152703852" src="assets/image-20250922152703852.png" /></p>
+<p>通过卷积，每个像素变成周围8个像素的的平均，可想而知就会产生模糊的效果</p>
+<p><img alt="image-20250922152836195" src="assets/image-20250922152836195.png" /></p>
+<p>这个9*9的东东叫做”卷积核“，它实现了”低通滤波“</p>
+<p><img alt="image-20250922153232911" src="assets/image-20250922153232911.png" /></p>
+<p><img alt="image-20250922153753303" src="assets/image-20250922153753303.png" /></p>
+<p>更大的盒子变换得的频谱图变得更小（更大的卷积核模糊效果更强）</p>
+<p><img alt="image-20250922153920170" src="assets/image-20250922153920170.png" /></p>
+<h4 id="_11">采样 = 重复频率内容</h4>
+<p><img alt="image-20250922154032255" src="assets/image-20250922154032255.png" /></p>
+<p>图a是要采样的函数，采样就是只在函数上采集一些离散的点</p>
+<p>图b是一些”冲击函数“，它只在一些位置有值，其他地方没有</p>
+<p>我们把被采样函数和冲击函数乘起来，就得到了采样的结果</p>
+<p>上面是两个函数在<strong>时域上的乘积</strong>，由卷积定理，<strong>时域上的乘积等于频域上的卷积</strong>，因此，我们把被采样函数和冲击函数傅里叶变换后得到的频域函数卷积，就得到了采样函数在频域上的结果，我们会发现它就是<strong>被采样函数在不同频率上的重复！</strong></p>
+<p>冲击函数经傅里叶变换后还是一些冲击函数</p>
+<p><img alt="image-20250922154115478" src="assets/image-20250922154115478.png" /></p>
+<p>采样不够快时，搬移的频谱就会重叠，这时就发生了走样</p>
+<p><img alt="image-20250922155139491" src="assets/image-20250922155139491.png" /></p>
+<p>由此，我们得出了反走样的方式：</p>
+<h4 id="_12">如何反走样？</h4>
+<p><img alt="image-20250922155451365" src="assets/image-20250922155451365.png" /></p>
+<ol>
+<li>增加采样率——提高分辨率（图形学）</li>
+<li>低通滤波——削去高频信号</li>
+</ol>
+<p><img alt="image-20250922155615338" src="assets/image-20250922155615338.png" /></p>
+<p><img alt="image-20250922155733183" src="assets/image-20250922155733183.png" /></p>
+<p>采样简单，模糊怎么做呢？</p>
+<p><img alt="image-20250922155829794" src="assets/image-20250922155829794.png" /></p>
+<p><img alt="image-20250922155954525" src="assets/image-20250922155954525.png" /></p>
+<p><img alt="image-20250922160048479" src="assets/image-20250922160048479.png" /></p>
+<p>每个像素对被三角形覆盖的面积在像素内做一个灰度的平均，例如加入三角形覆盖了某个像素的80%，那么像素的灰度就是80%</p>
+<p>但是这个方法计算难度有点大，人们采取了近似的方式</p>
+<p><img alt="image-20250922160434479" src="assets/image-20250922160434479.png" /></p>
+<p><img alt="image-20250922160507355" src="assets/image-20250922160507355.png" /></p>
+<p>我们把一个像素再细分，考虑单个像素内有几个“小像素”被覆盖了（Yes or No），而不考虑具体覆盖的面积，用“有几成小像素被覆盖”近似“有多少面积被覆盖”，从而决定每个像素的上面所说的“灰度”，这就完成了抗锯齿的第一步“模糊”</p>
+<p>MSAA完成的是“模糊+采样”</p>
+<p>但是MSAA的问题是，增多了小采样点，导致计算量要变大了</p>
+<p><img alt="image-20250922161428590" src="assets/image-20250922161428590.png" /></p>
+<p>FXAA的做法是，先把图弄出来，检测出边界，再把边界模糊</p>
+<p>TAA的做法是找上一帧的信息，用一个像素内不同的部分感知它自己在不在三角形内，由于帧与帧之间共用感知信息，就相当于把MSAA在一帧中单个像素内所有小像素的感知分布在了时间中</p>
+<h2 id="visibilityocclusion">Visibility/Occlusion</h2>
+<p>画家算法，模拟画家画油画的顺序，先画背景的东西，再画前景的东西</p>
+<p><img alt="image-20250922214336696" src="assets/image-20250922214336696.png" /></p>
+<p>画家算法的问题：无法处理复杂的深度问题</p>
+<p><img alt="image-20250922214539640" src="assets/image-20250922214539640.png" /></p>
+<p>图形学中的解决：</p>
+<p><img alt="image-20250922214751110" src="assets/image-20250922214751110.png" /></p>
+<p>生成画面时，不仅会生成实际的画面，还会生成一张“深度图”，记录离每个像素点最近的“深度”</p>
+<p><img alt="image-20250922215023122" src="assets/image-20250922215023122.png" /></p>
+<p>上面右图是一个深度图，深度越大，颜色越浅</p>
+<p><img alt="image-20250922215300056" src="assets/image-20250922215300056.png" /></p>
+<p>Z-Buffer算法本质上就是一个获得最小Z深度的擂台法，遍历所有三角形，遇到更浅的深度就更新深度图和生成图</p>
+<p><img alt="image-20250922215551809" src="assets/image-20250922215551809.png" /></p>
+<p><img alt="image-20250922220257906" src="assets/image-20250922220257906.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["header.autohide", "navigation.instant", "search.hightlight"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

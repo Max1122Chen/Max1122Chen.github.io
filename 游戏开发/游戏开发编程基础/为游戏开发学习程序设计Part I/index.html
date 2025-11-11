@@ -1,0 +1,4251 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Max1122Chen">
+      
+      
+      
+        <link rel="prev" href="../../Unity/Unity%E5%9F%BA%E7%A1%80/">
+      
+      
+        <link rel="next" href="../%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20II/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>为游戏开发学习程序设计Part I - Max1122Chen's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-i" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Max1122Chen&#39;s Blog" class="md-header__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Max1122Chen's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              为游戏开发学习程序设计Part I
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Max1122Chen&#39;s Blog" class="md-nav__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Max1122Chen's Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    这是Max1122Chen的个人网站
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Unity
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Unity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/RPG%20Core%20Combat%20Creator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RPG Core Combat Creator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/Unity%20RPG%20%E6%95%99%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity RPG 教程跟学笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/Unity%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发编程基础
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发编程基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part I
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part I
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      引言：计算机与程序以及学习计算机学科应有的学习方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="引言：计算机与程序以及学习计算机学科应有的学习方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机与程序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习计算机学科的学习方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一章：从C/C++开始认识程序设计和程序设计语言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一章：从C/C++开始认识程序设计和程序设计语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：程序设计语言的基本成分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：以C/C++为例的程序设计语言的语言成分介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 数据成分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 数据成分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、标识符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、基本数据类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、变量——便于使用数据的创造
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、常量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 传输成分——输入输出(I/O)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3运算成分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3运算成分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、表达式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算符优先级：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、语句
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二章：结构化程序设计思想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二章：结构化程序设计思想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：结构化程序设计的基本思想和基本方法：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 我们为什么需要函数？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 函数的组成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 函数声明与函数定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 函数声明与函数定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      细究函数声明和定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 函数调用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 函数调用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1 变量的作用域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2 函数的活动记录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.3 函数的调用过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.4细究函数中局部变量的声明周期
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 再论函数设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三章：常见的复杂数据类型（数据结构）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三章：常见的复杂数据类型（数据结构）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：指针（Pointer）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一节：指针（Pointer）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      指针是什么？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：数组（Array）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二节：数组（Array）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组的本质：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组作为函数参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三节: 结构体（structure）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三节: 结构体（structure）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体的定义与结构体实例创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体指针
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体作为结构体成员变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20II/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part II
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏设计艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            游戏设计艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Idea
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Idea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/The%20Magic%20of%20Delicacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Magic of Delicacy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%A7%91%E6%8A%80%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏开发科技树
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏机制
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%84%9A%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88001/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏脚本设计方案001
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E5%88%9B%E6%84%8F%E7%BB%83%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏设计创意练习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    像素艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            像素艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E4%B9%8B%E7%AD%89%E8%B7%9D%E7%93%A6%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    像素艺术之等距视图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E6%B8%B8%E6%88%8F%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E5%88%9B%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏像素艺术创作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    分析
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%88%86%E6%9E%90/%E6%B8%B8%E6%88%8F%E5%BE%AA%E7%8E%AF%E8%AE%BE%E8%AE%A1Chapter01-Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏循环设计Chapter01-Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    现代游戏引擎
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            现代游戏引擎
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES104
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES104
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/00%20%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AF%BC%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎导论
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/01%20%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01 引擎架构分层
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/02%20%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02 如何构建游戏世界
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E5%BC%95%E6%93%8E%E5%B7%A5%E5%85%B7%E9%93%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    引擎工具链
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8EGameplay%E7%8E%A9%E6%B3%95%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎Gameplay玩法基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04 游戏引擎的渲染实践
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    网络游戏架构基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    虚幻5
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            虚幻5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/ALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALS学习笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/InventorySystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InventorySystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E4%BD%BF%E7%94%A8UE%E5%BC%80%E5%8F%91%E6%B8%B8%E6%88%8F%E5%89%8D%E7%BD%AE%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用UE开发游戏前置软件安装
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB2D%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻2D游戏
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB4.27ARPG%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻4.27ARPG示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5.5Lyra%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5.5Lyra示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5.5%E5%8E%9F%E7%94%9F%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻原生源码分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5CropOut%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5CropOut示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5GAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5GAS(GameplayAbilitySystem)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%85%B3%E5%8D%A1%E7%99%BD%E7%9B%92%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5关卡白盒搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5骨骼网格体动画系统
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E5%A2%9E%E5%BC%BA%E8%BE%93%E5%85%A5%E6%98%A0%E5%B0%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5增强输入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB5%E6%9D%90%E8%B4%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5材质
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBAI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBGAS%E8%AF%BE%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻GAS课程跟学笔记（UE开发最佳实践）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBGamplay%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻Gamplay框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BBUI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻UI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E4%B8%8EC%2B%2B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻与C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E5%99%A8%E5%92%8C%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻接口和委托
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%85%B3%E5%8D%A1%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻关卡序列
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻场景搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻基本要素
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻学习心得
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻开发策略
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E6%B8%B8%E6%88%8F%E5%AD%98%E6%A1%A3%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻游戏存档方式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%99%9A%E5%B9%BB5/%E8%99%9A%E5%B9%BB%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻设计模式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    计算机图形学
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            计算机图形学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/Make%20a%20Software%20Renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Make a Software Renderer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES101
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES101
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Advanced%20Topics%20in%20Rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics in Rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Animation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Animation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Cameras%2C%20Lense%20%26%20Light%20Fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cameras, Lense & Light Fields
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Color%20and%20Perception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color and Perception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/GAMES101%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GAMES101 作业笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Materials%20and%20Apperance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Material and Appearance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Rasterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rasterization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Ray%20Tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ray Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Shading%20%26%20Texture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shading &amp; Texture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Viewing%20Transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Viewing Transformations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    线性代数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GraphicsAPI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            GraphicsAPI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GraphicsAPI/OpenGL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenGL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      引言：计算机与程序以及学习计算机学科应有的学习方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="引言：计算机与程序以及学习计算机学科应有的学习方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机与程序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      学习计算机学科的学习方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一章：从C/C++开始认识程序设计和程序设计语言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一章：从C/C++开始认识程序设计和程序设计语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：程序设计语言的基本成分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：以C/C++为例的程序设计语言的语言成分介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 数据成分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 数据成分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、标识符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、基本数据类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、变量——便于使用数据的创造
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、常量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 传输成分——输入输出(I/O)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3运算成分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3运算成分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、表达式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算符优先级：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、语句
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二章：结构化程序设计思想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二章：结构化程序设计思想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：结构化程序设计的基本思想和基本方法：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 我们为什么需要函数？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 函数的组成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 函数声明与函数定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 函数声明与函数定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      细究函数声明和定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 函数调用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 函数调用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1 变量的作用域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2 函数的活动记录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.3 函数的调用过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.4细究函数中局部变量的声明周期
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 再论函数设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三章：常见的复杂数据类型（数据结构）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三章：常见的复杂数据类型（数据结构）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一节：指针（Pointer）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第一节：指针（Pointer）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      指针是什么？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二节：数组（Array）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第二节：数组（Array）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组的本质：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组作为函数参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三节: 结构体（structure）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第三节: 结构体（structure）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体的定义与结构体实例创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体指针
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构体作为结构体成员变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶段性结语
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="part-i">为游戏开发学习程序设计Part I</h1>
+<h2 id="_1">引言：计算机与程序以及学习计算机学科应有的学习方法</h2>
+<h3 id="_2">计算机与程序</h3>
+<p>​   首先考虑一个些问题：<strong>计算机</strong>是什么？<strong>程序</strong>又是什么？<strong>数据</strong>是什么？<strong>算法</strong>是什么？这些问题会伴随任何一个学习“计算机科学与技术”这个学科的人，但是即使你并非学习这个学科，如果你正在学习使用“程序”，那么你最好对它们有一些了解。</p>
+<p>​   首先先来简单介绍一下“计算机”，它是一种用来处理信息的<strong>工具</strong>，就这样。要说得更多一点，它是一种人类发明出来帮助人类解决问题的<strong>工具</strong>（这不是废话吗，还有不用来解决问题的工具吗？）。</p>
+<p>​   既然计算机是一种工具，那么我们就会关系它的几个方面：</p>
+<ol>
+<li>计算机解决什么问题？</li>
+</ol>
+<p>​    从目前的实践来看，计算机能够解决的问题你可能完全无法一言以蔽之，计算机能够解决的问题几乎覆盖了人类生活的所有方面，不如问什么问题是计算机不能解决的？</p>
+<ol>
+<li>计算机怎么解决问题？</li>
+</ol>
+<p>​    计算机依靠执行一系列的<strong>指令</strong>（或者说，步骤，方法），对问题进行一定的处理，从而得出一定的结果，这就是计算机解决问题的的方式，你可能仍然会感到很疑惑，上面这段又是一段废话，任何问题的解决不都像是这样吗？</p>
+<p>​    首先，要让计算机解决一个问题，首先要让它知道这个问题本身<strong>意味着</strong>什么，和怎样让计算机“<strong>知道</strong>”它意味着什么。但是计算机是非常“笨”的，它必须要人类来告诉它问题“是什么”。这时又有一个问题，我们需要让计算机知道问题的哪些部分呢？我们不可能也不需要把一个事物的所有信息都塞给计算机，即使计算机得到了它们，计算机也不知道该干什么。所以人类必须找出问题中<strong>最关键</strong>，<strong>最本质</strong>的一些部分，并且把它们<strong>抽象</strong>并转换成计算机能够“使用”的形态，再让计算机对它们进行<strong>操作</strong>，而这些问题的本质部分往在大量的实际问题中都是共通的普遍的，也许有一些是特别的，而它们就是<strong>“数据”</strong>。通过把问题的这些部分抽象成计算机能够使用的“数据”，人类才能利用计算机来解决问题，而上面提到的内容，对应了一种数据的三个要素：</p>
+<ol>
+<li>
+<p><strong>逻辑结构</strong>：数据抽象的是什么实际事物？</p>
+</li>
+<li>
+<p><strong>存储结构</strong>：计算机自己如何“记忆”这些数据？</p>
+</li>
+<li>
+<p><strong>数据操作</strong>（运算）：允许计算机对这种数据做什么事？</p>
+<p>后续我们将进一步介绍<strong>”数据“</strong>。</p>
+</li>
+</ol>
+<p>​    并且，计算机是不能凭它自己知道一个问题要如何<strong>解决</strong>的，问题的解决的一切方法和步骤都是需要人类来告诉它的，而解决问题的方法和步骤就是<strong>“算法”</strong>。算法一定是在计算机的能力范围之内的；算法是用来<strong>解决</strong>问题的，所以算法一定要有一个结果；且这个结果一定是可以在有限的时间内达到的；算法一定需要知道它解决的是什么问题，所以算法一定要接受一些数据；算法的每一步都是确定的，不会出现意料之外的结果。</p>
+<p>​    以上几点就是算法的5个特性：</p>
+<ol>
+<li>
+<p>可执行性</p>
+</li>
+<li>
+<p>确定性</p>
+</li>
+<li>
+<p>有穷性</p>
+</li>
+<li>
+<p>有输入信息的说明</p>
+</li>
+<li>
+<p>有输出信息的步骤</p>
+<p>后续我们将进一步介绍<strong>”算法“</strong>。</p>
+</li>
+<li>
+<p>计算机为什么能够解决它所能够解决的问题？</p>
+</li>
+</ol>
+<p>这一点涉及到计算机本身的特性的问题，不是我们这里关心的问题，在此不做论述。</p>
+<p>​   </p>
+<p>​   从上面的论述，我们已经可以得出结论，只要有合适的<strong>数据</strong>对问题进行抽象，再加以合适的<strong>算法</strong>对抽象问题的数据进行处理，就可以用计算机来解决问题了，而去思考怎样抽象问题和以什么步骤解决问题，就对应了”计算机科学与技术“这门学科的两大关键思维：抽象思维与计算思维。数据和算法的有机结合成的通过计算机解决问题的整个可执行的方案，就是<strong>“程序”</strong>，所以设计程序，本质上就是在思考如何利用计算机解决问题，<strong>程序本质就等于数据加算法</strong>。</p>
+<p>​   那么我们常常所说<strong>编程语言</strong>是什么呢？编程语言（或者说程序设计语言）本质上就是用来把人类思考的问题的解决方案转换成计算机程序的一种<strong>规则</strong>，它本质上也就是方便人类利用计算机的一种手段。学习一门编程语言，也就是使得你能够用它来和计算机交流，来把你的抽象思维和计算思维的产物输入给计算机。</p>
+<h3 id="_3">学习计算机学科的学习方法</h3>
+<p>​   计算机学科发展至今，已经产生了无数的知识和实践成果，加上如今互联网如此之发达，你会产生的疑问几乎都能在互联网上找到相关的信息。当你对一个知识、一个概念、一个新的内容产生疑惑时，学会表达你的疑惑，理清你疑惑的点在什么地方，然后先自己思考一下，如果思考效果不好就立刻去网上查找资料。</p>
+<p>​   某种程度上来说，计算机是一门门槛很低的学科，当今社会每个人的生活都离不开计算机的使用，每个人多多少少都具备一点计算机知识，但是会编程，会几门程序设计语言并不代表你就很会计算机，同样地，你对程序设计语言的了解不太深，也不能说明你不会计算机。学好计算机，学会保持谦卑，保持求知若渴，保持开放包容的心态，专注于实践和良好的思想，而不是搞花里胡哨，搞独树一帜。脚踏实地，踏踏实实，你就超过了99%的学习计算机的人了。</p>
+<h2 id="cc">第一章：从C/C++开始认识程序设计和程序设计语言</h2>
+<blockquote>
+<p>[!TIP]</p>
+<p>本章不会详细介绍C/C++的编程语法，结合网站”菜鸟教程“中的介绍和代码示例学习会更好。</p>
+</blockquote>
+<h3 id="_4">第一节：程序设计语言的基本成分</h3>
+<p>​   上文说到，程序设计本质就是在思考如何利用计算机解决问题，程序设计语言就是用来告知计算机如何解决问题的一种规则。</p>
+<p>​   我们提到：程序=数据+算法，而数据又有其对应的<strong>操作</strong>，算法需要<strong>输入输出</strong>，算法还要有一个结果，达到这个结果程序就达到了其终点。同时我们还应注意到一个很重要的事情：算法是可以<strong>累加</strong>和<strong>拆分</strong>的，你可以把解决一个问题的一连串步骤以某种规则拆分成合理的若干的步骤的集合，每一个步骤集合都可能会产生一些结果，而这些“步骤集合”最本质的形态只有<strong>三种结构</strong>：</p>
+<ol>
+<li><strong>顺序结构</strong>：一个步骤紧跟着一个步骤，做完一个步骤才能做下一个步骤。</li>
+<li><strong>选择结构</strong>：基于某种条件，选择给定的一些步骤中的一些去执行。</li>
+<li><strong>循环结构</strong>：在满足某种条件的情况下重复地执行某些步骤。</li>
+</ol>
+<p>​   从上面的论述我们可以给出一个程序的基本成分：</p>
+<ol>
+<li><strong>数据成分</strong>。描述程序所设计的数据。</li>
+<li><strong>运算成分</strong>。描述程序所包含的运算（对数据的操作和条件的判断）</li>
+<li><strong>控制成分</strong>。表达程序的控制构造（在选择结构中基于什么规则去选择要执行的步骤？在循环结构中满足什么条件则重复执行？程序什么时候结束？）</li>
+<li><strong>传输成分</strong>。表达程序中数据的传输。</li>
+</ol>
+<p>​   在程序设计语言中，它们的表现形式如下：</p>
+<p><img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250102153644739.png" alt="image-20250102153644739" style="zoom: 33%;" /></p>
+<p>​   接下来，我们将选择性地逐步介绍程序设计语言的各成分。</p>
+<h3 id="cc_1">第二节：以C/C++为例的程序设计语言的语言成分介绍</h3>
+<h3 id="21">2.1 数据成分</h3>
+<h4 id="_5">一、标识符</h4>
+<p>​   首先介绍程序设计语言中的<strong>”标识符“</strong>。标识符是程序员定义的<strong>单词</strong>，用来给程序中的数据、函数和其他用户自定义的对象命名。</p>
+<p>​   而程序设计语言往往本身会定义一些<strong>专用的</strong>单词，它们被称为<strong>保留字</strong>或<strong>关键字</strong>，它们有其特殊的含义，不能用作别的用途。</p>
+<p>​   C/C++中常见的保留字：</p>
+<p>​   int float   char    double  void    return  while   for if  else    break   continue    enum    </p>
+<p>​   const   static  struct  class   ……</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>​ C/C++规定，用户自定义的标识符只能由52个大小写字母、数字0~9以及下划线_组成，且必须由字母或下划线开头，且大小写敏感，例如apple和Apple是两个不同的标识符。</p>
+</blockquote>
+<p>​   小测试：以下哪些是合法的标识符？</p>
+<p>apple   orange01    1banana #mango  __watermelon    sweet_pear</p>
+<h4 id="_6">二、基本数据类型</h4>
+<p>​   在大多数的程序设计语言中都会有以下这些基本数据类型。</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>​ 请一定要记住，每当学习一个新的数据类型，都要考虑<strong>数据的三要素</strong>：逻辑结构、存储结构、数据操作，这事学习任何数据类型以及后续进一步学习和定义复杂数据结构的最重要的思路。</p>
+</blockquote>
+<ol>
+<li><strong>整型</strong></li>
+</ol>
+<p>常见的整型：</p>
+<p>int  short   long    unsigned int    ……</p>
+<ul>
+<li>逻辑结构：</li>
+</ul>
+<p>​    整型抽象的是世界上“离散的”“不连续的“”一个一个的“事物，例如人是一个一个的，书是一本一本的，等等。或者说，整型就是整数的子集，之所以是子集是因为计算机中的数据所能表达的范围是有限的，这和计算机的<strong>存储空间</strong>有关。</p>
+<p>##### 初识存储空间：（了解即可）</p>
+<p>​    计算机把数据存储在<strong>存储器</strong>的存储空间中，存储空间由众多<strong>存储单元</strong>组成，每个存储单元存放八位二进制信息，也就是八比特（8bit），也就是一个字节（1byte），每一个存储空间会对应地有一个<strong>存储单元地址</strong>，由于标识和识别一个存储单元，也是二进制的形式，此外存储器的最小单位叫<strong>存储元</strong>，存储一位二进制数，也就是一比特。<strong>存储容量</strong>是衡量存储空间大小的指标，以字节为基本单位。</p>
+<p>​    可以把存储空间类比成一栋楼，每户人家就是一个存储单元，一户人家里面有八个房间，即存储元，每户人家都有自己的门牌号，就是<strong>存储单元地址</strong>。</p>
+<ul>
+<li>存储结构：</li>
+</ul>
+<p>​    一般来说整型的内存大小要根据机器硬件情况来决定，C语言没有规定每一种整数类型占用的内存空间大小一定要有多大，而只是给出了一些下限，例如int类型至少占2字节。以后除非有比较值得注意的存储结构，我们都会略过这一环节的讨论。</p>
+<ul>
+<li>
+<p>操作：</p>
+<p>整型允许进行以下运算：</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>”单目“”双目“的”几目“的意思是该种运算涉及几个数据。</p>
+</blockquote>
+<ul>
+<li>二目算数运算：加+，减-，乘<em>，</em><em>整除</em>*/，取余%</li>
+</ul>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>整型之间的除法的结果仍为整数，且结果取整数部分，例如3/2=1</p>
+</blockquote>
+<ul>
+<li>
+<p>单目运算：取负值</p>
+</li>
+<li>
+<p>关系运算：&lt;，&lt;=，&gt;，&gt;=，==（等于），!=（不等于）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>字符型</strong></p>
+</li>
+</ul>
+<p>字符型：</p>
+<p>char</p>
+<ul>
+<li>
+<p>逻辑结构：</p>
+<p>​  抽象人类文字和符号，例如字母、数字等，以及一些计算机中使用的符号，例如‘\n’（换行）。多数计算机系统用ASCII标准编码模式来对字符进行编码，每个字符占8比特（1字节），ASCII编码共有128个字符。</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>汉字等各种文字并非使用ASCII编码，现在常见的字符编码方式还有UTF-8等，ASCII在简单的程序与教学中常见。    </p>
+</blockquote>
+</li>
+<li>
+<p>运算</p>
+<p>字符型本质是用整数对应一种字符，所以字符型的本质就是整型，可以对其进行整型的运算。</p>
+</li>
+<li>
+<p><strong>浮点型</strong></p>
+</li>
+</ul>
+<p>常见的浮点型：</p>
+<p>float    double  long double</p>
+<ul>
+<li>
+<p>逻辑结构：</p>
+<p>​  抽象连续的事物，例如1.5km长的道路，2.99kg重的泥土。浮点型是实数的子集。</p>
+</li>
+<li>
+<p>运算：</p>
+<p>​  和整型允许的运算基本相同，但浮点型的除法并非整除，浮点型也没有取余运算。此外，浮点型并不能精确表示一个数字，例如你让计算机存储一个1.0，它可能存储了0.99999999或1.00000001，所以浮点数之间的等于和不等于的判断一般是不满足实际意义的，比较两个浮点数是否相等应给一个误差范围，小于误差范围就认为相等。</p>
+<p>例如：令ε=0.0001，</p>
+<p>∵|1.00000001-1.0000001|&lt;ε，</p>
+<p>∴认为它们相等</p>
+</li>
+<li>
+<p><strong>布尔型</strong></p>
+</li>
+<li>
+<p>逻辑结构：</p>
+<p>​  抽象”真“和”假“，”是“和”否“，C语言中没有专门对布尔型定义，而是用1代表”真“，0代表”假“。而C++中，布尔型有true和false。</p>
+</li>
+</ul>
+<h4 id="_7">三、变量——便于使用数据的创造</h4>
+<p>​   用计算机解决问题需要涉及数据，但是如何让人类更方便地操作数据是一个问题。如果人类要通过数据存储的内存地址来读写数据未免也太麻烦了，所以程序员发明了<strong>”变量“</strong>，用来帮助程序员表达程序中关于数据的内容。</p>
+<p>​   变量涉及三个部分：</p>
+<ol>
+<li>变量类型</li>
+<li>变量名</li>
+<li>变量值</li>
+</ol>
+<p>​   <strong>声明</strong>一个变量，即告知计算机我要存储某种数据类型的数据，因此要开辟一块合适大小的<strong>存储空间</strong>，它的名字是xxx，以及可能告知计算机变量存储的值是多少。</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>变量的使用必须遵循先声明再使用的顺序。下面的做法是非法的：</p>
+<div class="highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="c1">//完全的错误</span>
+</code></pre></div>
+</blockquote>
+<p>​   C/C++中声明一个变量的语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//声明一个int类型的，名称为apple的变量</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">apple</span><span class="p">;</span>
+<span class="c1">//声明一个float类型的，名称为weight的变量</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+<span class="c1">//声明一个char类型的，名称为gender的变量</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">gender</span><span class="p">;</span>
+</code></pre></div>
+<p>​   以上的声明语句表达了一个变量的类型和名称，但是并未给定变量的具体值，此时变量中存储的值可能是任意值，使用一个未赋值的变量是不合理的，使用一个变量前一定要保证变量存储了合理的值。</p>
+<p>​   C/C++中为一个变量赋值（也叫<strong>”定义“</strong>一个变量，重要的术语）的语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.5</span><span class="p">;</span>
+<span class="n">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;M&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>​   同时C/C++允许在声明一个变量的同时为其赋值（定义）：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>​   变量名对于计算机来说，本质上指向了一块存储空间的<strong>首地址</strong>，计算机会把变量名和变量存储的值进行关联，以此才可以通过变量名找到它所存储的值。可以这样类比，存储空间地址好比地球上的经纬度，你可以通过经纬度准确地找到你家在哪，也可以通过这样告诉别人你家在哪，但是这样一点都不好记，这时给你家所在的地方起一个名字就会更方便你找到你家，例如叫xxx街道，xxx单元楼，xxx层，xxx房，xxx的家。很显然，你肯定不希望你在通过你家的名字找你家时反而找到了别人家，那么就不允许别人家也叫你家的名字，对于变量名也是这样的。（这样说其实并不严谨，实际上变量在正确的情形下是允许重名的，以后详细展开）</p>
+<p>​   想要获取一个变量的存储地址，只需要使用<strong>取地址运算符</strong>'&amp;'，语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="o">&amp;</span><span class="n">variable</span><span class="p">;</span><span class="c1">//会得到一个十六进制的地址</span>
+</code></pre></div>
+<p>​   所以变量的三要素实际如下：</p>
+<ol>
+<li>变量类型</li>
+<li>变量名（存储区首地址）</li>
+<li>变量值（存储值）</li>
+</ol>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>​ 为了提高程序的可读性，应时刻谨记变量名的命名不能随意，应做到尽量简洁的同时<strong>见名知义</strong>，或是使用程序员都熟知其含义的通用的变量名，例如在循环中使用 i , j , k作为循环变量名（学到循环你就懂了，先留意一下吧）。</p>
+</blockquote>
+<h4 id="_8">四、常量</h4>
+<p>​   一般来说，常量有三种：</p>
+<ol>
+<li>文字常量</li>
+</ol>
+<p>例如数字，文字就是一种文字常量，int length = 2；中2就是一个文字常量。</p>
+<ol>
+<li>符号常量</li>
+</ol>
+<p>符号常量是仅有符号名称的值，用于标识文字常量，符号常量不占用内存存储空间。</p>
+<p>C/C++符号常量定义的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//  #define 标识符 替换文本（注意没有分号）</span>
+<span class="w"> </span><span class="cp">#define PI 3.14</span>
+</code></pre></div>
+<p>​    其中#define是一种<strong>预编译指令</strong>，上述代码的含义是：定义一个符号常量PI，它的”字面值“是”3.14“。要注意的是，符号常量是没有类型的，因此是类型不安全的，程序中出现PI的地方会在程序编译时全部替换成”3.14“，符号常量是直接的替换。像这样的通过#define预编译指令定义的标识符也称<strong>”宏“</strong>，其在编译时用替换文本替换掉标识符的过程称<strong>”宏展开“</strong>。以后我们会学到关于宏的更多知识。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define PI 3.14</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="c1">//上面的代码在编译时会变成下面这样：</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+</code></pre></div>
+<ol>
+<li>命名常量</li>
+</ol>
+<p>​   命名常量和变量类似的地方在于，命名常量需要占用内存存储空间，一旦被赋值就不允许改变其存储的值。</p>
+<p>​   命名常量定义语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">类型</span><span class="w"> </span><span class="n">常量名</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">常量值</span><span class="p">;</span>
+<span class="c1">//如</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span>
+<span class="c1">//这样也是可以的：</span>
+<span class="kt">float</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="22-io">2.2 传输成分——输入输出(I/O)</h3>
+<p>​   在不同的情况下输入输出有很多不同的形式，视具体情况而定，在此不做讨论。</p>
+<h3 id="23">2.3运算成分</h3>
+<h4 id="_9">一、表达式</h4>
+<p>​   表达式是由<strong>运算、操作数和括号</strong>经过有限次组合而成的，它是计算求值的基本单位。</p>
+<ul>
+<li>操作数是运算符作用于的实体，可以是常量、变量、函数调用（后文介绍，不必慌张）和表达式。</li>
+<li>括号可以改变运算的优先级，或者括号是函数调用的一部分。</li>
+</ul>
+<p>表达式举例：</p>
+<p><img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250102195924332.png" alt="image-20250102195924332" style="zoom:33%;" /></p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>请注意，表达式和后文所将介绍的”语句“并不是等价的概念，表达式有时是语句的主体，有时是语句的一部分，但表达式不等于语句。</p>
+</blockquote>
+<p>典型的几类表达式：</p>
+<ul>
+<li>
+<p>算术运算符和算术表达式，如2+3</p>
+</li>
+<li>
+<p>关系运算符和关系表达式，如2&lt;3</p>
+</li>
+<li>
+<p>关系运算是一种布尔运算，其结果只能是布尔类型，也就是true或false（1或0）</p>
+<p>例如2&lt;3的结果是true（1），3&lt;2的结果是false（0）</p>
+</li>
+<li>
+<p>逻辑运算符和逻辑表达式，如expression1&amp;&amp;expression2</p>
+</li>
+<li>
+<p>逻辑运算符简介：</p>
+<p>逻辑运算是一种也<strong>布尔运算</strong>，逻辑运算有”与“（&amp;&amp;），”或“（||），”非“，（！），”异或“（^ (位运算)）。</p>
+<p>逻辑运算法则：</p>
+<p><img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250102201022139.png" alt="image-20250102201022139" style="zoom:33%;" /></p>
+</li>
+<li>
+<p>赋值运算符和赋值表达式</p>
+</li>
+</ul>
+<h5 id="_10">运算符优先级：</h5>
+<p>​   算术运算符 &gt; 关系运算符 &gt; 逻辑运算符 &gt; 赋值运算符</p>
+<h4 id="_11">二、语句</h4>
+<p>​   语句（statement）代表了算法和程序的步骤，用于向计算机发出操作指令。</p>
+<p>​   C/C++规定了6类语句，接下来一一介绍：</p>
+<ol>
+<li><strong>表达式语句</strong></li>
+<li>复合语句</li>
+<li><strong>选择语句</strong></li>
+<li><strong>循环语句</strong></li>
+<li>标记语句</li>
+<li>跳转语句</li>
+</ol>
+<p><strong>1.表达式语句</strong></p>
+<p>​   一句完整的表达式后加一个’；‘</p>
+<p>​   例如以下的都是表达式语句。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">Mymoney</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">Mymoney</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">Todaycost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
+<span class="n">Mymoney</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mymoney</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Todaycost</span><span class="p">;</span><span class="c1">//首先Mymoney - Todaycost可以视为一个表达式，再与&quot;Mymoney = &quot;结合，成为更长的一个表达式</span>
+</code></pre></div>
+<p>2.复合语句</p>
+<p>​   包含<strong>0个</strong>或多个语句的代码单元，用大括号包括一组语句构成，也称“代码块”。</p>
+<p>​   大括号内可以不写任何语句，这样也是合法的，虽然没有什么意义，但是有时在一些实际项目中，在和接下来介绍的if-else语句一起使用时，有时为了提高程序易读性会写空的复合语句。</p>
+<p>​   例如以下是一个复合语句（或代码块）</p>
+<div class="highlight"><pre><span></span><code>{
+    int apple = 10;
+    int banana = 5;
+    int fruit = 0;
+    fruit = apple + banana;
+}
+</code></pre></div>
+<p><strong>3.选择语句</strong></p>
+<p>​   在写程序的时候，有时需要测试一个条件是否成立，然后根据测试结果来控制程序后续执行路径，此时需要用到选择语句。</p>
+<p>​   C/C++中有两种选择语句：</p>
+<ol>
+<li>if-else语句</li>
+</ol>
+<p>基本语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//if后接单条语句</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="w"> </span><span class="n">statement</span><span class="p">;</span>
+
+<span class="c1">//if后接复合语句</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">statements</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//if和else同时使用，if中条件为假 则执行else的语句</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">statements</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">statements</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//if-else的多路选择，可以一直else if下去</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">statements</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">……</span>
+
+<span class="c1">//if-else语句嵌套用法</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="err">……</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="p">}</span>
+<span class="err">……</span>
+</code></pre></div>
+<blockquote>
+<p>[!NOTE]</p>
+<p>​  if-else语句中括号中的判断条件是一个表达式，其可以是<strong>任何</strong>一种表达式，一般常用关系表达式和逻辑表达式。只要表达式的值为<strong>非0</strong>时（这点很重要，在实际使用时，熟练的程序员会根据这种特性写出很简洁的代码，需要会读），条件就为”真“，否则为”假“。条件为真则会执行if下的语句，否则执行else后的语句。</p>
+<p>​  else子句是if语句的一部分，不能单独使用，可以根据需要不使用else语句。</p>
+</blockquote>
+<ol>
+<li>switch语句</li>
+</ol>
+<p>​   switch语句是一种实现多路选择的更方便的语句，比起编写多层if-else语句，有时switch语句会更好。</p>
+<p>​   基本语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">constant</span><span class="w"> </span><span class="no">expression1</span><span class="p">:</span><span class="c1">//常量表达式</span>
+<span class="w">        </span><span class="n">statements</span><span class="p">;</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">constant</span><span class="w"> </span><span class="no">expression2</span><span class="p">:</span>
+<span class="w">        </span><span class="n">statements</span><span class="p">;</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="err">……</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="n">statement</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">statement</span><span class="err">；</span><span class="c1">//break后程序会从这里继续</span>
+</code></pre></div>
+<p>​   switch，字面意思是”选择“，它会根据其后的表达式的结果，从switch下的一众”case“中选择有且仅有一个满足表达式的结果的来执行，case 后的常量表达式必须是C/C++中的整型、字符型或<strong>枚举型</strong>（请自己搜索一下，并理解它的用处），且不允许重复，例如不允许出现两个”case 1：“，这是不合法的。</p>
+<p>​   当switch选择了一个case开始执行后，它就会一直往下执行语句，除非遇到”break“或执行完所有的switch下的语句。所以，往往需要在case后添加”break;”，当执行到break时，程序就会跳出整个switch语句的范围，从整个switch语句后的第一行开始执行。break同样适用于if-else，for，while，do-while等语句中，效果是一样类似的。</p>
+<p><strong>4.循环语句</strong></p>
+<p>​   C/C++有三种循环语句，此处只重点介绍for和while。</p>
+<p>​   首先我们先要建立起对“循环”的理解。首先，“循环”顾名思义就是重复地做某件事情，这件事情在“循环”中称“循环体”。然后，由算法的<strong>“有穷性”</strong>的原则我们能够想到，循环必定有其结束的一刻，那么如何判断什么时候达到这一刻呢？就必须给循环设定一个结束条件，每次循环时，循环中发生的事情都要或多或少（有时单次循环可能并未实现向结束条件接近，但整体来看趋势一定要是接近的）地使得循环越来越接近这个条件，这样才能使循环结束。常常使用一个变量来参与循环结束的判断，并通过<strong>迭代</strong>这个变量来向循环结束条件接近。</p>
+<p>​   所以，由上可总结出循环语句必备的一些部分：</p>
+<ol>
+<li>循环<strong>结束</strong>条件（实际上你可以理解到，循环的<strong>结束</strong>条件和<strong>成立</strong>条件只是硬币的两面，两种表达都是完全正确的，此处只是为了表达出循环的”有穷性“所以称”结束条件“，后续的for循环和while循环中都是”成立条件“</li>
+<li>向循环结束条件<strong>接近</strong>的工作（循环变量的迭代）</li>
+<li>循环的<strong>本职工作</strong>（循环体）</li>
+</ol>
+<p>​   例如：</p>
+<p>​   定义一个变量 i ，令其初始值为0，循环的结束条件是“当i&gt;10"。循环中的工作是：打印当前 i 的值，之后把 i 的值加一（逼近工作）。</p>
+<ol>
+<li><strong>for循环</strong></li>
+</ol>
+<p>基本语法如下</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="p">(</span><span class="n">循环变量的初始化</span><span class="p">;</span><span class="n">循环成立条件</span><span class="p">;</span><span class="n">循环变量迭代式</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">循环体</span>
+<span class="p">}</span>
+<span class="c1">//一个示例：</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span><span class="c1">//打印i的值</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>[!NOTE]</p>
+<p>for循环括号内必须包括上面三个部分，但三个部分中并不一定要有内容</p>
+<p>例如可以这样：</p>
+<p>for（ ; ; )</p>
+<p>{}</p>
+<p>只要满足有三条语句，两个分号就是合法的for循环语法。</p>
+</blockquote>
+<p>for循环的解释：</p>
+<p>​    首先，可以在循环变量的初始化定义一个局部变量来作为参与循环成立的判断，这个局部变量的生命周期仅限在循环结束前，结束后它就会被释放掉。也可以不必做这一步，可以用已有的变量，来参与循环成立的判断。</p>
+<p>​    然后，设定循环成立的条件，程序会在每轮循环开始前判断该条件是否成立，如果成立才会继续执行循环，否则将退出循环，执行循环后面的语句。</p>
+<p>​    再然后，程序会在每次循环体执行完以后，执行循环变量迭代式，可以把它理解为循环体实际的最后一条语句，只是写在了for的括号内方便阅读。</p>
+<p>for循环的<strong>使用场景</strong>：</p>
+<p>​    for循环使用一条很清晰的循环变量迭代式来推进循环结束，所以适用于结束条件很明确的循环任务，例如迭代算法：例如计算数列和、计算阶乘等等。</p>
+<ol>
+<li><strong>while循环</strong></li>
+</ol>
+<p>基本语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="p">(</span><span class="n">循环成立条件</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="n">循环体</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​    while，字面意思：”当……的时候“，所以它的行为就是，当while后的条件成立时，它就会执行循环体，它的行为其实和</p>
+<p>for( ; 循环成立条件 ; )是一样的。</p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p>​  while循环没有显式地要求指出循环变量的迭代，所以要记得在循环体中进行对循环结束条件的逼近，否则会陷入出不来的死循环！！！</p>
+</blockquote>
+<p>while的<strong>使用场景</strong>：</p>
+<p>​    从上面我们可以看出，while没有要求写出一个循环变量迭代关系式（虽然for循环也可以不写），所以它不会有一个公式般的可预见的结束的方式，所以它常被用于结束不太容易预判的循环。例如”守株待兔“式的循环：只要兔子还没来，农夫就不走，农夫没办法预估他会在什么时候等到兔子，但是他确实有可能等到，只不过概论太小了。</p>
+<p><strong>continue和break在循环中的用法：</strong></p>
+<p>​   在循环中，我们有时希望循环只执行到某个进度就离开循环或直接跳过循环剩余的语句，转而直接开始下一轮的循环。</p>
+<p>​   当我们想要循环在某处直接开始下一轮的循环时，可以使用continue；语句。</p>
+<p>​   示例：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="c1">//for循环也是一样的，下文也一样</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="w">    </span><span class="k">continue</span><span class="err">；</span><span class="c1">//当continue被执行，循环就不会再执行其后的语句，转而开启新一轮循环成立的检测，如果循环条件仍然成立，则继续循环</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   当我们在某处不想让程序继续循环了，可以使用break语句强制退出循环。</p>
+<p>​   示例：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="c1">//当break被执行，程序就会离开循环，这点和switch中的break本质是一样的</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   </p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p>​ 在循环中使用break需要非常小心，因为这样相当于给循环增加了新的结束条件判断，这样导致程序员判断循环是如何结束的变得困难，也就会导致关于循环的错误的检查变得更困难，这会增加开发中检查错误的成本。</p>
+<p>​ 像这样给循环增加了新的结束条件，导致循环有多个”出口“的情形，我们称之为违反了<strong>”单入单出“</strong>原则。</p>
+<p>​ 需要澄清的是，”单入单出“实际指的是循环结束的条件判断必须是在<strong>同一个地方</strong>进行判断，并非指循环不能有多个结束条件，例如假设要执行一个写作业循环，循环的结束条件是语文和数学作业都写完，但可能在你写作业的过程中，你喜欢先写一点语文，再写一点数学，然后再先把语文做完，这样的复合条件判断是合理的。使用break语句会导致了本来应该在循环体执行前后判断循环是否能够继续的”单出“变成了在循环中途增设了新的出口。</p>
+<p>​ 但是，并非任何时候都要遵守”单入单出“原则，如果你足够熟练和有经验，且你所写的循环很简单，你很容易就能判断循环是如何执行的，那么你可以适当地不遵守”单入单出“原则，来使你的程序更加简洁。</p>
+</blockquote>
+<p>5.标记语句和6.跳转语句</p>
+<p>​   这两种语句是成对使用的，它们类似于一对传送门，但是是单向的，它会从跳转语句跳转到标记语句。</p>
+<p>​   使用这两种语句对于程序是不健康的，它们导致的跳转会使得程序的执行变得难以追踪，这样也就导致了一旦程序写得有问题，程序的bug的来源也就难以判断。此外，使用基本的顺序语句，选择语句，循环语句和后面将学习到的”函数“，我们就可以完成标记语句和跳转语句能够实现的功能，同时程序更容易追踪和维护。所以虽然C/C++提供了它们，但在实践中我们不会使用它们，此处也不做介绍。</p>
+<h3 id="_12">阶段性结语</h3>
+<p>​   好了，学完以上的部分，加上正确的程序语法后，某种程度上你已经可以学习编写任何程序了。</p>
+<p>​   what？？？学习成为程序员竟然如此简单？？？</p>
+<p>​   没错，就是这样，你已经掌握了程序设计语言最重要的一些部分了，接下来的知识，都是为了更方便地利用面学到的知识和拓展它们。</p>
+<p>​   虽然如此，但是要成为一个更优秀的程序员，我们还需要学习更多的程序设计的思想和更多的数据类型，这样我们才能更好更广泛地使用计算机解决问题。</p>
+<hr />
+<h2 id="_13">第二章：结构化程序设计思想</h2>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>重点掌握内容，程序设计的基本思想。</p>
+</blockquote>
+<p>​   首先，我们要明白，程序设计并非是容易之事，也并非是短暂之事，设计一个程序可能工作量非常大，可能需要团队合作，可能程序不能一次性写完美，需要多次修改。这就对程序的<strong>易读性</strong>和<strong>清晰性</strong>提出了要求，程序虽然最终是计算机执行并解决问题，但如果首先它都没有被人类设计好，计算机解决问题就是无稽之谈。所以程序在给计算机”看“之前，它首先是<strong>给人看的</strong>。好的程序不是没人能看得懂的程序，这样的程序是最垃圾的程序，写这样的程序的程序员是最垃圾的程序员，是程序员中的毒瘤。计算机科学生来就是一门指向利用机器自动化解决问题的，脚踏实地的指向实践的学科，像这样写出别人看不懂的程序的行为就是纯粹的装逼，是对这门学科的亵渎。</p>
+<p>​   结构化程序设计起源于程序员们对goto语句的争论，也就是跳转语句和标记语句的使用，上文我们已经提到过它们的弊端。为了规范化程序员们设计程序的方式，使得程序设计变得更为科学，更加规范，程序员们思考出了结构化程序设计的思想。</p>
+<h3 id="_14">第一节：结构化程序设计的基本思想和基本方法：</h3>
+<p>​   结构化程序设计的基本思想是：采用分而治之的方法，将一个复杂问题分解成相对简单的一些子问题，然后针对这些子问题进行求解。如果一个子问题仍然是比较复杂的，那么可以进一步再细分成子子问题，再复杂，再细分，直到分解出的子问题足够简单可以求解。</p>
+<p>​   例如你要思考怎么制造一辆车，那么你可以把车拆成不同的部件：车轮、外壳、发动机……接着你又可以思考一个车轮要怎么制造，你又可以把车轮拆分成车胎、轮毂……对于其他部件也是一样的。而当你想好车怎么造以后，你就可以想要交给谁去造，交给哪个制造商，制造商分别制造不同的部件，谁质量出了问题就去找谁问责</p>
+<p>​   而求解子问题的过程是分阶段进行的，这样就把问题的解决分解成了不同的阶段，每个阶段都相对更简单和容易处理，且程序的错误也更容易被发现，哪个阶段出了错，就去修改哪个阶段的程序。</p>
+<p>​   结构化程序设计的方法分为以下四点：</p>
+<ol>
+<li><strong>自顶向下</strong>，即把大问题拆分成小问题</li>
+<li><strong>逐步细化</strong>，即在思考问题的解决方法时，不必一步到位，先用自然语言把问题的解决步骤表达出来，先用人的思维思考，再逐步地转化成用算法语言表达，变成计算机可以解决的算法。</li>
+<li><strong>模块化设计</strong>，即把大问题拆分成小问题后，用模块化分离的代码解决不同的问题，使得每个小问题的解决实际上都是比较独立的，在程序设计语言中，这样的模块化代码称为<strong>”函数“</strong>。</li>
+<li><strong>结构化编码</strong>，指在程序设计中严格遵守使用顺序结构，选择结构，循环结构来编程，这三种结构已经可以解决所有的可用程序解决的问题了。</li>
+</ol>
+<p>​   其中，我们就只剩下”函数“的部分需要深入学习了。</p>
+<h3 id="_15">第二节：函数</h3>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>难点，仔细品尝</p>
+</blockquote>
+<p>​   函数，本质上就是一段封装好的<strong>程序代码</strong>，完成明确的<strong>功能</strong>，在需要的时候供程序员<strong>调用</strong>。</p>
+<h3 id="21_1">2.1 我们为什么需要函数？</h3>
+<p>​   首先，我们上文已经提到，函数的设计可以满足结构化程序设计的模块化设计的需要。其次函数，即一段封装好的可供调用的代码，可以被程序员重复使用，减少的重复编写同种功能的代码的工作量。最后，也正像结构化程序设计的好处，用函数解决不同问题的设计理念使得程序的问题更容易被程序员解决，增加了代码的可读性，使程序更容易被维护。</p>
+<h3 id="22">2.2 函数的组成</h3>
+<p>​   函数由两个部分组成：</p>
+<ol>
+<li><strong>函数头</strong></li>
+</ol>
+<p>​    函数头是程序员调用的”接口“，需要明确函数调用的规则。</p>
+<p>C/C++中函数头的组成（并非正式的语法）：</p>
+<div class="highlight"><pre><span></span><code><span class="n">返回值类型</span><span class="w"> </span><span class="n">函数名</span><span class="err">（</span><span class="n">参数列表</span><span class="err">）</span>
+<span class="c1">//把参数列表所含参数写出来的样子如下，这样的形式是真正的参数列表的样子</span>
+<span class="n">返回值类型</span><span class="w"> </span><span class="n">函数名</span><span class="err">（</span><span class="n">参数类型1</span><span class="w"> </span><span class="n">形式参数1</span><span class="err">，</span><span class="n">参数类型2</span><span class="err">，</span><span class="n">形式参数2</span><span class="err">……）</span>
+</code></pre></div>
+<p>​    <strong>返回值类型</strong>表示了函数会不会返回一个<strong>结果</strong>，如果不需要函数返回一个结果的话，函数的返回值类型就写void；如果需要函数返回某种类型的值，就需要将其定义成对应的数据类型，例如要返回一个int类型的值，返回值类型就要定义成int。函数的返回值可以被程序利用，例如以下的例子中，假设函数返回值是100：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">MyMoney</span><span class="p">();</span>
+<span class="err">……</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">MyMoney</span><span class="p">;</span>
+<span class="n">MyMoney</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetMyMoney</span><span class="p">();</span><span class="c1">//GetMyMoney返回值是100，将100赋值给MyMoney</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">MyMoney</span><span class="p">);</span><span class="c1">//打印的结果是100</span>
+</code></pre></div>
+<p>​    <strong>函数名</strong>是面向程序员的方便调用的一个标志，函数名的命名需要做到<strong>见名知义</strong>，简明地表现出函数的功能，函数名也是一种标识符，命名规则和标识符是一样的，函数名的本质是一个指向函数代码存储的首地址的指针（了解）。</p>
+<p>​    <strong>参数列表</strong>指的是<strong>一系列</strong>从函数外部传递给函数的参数，可以把函数类比成一个工厂，那么参数列表中的参数就是工厂加工产品所用的原料，上文的返回值就是工厂的产品。函数的参数列表不一定需要有参数，<strong>没有参数</strong>的函数是非常常见的。参数是需要指明参数的<strong>数据类型</strong>的，就像工厂输入原材料需要让外界知道工厂的哪个投料口接受哪种原材料,形式参数是属于该函数的一个<strong>变量</strong>，那么就具有<strong>变量的三要素</strong>：变量名，变量类型，变量值，同样地，形式参数变量名也应该做到见名知义。它只在该函数内有效，函数执行完毕后就会被释放，所以叫<strong>局部变量</strong>；相反地，在整个程序都有效的变量叫做全局变量。关于函数参数的内容我们将在后文进一步介绍。</p>
+<ol>
+<li><strong>函数体</strong></li>
+</ol>
+<p>​    函数体就是函数中封装的代码，本质上就是一段程序，函数体中的代码的功能就决定了函数的功能。具有返回值的函数还需要一个返回语句，它就相当于产品的输出口，语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="n">xxx</span><span class="p">;</span><span class="c1">//xxx可以是变量、常量、表达式或有返回值的函数</span>
+</code></pre></div>
+<p>一个函数的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w"> </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+<span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;n=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   诶，你发现了吗，这不就是C/C++程序中最常见的<strong>main()函数</strong>吗？</p>
+<p>​   现在让我们来真正仔细看一下一个最简单的C/C++程序中各部分的意义吧；</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;n=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>#include：</strong></p>
+<p>​   #include是一个<strong>预编译指令</strong>，还记得我们前面学习过的预编译指令吗，就是#define。#include&lt;文件名&gt;的作用是把&lt; &gt;中的文件的内容插入到#include所在的位置，这样就可以把文件中的内容复制到当前文件中从而使用它们了。示例中就是把文件"stdio.h"插入到了本文件。这样的好处是可以通过简洁的一段指令就引入大量的代码，从而可以使用大量的功能，这些被include（包含）的文件称”头文件“，其文件后缀.h，h就是head。与头文件紧密相关的一种文件叫<strong>”源文件“</strong>，我们将在后文详细展开。</p>
+<p>​   #include指令有两种用法，一种是#include<filename>，另一种是#include"filename"，其区别在于文件的搜索路径不同。使用尖括号&lt;&gt;会在系统路径下搜索要包含的文件，使用双引号” “会先在当前当前目录下搜索要包含的文件，找不到再去系统路径下找（了解）。对于程序员自己编写的头文件，通常要用双引号进行引入。</p>
+<p><strong>int main()：</strong></p>
+<p>​   首先，int 表明了main函数返回值的类型是int，然后main是函数的名字，函数参数列表括号中没有任何参数，说明这个函数不接受任何参数。函数体中，函数进行了接受一个用户输入的变量n，然后将其打印出来的操作。</p>
+<h3 id="23_1">2.3 函数声明与函数定义</h3>
+<p>​   以上，我们只是简单介绍了函数的一些要点，现在我们来严谨地介绍一下函数的声明与定义。</p>
+<p><strong>函数的声明</strong></p>
+<p>​   函数的声明语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">返回值类型</span><span class="w"> </span><span class="n">函数名</span><span class="err">（</span><span class="n">参数类型1</span><span class="w"> </span><span class="n">形式参数1</span><span class="err">，</span><span class="n">参数类型2</span><span class="err">，</span><span class="n">形式参数2</span><span class="err">……）</span><span class="p">;</span>
+<span class="c1">//注意声明语句结尾的分号</span>
+</code></pre></div>
+<p>​   函数的声明仅给出了函数头，没有给出函数体，也就是没有确定函数的功能，仅仅只是向计算机说了一声：”嘿，计算机，这里有一个函数“。这样声明一个函数头，也叫声明了一个”函数原型“。</p>
+<p><strong>函数的定义</strong></p>
+<p>​   函数的定义语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">返回值类型</span><span class="w"> </span><span class="n">函数名</span><span class="err">（</span><span class="n">参数类型1</span><span class="w"> </span><span class="n">形式参数1</span><span class="err">，</span><span class="n">参数类型2</span><span class="err">，</span><span class="n">形式参数2</span><span class="err">……）</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">代码</span><span class="err">；</span>
+<span class="w">    </span><span class="n">代码</span><span class="err">；</span>
+<span class="w">    </span><span class="n">还是代码</span><span class="err">；</span>
+<span class="w">    </span><span class="err">（</span><span class="n">可能有return语句</span><span class="err">）</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   函数时，必须给出完整的函数头，以明确你在定义哪一个函数（如果你在疑惑为什么必须给出整个函数头，那么你很会思考，这点我们将在介绍函数的”重载“时说明）。函数的定义的关键在于定义函数体，也就是定义函数的功能。</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>​ 函数的定义可以看作先声明了一个函数（如果它未被声明），再定义了它的功能。要创建一个新的函数，并不需要先用一个函数声明语句声明一次函数，然后再定义，而是可以直接定义一个函数。这点和变量的声明时定义是类似的：</p>
+<p>​ 你可以先声明一个变量但不定义，之后再定义它：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">apple</span><span class="p">;</span><span class="c1">//先声明</span>
+<span class="n">apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="c1">//再定义</span>
+</code></pre></div>
+<p>​ 你也可以同时声明和定义一个变量：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>​ 类似地，你可以先声明一个函数，再定义它：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">BuyApple</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">AmountofApple</span><span class="p">);</span><span class="c1">//先声明</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">BuyApple</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">AmountofApple</span><span class="p">)</span><span class="c1">//再定义</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;The Amount of Apple you bought is: %d&quot;</span><span class="p">,</span><span class="n">AmountofApple</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</blockquote>
+<h4 id="_16">细究函数声明和定义</h4>
+<p>​   你可能会疑惑既然定义函数时已经可以完成声明函数的工作了，为什么还要单独声明一次函数呢？</p>
+<p>​   这就涉及到头文件和源文件的使用了。</p>
+<p>​   一般来说，程序员会在头文件中声明函数，然后再在其对应的源文件中定义函数。</p>
+<p>​   头文件和源文件的名字是一样的，区别在于其后缀，头文件的后缀是.h，C语言源文件后缀是.c，C++源文件后缀是.cpp。源文件中必然要使用一次#include来包含其对应的头文件来建立联系。</p>
+<p><strong>函数声明和定义分开的好处：</strong></p>
+<p>​   在结构化程序设计中，函数声明和定义分开的好处可能还不是很明显，在面向对象编程中才能将其优势充分展现。但是你也可以理解：如果你只定义函数，不把函数声明和定义分开写，那么如果一个源文件中定义了一大堆函数，那么你想要确定这个源文件中有哪些函数以及它们大概有什么功能就会相对比较麻烦，你得在一大堆函数体中找函数头来从函数名字中了解函数的功能。而如果你把函数声明和函数定义分开写，你想知道一个文件里有什么函数和函数的大致功能，只需要阅读头文件中的函数声明，且头文件中没有函数定义时，这样就很容易一眼了解，如果想要了解详细的函数细节，再转到源文件中就行了。</p>
+<p>​   但这并不意味着你不能只在一个文件中完成函数声明和定义，对于一些代码少，函数少的情形，只在一个文件内完成函数声明定义是完全合理的。以上的这一切都是为了提高代码的<strong>可读性</strong>。</p>
+<p><strong>函数声明和定义的注意事项：</strong></p>
+<ol>
+<li>不能多次定义一个完全相同的函数，完全相同指的是包括返回值类型，函数名，形式参数列表都相同。</li>
+<li>不能在一个函数内定义另一个函数。</li>
+<li>使用函数前必须先声明和定义函数，这里的”前“对于声明是物理意义上的”前“，如果你在程序文件的第10行调用了一次函数func，那么在程序文件的第10行之前就必须要有函数的声明（在#include引入的文件中的声明也满足物理意义上的”前“），但是函数的定义可以在函数调用之后，因为函数调用时会自己去找函数定义。</li>
+</ol>
+<h3 id="24">2.4 函数调用</h3>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>重中之重</p>
+</blockquote>
+<p>​   在程序中使用函数，称作<strong>“调用函数”</strong>。我们上文提到，函数本质是一段程序，程序也是要被存储在计算机的存储空间中的，就像数据一样，那么函数也像数据一样有：</p>
+<ol>
+<li>存储地址。就像变量一样，函数的名字其实就指向了函数代码在存储区中的首地址。</li>
+<li>函数的“值”，对于函数来说，函数的“值”就是函数的封装的代码。</li>
+</ol>
+<p><strong>如何理解函数调用？</strong></p>
+<p>​   函数调用的本质，是计算机的<strong>控制的转移</strong>。当执行函数调用时，计算机会转移到函数代码存储的区域，也就需要知道函数存储的地址，前往该地址，开始执行其中存储的代码，直到“返回”，也就是函数中的return，在此我们对return进一步说明，return不仅仅有返回返回值的功能，还要承担将计算机控制返回到执行函数调用前的地址，以便继续后续的程序。虽然这两个功能都使用了“返回”的字面解释，但前者更偏向于send back，后者更偏向于go back。</p>
+<p><strong>函数调用的细节：</strong></p>
+<p>​   函数的调用方式为：指出函数名，把<strong>变量</strong>或<strong>常量</strong>或<strong>表达式</strong>填入函数参数列表，被填入参数列表的数据相对应地叫做<strong>“实际参数”</strong>，调用语句以分号结尾。往往除了main()函数，其他函数都是在main函数或其他函数中被调用的。</p>
+<p>​   非常重要的是，调用函数时，填入实际参数到函数的形式参数中的顺序是要严格依据函数的定义的，例如：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">AddStudenttoList</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">schoolID</span><span class="p">)</span>
+<span class="c1">//char *是一个没有学到的数据类型，无需疑惑，以后再讲</span>
+</code></pre></div>
+<p>调用AddStudenttoList时必须严格按照参数列表中参数的顺序，第一个只能填ID，第二个只能填name，以此类推。</p>
+<p>示例：（一个涵盖了先前大量知识的完整的C风格的程序，如果看不懂要回去复习哦）</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cm">/*</span>
+<span class="cm">  首先定义一个函数isPrim，它接受一个int类型的参数number，功能是判断传入的参数number是不是一个质数，返回值类型是一个int，如果</span>
+<span class="cm">  传入的参数是一个质数，则返回1，否则返回0</span>
+<span class="cm">*/</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">isPrimNum</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//先假设number是一个质数，如果后续的检测判断出它不是，就推翻假设</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">isPrim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">//由于2和3不能下面的算法判断这里先行判断</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">number</span><span class="o">==</span><span class="mi">2</span><span class="o">||</span><span class="n">number</span><span class="o">==</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//2和3是质数，返回1表示传入的number是质数</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">            枚举比number的绝对值的算术平方根小的整数，检测number是否能被除自己和1以外的整数整除，循环的另一个成立条件是</span>
+<span class="cm">            isPrim为1，也就是number是个质数的假设还没有被推翻，如果一直到i*i&gt;=number这个假设都没有被推翻，就证明number确实</span>
+<span class="cm">            是一个质数，如果假设在中途就被推翻了，那就没必要检测number是否能被更大的整数整除了，此时就可以退出循环，节省时间</span>
+<span class="cm">        */</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">number</span><span class="o">&amp;&amp;</span><span class="n">isPrim</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">//能被i整除说明number不是质数</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">number</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">isPrim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">//返回isPrim</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isPrim</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//计算机从这里开始执行程序</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">//接收用户输入的一个整数，将其赋值给number</span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">number</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//在if的条件表达式中调用了一次isPrim()函数，传入的实际参数是用户输入的number，尝试思考为什么实际参数和函数的形式参数可以重    //名？</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">isPrim</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d is a prim number&quot;</span><span class="p">,</span><span class="n">number</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d is not a prim number&quot;</span><span class="p">,</span><span class="n">number</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="241">2.4.1 变量的作用域</h4>
+<p>​   首先我们先来解决函数接收的实际参数变量名和形式参数变量名重名的困惑。</p>
+<p>​   在“变量”的部分，我们说过变量名不能重名，不然的话就会导致一个名字指向多个不同的存储地址。但是试想一下，难道世界上没有重复的地名吗？没有重复的人名吗？它们是怎样区分的？很容易想到，只要表明同名地点的不同之处，这很容易做到例如执信中学有很多间，但是你只要指明了是在执信南路的还是在天河的还是在水荫路的，就能明确地区分了。类似地，同名的人只要指明了他们所处的不同的时空，也可以区分他们。</p>
+<p>​   也类似地，只要“变量”所处的“时空”不同，就可以使用相同的变量名。</p>
+<p>​   变量所处的“空间”称为它的<strong>作用域</strong>，变量它只在它自己所属的作用域中有效。例如，函数体就是一个作用域，函数体中声明的变量都是函数内的<strong>局部变量</strong>，局部指它们只在函数内有效。不止函数能够划定作用域，if-else，for，while等结构中都划定了一个作用域。例如for(int i = 0; i&lt;n; i++)，i 就是一个在for声明的局部变量，它只在for循环中有效。局部变量会在程序永远离开它的作用域以后被释放掉，局部变量从被声明到释放经历的时间就是它的生命周期，也就是它所处的“时间”。</p>
+<p>​   那么如此，我们就知道了，上面的示例中实际参数number和函数的形式参数number由于它们所处的时空是不同的，所以它们是不同的变量，那么我们接下来仔细讲述一下它们所处的时空究竟是怎样的。</p>
+<h4 id="242">2.4.2 函数的活动记录</h4>
+<p>​   先考虑这样一个情形，假如你只有一口锅，你想要做番茄炒蛋，你想先把鸡蛋炒好，再分开把番茄炒熟，最后再把它们混在一起炒，以避免鸡蛋太老。这样的话你炒好鸡蛋之后就得要拿个东西把鸡蛋装好放在一边而不是把鸡蛋丢了。</p>
+<p>​   这就和函数的调用是很类似的，在一个函数中调用另一个函数的时候，由于这时要转移计算机的控制到新函数的存储地址，就得先把主调函数中原有的变量存储好而不是把它们丢掉，因为最后还要从被调函数返回到主调函数，返回以后要把原来主调函数的变量的信息还原成调用之前的样子，这些要保存好的变量信息术语叫<strong>“机器的状态信息”</strong>。可以想到，每一个函数都可以被保存机器状态信息。</p>
+<p>​   此外，我们也说了，被调函数结束后，需要返回主调函数，那么计算机就需要知道主调函数已经运行到哪了，也就需要记录主调函数调用被调函数前的<strong>运行地址</strong>。</p>
+<p>​   接下来我们还需要什么？我们说过变量有三要素，还记得是什么吗？变量一定要有存储空间对吧？函数的形式参数是一个属于函数作用域的局部变量对吧，那计算机也要为它们分配合适的内存空间对吧？函数内部也可能要声明变量吧？这些变量属于该函数的作用域，因此也要在函数调用结束时释放吧？</p>
+<p>​   总结一下，函数调用起码要准备好存储这些东西的空间，这些东西称作<strong>函数的活动记录</strong>，存储它们的空间叫做<strong>函数的运行环境</strong>，每个被调用的函数都会有：</p>
+<ol>
+<li>保存机器状态信息的存储空间</li>
+<li>保存主调函数返回地址的存储空间</li>
+<li>存储被调函数局部变量的存储空间</li>
+</ol>
+<h4 id="243">2.4.3 函数的调用过程</h4>
+<p>​   我们再想想看一个函数的调用的过程是怎样的呢？</p>
+<ol>
+<li>首先要为函数开辟新的运行环境，然后保存机器的状态信息。</li>
+<li>把实际参数<strong>传递</strong>（怎样叫做传递？）给形式参数，这称之为“参数结合”。</li>
+<li>之后开始执行函数体。</li>
+<li>到达return，返回主调函数，还原主调函数调用前的状态，将被调函数返回值返回到主调函数，释放被调函数的活动记录。</li>
+</ol>
+<p><img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250106093358253.png" alt="image-20250106093358253" style="zoom: 33%;" /></p>
+<p><strong>参数传递：</strong></p>
+<p>​   我们再解释一下函数参数的传递。通过上面的叙述，你应该已经可以理解到：函数的实际参数和形式参数可以重名，因为它们“生活”的“时空”不同，它们存储的空间也不同，那这说明，它们其实是两个独立的个体，独立地住在自己生活的区域（作用域），住在自己的房子（存储空间），自己的房子的地址也是不同的（存储空间地址），它们唯一相同的就只有它们存储的值，形式参数能有和实际参数一样的值，是由于参数传递时，实际参数的值复制里一份传递给形式参数，这种参数传递的方式叫做<strong>“按值传递”</strong>。</p>
+<p>​   这样说完，你也应该能够理解，函数中修改形式参数，并不能修改传入的实际参数，它们根本就是分离的！！！</p>
+<p>​   但是如果我想要用函数修改实际参数的值，有没有办法呢？有的。打个比方，如果把参数按值传递，就好比用打印机打印资料，主调函数持有原件（实际参数），被调函数持有复印件（形式参数），被调函数怎么修改形式参数都不会改变主调函数的原件。那想要修改实际参数，只要让被调函数能够拿到实际参数的原件就行了。怎么做呢？实际参数一定有一个存储空间吧？只要被调函数能够知道它存储的地址，不就可以跑到它存储的地址线下真实它了？这样的通过传递实际参数的存储地址来访问实际变量原件的传递方式称作<strong>“按引用传递”</strong>，实际参数被被调函数“引”走了。那怎么传递实际参数的地址呢？还记得我们在“变量”讲的变量的取地址符号&amp;吗？</p>
+<p>​   按引用传递实际参数的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">Apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//按应用传递时函数需要接受实际参数的地址，所以第一个参数并非int，而是一个和int的存储地址有关的变量，叫指针，我们很快会介绍</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ChangeApple</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">apple</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">howmuch</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//从传入的地址中得到存储空间中的变量，&#39;*&#39;叫做间接引用运算符，介绍指针时我们再详细介绍</span>
+<span class="w">    </span><span class="o">*</span><span class="n">Apple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">howmuch</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">……</span>
+<span class="c1">//这个函数调用会把Apple中的值从0改成10</span>
+<span class="n">ChangeApple</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Apple</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<p>​   按引用传递本质上其实还是按值传递，因为其实传入的实际参数的地址也是复制过去给形式参数的，本质上你并没有拿到实际参数的”户口本原件“，你是通过实际参数的”户口本复印件“，找到了实际参数的住址，然后去线下真实了实际参数。</p>
+<h4 id="244">2.4.4细究函数中局部变量的声明周期</h4>
+<p>​   我们从”函数的调用过程“已经了解到了函数的局部变量的创建与释放的大致过程。那么你不妨想一下，函数局部变量的释放顺序是如何的呢？</p>
+<p>思考以下的例子，思考不同函数的局部变量的顺序是怎样的？</p>
+<div class="highlight"><pre><span></span><code><span class="n">xxx</span><span class="w"> </span><span class="nf">func01</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="n">xxx</span><span class="w"> </span><span class="n">func02</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="n">xxx</span><span class="w"> </span><span class="n">func03</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="n">xxx</span><span class="w"> </span><span class="n">func04</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+
+<span class="n">xxx</span><span class="w"> </span><span class="n">func01</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">variable01</span><span class="p">;</span>
+<span class="w">    </span><span class="n">variable01</span><span class="p">;</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="w">    </span><span class="n">func02</span><span class="p">(</span><span class="n">xxx</span><span class="p">);</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="w">    </span><span class="n">func02</span><span class="p">(</span><span class="n">xxx</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">variable05</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">xxx</span><span class="w"> </span><span class="nf">func02</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">varible03</span><span class="p">;</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="p">}</span>
+<span class="n">xxx</span><span class="w"> </span><span class="nf">func03</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">variable04</span><span class="p">;</span>
+<span class="w">    </span><span class="n">func04</span><span class="p">(</span><span class="n">xxx</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">xxx</span><span class="w"> </span><span class="nf">func04</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">variable05</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   我们之前已经讲过，被调函数结束后，需要返回主调函数，释放被调函数的运行环境，然后主调函数要继续执行后续的代码。这是不是说明了主调函数的运行环境肯定是后于被调函数的吧？越内层的函数的运行环境是不是也就越早被释放，越外层的函数就越晚被释放吧？这总结起来可以怎样概括呢？是不是可以说函数的运行环境是<strong>”先进后出“</strong>的呀？因此，函数的活动记录在计算机中被存储在满足这样的存储和释放逻辑的区域，这个区域叫做<strong>”栈区“</strong>，栈区中的内存释放就是满足”先进后出“的顺序，它就像一个弹匣一样，变量就像是子弹，越早被创建的变量，越早被压入栈区这个“弹匣”，弹匣只有一个出口，越靠近弹匣口的子弹越早被“发射”（释放）出去。</p>
+<h3 id="25">2.5 再论函数设计</h3>
+<p>​   设计一个函数使应该遵循以下的原则：</p>
+<ol>
+<li>高内聚</li>
+</ol>
+<p>​    指尽可能在函数内完成一个完整的功能，不要写出一些功能不完善的函数。</p>
+<ol>
+<li>低耦合</li>
+</ol>
+<p>​    指尽可能减少函数对其他函数的依赖和特定数据类型的依赖（必要的依赖还是要有的），否则函数的灵活性和适用性会变差。程序员发明函数就是为了增加代码的可复用性，如果函数对其他东西的耦合度太高，那可复用性就会大大减小。</p>
+<h3 id="_17">阶段性结语</h3>
+<p>​   到此，我们已经介绍完了函数的基本用法和函数的一些细节，你已经学会了结构化程序设计的思想和编写良好代码的原则了。但是这样还不够，我们现在可以说是有了正确的“厨艺”，但是巧妇难为无米之炊，我们还需要学习更多的“数据类型”，让我们可以更好地抽象现实问题。</p>
+<h2 id="_18">第三章：常见的复杂数据类型（数据结构）</h2>
+<h3 id="pointer">第一节：指针（Pointer）</h3>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>重重重重重重点，不懂一定要问</p>
+</blockquote>
+<p>​   很多教材、教学会为了教学的简单化，把“指针”认为是一个比较难以掌握的数据类型，然后放在更后面讲。但我认为，只要笔力深厚，教法适当，指针完全应该先于“数组”教，这样才能更好理解数组的本质，而不是先学习了数组，对数组产生了顽固的片面的僵硬的理解（我相信大多数的学习计算机的菜鸟都不会仔细理清数组的本质，而产生这样片面理解），再结合指针理解数组的本质。</p>
+<h4 id="_19">指针是什么？</h4>
+<p>​   我们之前已经反复强调了，学习一种数据类型的思路：思考数据类型的三要素：逻辑结构，存储结构，操作。</p>
+<p>​   先来介绍指针的逻辑结构，它并不是用来抽象现实世界的事物的，而是用来抽象计算机世界的事物的。我们说过，数据在计算机中占据存储空间，存储空间有一个存储空间地址来方便计算机访问。指针逻辑结构上，就是抽象的计算机中的存储空间地址。指针指针，之所以叫做指针，就是因为它本身没有太多意义，它只是存储了一串十六进制数地址，真正让它有意义的是它所<strong>指向</strong>的地址表示的存储空间，以及这片空间中存储的实际内容。</p>
+<p>​   打个比方，存储空间还是房子，那指针就是写有房子地址的路标。如果这个房子（存储空间）没了（并不是房子里面装的东西没了），那房子的地址就没有意义。</p>
+<p>​   既然指针指向一种数据的存储空间，那么指向不同数据类型的指针也应有所不同。指针根据其指向的数据类型的不同，也可以称指针具有不同的类型。比如指针指向一个int类型变量，那么这个指针的类型就叫“指向int类型的指针”。</p>
+<p>​   指针允许同类型指针之间的相互赋值，相当于把路标上的地址改了，那这个路标就和原来的房子没关系了。指针还允许通过加减寻找其他地址，就好比路上有三个路标，分别指向不同的三座房子，第一个路标加1就去到第二个路标，一看第二个路标有它指向的房子。</p>
+<p><strong>指针的声明和定义的语法：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">//先声明一个int类型变量</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//再声明一个指向int类型的变量的指针，然后把指针指向上面变量的地址,取地址符号&amp;获得变量a的地址赋值给指针aPtr(aPtr是指针的变量名)</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">aPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="c1">//ptr是pointer的缩写，常用于表达指针</span>
+</code></pre></div>
+<p>​   可以理解的是，一个房子当然允许有多个路标指向它，指针也一样，允许多个指针指向同一个变量。</p>
+<p>​   只声明不定义指针时，指针会指向一块<strong>未知的内存空间</strong>，使用这样的指针是不合理的，它没有指向一块程序员控制范围内的空间，但是你仍然可以通过它来访问该内存中的值，尽管这里面的值是不受你控制的，这样的行为是很危险的！！！。</p>
+<p>​   为这样为定义的指针赋值0或NULL（一个字面值为0的<strong>宏</strong>）或nullptr（更安全的表示空指针的方式，C语言没有，C++有），可以把指针变成空指针，这样一来指针会<strong>不指向</strong>任何存储空间，无法访问空指针指向的存储空间，因为它根本没有指向任何空间！！！这就避免了错误访问不受控制的内存空间的危险。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">bPtr</span><span class="p">;</span><span class="w"> </span><span class="c1">//此时指针指向一块未知的内存空间</span>
+<span class="c1">//把bPtr赋值成空指针</span>
+<span class="n">bPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">bPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="n">bPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>通过指针访问变量：</strong></p>
+<p>仍用上面的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">aPtr</span><span class="p">;</span><span class="c1">//指针也可以先声明再赋值，赋值之前，指针指向一块随机的存储空间，使用未赋值的指针是危险且不合理的</span>
+<span class="n">aPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="o">*</span><span class="n">aPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="c1">//通过间接访问运算符&#39;*&#39;，获得指针指向的变量a，这个语句和：a = 10;是等价的</span>
+</code></pre></div>
+<p>​   对于间接访问运算符，只有对一个指针使用它才是有意义的，对一个非指针变量使用它是没有任何意义的。</p>
+<p>​   上面的例子中，"int"表明了a变量的类型，而表明指针的类型的字样是"int *"这个整体。</p>
+<p><strong>指向指针的指针：</strong></p>
+<p>​   指针也是一种数据类型，同时指针变量也是一种变量，自然，指针存储地址也需要一块存储空间，那么这块存储空间也需要一个存储空间地址，这样的话，就可以定义指向指针的指针。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">aPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">aPtr_Ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">aPtr</span><span class="p">;</span><span class="c1">//指向指针的指针</span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">*</span><span class="n">aPtr</span><span class="p">;</span>
+<span class="n">aPtr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">*</span><span class="n">aPtr_Ptr</span><span class="p">;</span><span class="c1">//一次间接访问运算符解析出aPtr_Ptr指向的aPtr</span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w">  </span><span class="o">**</span><span class="n">aPtr_Ptr</span><span class="p">;</span><span class="c1">//两次间接访问运算符，先解析出aPtr_Ptr指向的aPtr，再解析出aPtr指向的a</span>
+</code></pre></div>
+<p>​   同理，你还可以定义指向指向指针的指针的指针，定义……总之指针可以无限套娃，看实际问题的需要，但是无论如何套娃，指针存储的永远都是计算机存储空间地址而不是其他的东西。</p>
+<h3 id="array">第二节：数组（Array）</h3>
+<p>​   设想你是一个老师，你教1000个学生，考试后你想把1000个学生的考试成绩输入计算机，并且设计一个程序帮你把1000个学生的成绩进行排序。如果以你现有的知识，你可能会想定义1000个变量，这是极其巨大的工作量，并且你还没办法进行排序。</p>
+<p>​   当遇到了新的实际问题无法用现有的程序设计知识进行抽象，就意味着我们需要发明新的数据类型来进行抽象了。</p>
+<p>​   继续考虑你要排序成绩的情形，想一想你新发明的数据类型要具备什么特性才能够帮助你解决这些问题？</p>
+<p>​   首先，你肯定希望能够一次性开辟大量的存储空间，并且你希望它们可以很方便地被你访问，在学习变量时我们学过变量名就是为了方便程序员记忆，以便于访问，但是设定1000个不同的名字是不合理的，我们希望有更好的访问的方式。想到学生……学号似乎很不错，记忆学号这种数字对于人类来说比机器麻烦，但是机器处理数字可是一把好手，联想到学号，你就不难想到，用<strong>数字</strong>来确定访问第几个成绩是很不错的。</p>
+<p>​   接着，既然我们决定用数字标识成绩，那么这些成绩在计算机中的存储方式最好也像数字一样一个接一个<strong>连续存储</strong>，这样才能完美对应。</p>
+<p>​   最后，你可能还希望如果你要处理多种成绩的话，最好能够分辨出不同组别的成绩列表，所以每种成绩的列表最好要有一个名字。</p>
+<p>​   哒哒，你所经历的这些思考，所发明出来的数据结构，就是数组！</p>
+<h4 id="_20">数组的本质：</h4>
+<p>​   数组本质抽象的是现实世界中的某一类事物的一个<strong>有序集合</strong>，也可以叫它是一个<strong>“表”</strong>，数组这张表要有一个名字，数组名；数组存储的数据的类型必须是同一个；数组中存储的一个数据叫做一个<strong>数组元素</strong>；可以通过数字顺序轻松访问数组中的任意数组元素，这个数字叫做“索引”或有时叫“下标”（像数列下标）。</p>
+<p>​   数组的创建本质是在内存中开辟了一系列连续存储的存储空间，可以通过增减地址的方式轻松访问数组中的元素。</p>
+<p>​   来看数组声明的语法和示例：</p>
+<div class="highlight"><pre><span></span><code><span class="n">数组元素类型</span><span class="w"> </span><span class="n">数组名</span><span class="p">[</span><span class="n">数组元素个数</span><span class="p">];</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</code></pre></div>
+<p>​   （数组声明、定义的更多语法和规则，请在学习完“数组”之后自行查阅资料）</p>
+<p>​   上面的数组声明的语句，本质上就是在说：“给我开辟一块可以存储10个int类型数据的存储空间，别的人不许过来使用”，此外，为了可以访问这个数组，你还得知道数组存储的地址在哪？</p>
+<p><strong>数组名的本质：</strong></p>
+<p>​   虽然我们说数组的声明是开辟了一块存储空间，但上面我们还没有要怎么找到这片空间。答案就藏在数组名中，数组名的本质是一个指针，一个指向数组存储空间的<strong>首地址</strong>的<strong>常量指针</strong>。“常量”说明它不能被重新赋值，你可以理解，如果它被重新赋值，那它原来指向的存储空间就变成无法访问的无主之地了，这是不合理的。我们说过，可以通过指针的加减来访问不同地址存储的数据，数组根据索引访问数组元素的本质就是通过指针加减。</p>
+<p>​   我们来看访问数组元素的语法和本质：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="c1">//数组元素的索引从0开始，待会你就能理解了</span>
+<span class="c1">//分别访问索引为0，1，2的三个数组元素并为它们赋值</span>
+<span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="n">array</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+
+<span class="c1">//array是一个指针，存储了数组存储空间的首地址（索引为0的元素的地址），所以可以通过间接访问运算符* 访问</span>
+<span class="o">*</span><span class="n">array</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="o">*</span><span class="p">(</span><span class="n">array</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="o">*</span><span class="p">(</span><span class="n">array</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</code></pre></div>
+<p>​   从上面可以看出，你可以把"[ ]"理解成一个运算符号，它是为了方便人类阅读的，其实际的意义就和上面的代码表现得一样。</p>
+<p>​   对指针补充说明一点：array+n并不是指：array指向的地址的实际值（十六进制数）加上n，而是array指向的地址加上array这个指针指向的数据类型占据的存储空间大小乘n。请尝试理解这一点。</p>
+<p>​   例如假设int占据了4个字节的大小，array指向的地址是2000，那么：</p>
+<div class="highlight"><pre><span></span><code><span class="n">array</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">*</span><span class="mi">4</span><span class="err">；</span>
+<span class="n">array</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="o">*</span><span class="mi">4</span>
+</code></pre></div>
+<p>​   值得提醒的一点是，"[ ]"运算符内可以填写变量、常量、表达式或有返回值的函数。</p>
+<p>​   "[ ]"运算符在数组的声明时和数组元素的访问时的意义是不同的。声明时它表明开辟中括号内那么多的能存储特定数据类型的存储空间。访问数组元素时，它表明上述的指针运算关系。</p>
+<h4 id="_21">数组作为函数参数</h4>
+<p>​   由于数组的本质是一组靠一个常量指针访问的存储空间，所以数组作为函数参数就是把数组名这个指针常量作为参数传递给函数。</p>
+<p>​   数组作为函数参数的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">foreach</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[])</span><span class="c1">//等价于void foreach(int * array)，学习了&quot;[]&quot;的本质你应该可以理解</span>
+<span class="err">……</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+<span class="err">……</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">foreach</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+</code></pre></div>
+<p>​   但对于多维数组作为函数参数，又有更多的注意事项。多维数组和多维数组作为函数参数的学习交给你自己完成。你已经学会了一维数组的本质，多维数组的本质和一维数组是一样的。</p>
+<h3 id="structure">第三节: 结构体（structure）</h3>
+<p>​   设想你还是一个老师，这回你不仅仅要处理学生的成绩了，你要记录学生的身高、体重，还要通过身高体重计算出学生的BMI，然后按照BMI排序，找出最不健康的学生，对他们给予额外关注。这回，你又会发觉知识不够用了，那就来发明一个新的数据类型吧！</p>
+<p>​   首先，你肯定希望一个学生的姓名，身高，体重总是可以很容易地被一起访问，那就把它们打包在一起就可以了。</p>
+<p>​   emmm，好像这样就足够了？</p>
+<p>​   结构体本质上就是把一些数据打包在一起，从而它们就有了一种联系，它们都属于这个结构体，是结构体的一员，且通常是可以修改的变量，所以称为<strong>成员变量</strong>。</p>
+<p>​   结构体抽象的是<strong>一类事物</strong>，事物都有其属性，结构体包含了程序员认为的事物和问题相关的属性，例如水果是一类事物，如果要解决区分水果问题，水果的颜色、形状可能比较重要，如果要解决种植水果的问题，那水果的喜好的光照、水热条件等可能比较重要，这些都可以被抽象成结构体的成员。</p>
+<p>​   而我们谈论一类事物的时候，通常讨论的是事物的整体，有时会具体到特定的事物个体，对于结构体，它就定义了一类事物的整体属性，结构体的一个实例，就是事物的一个特定个体，例如猪是一类事物，小猪佩奇是猪的一个实例。</p>
+<h4 id="_22">结构体的定义与结构体实例创建</h4>
+<p>​   结构体的定义语法和示例如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">结构体名</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">数据类型</span><span class="w"> </span><span class="n">成员变量名</span><span class="p">;</span>
+<span class="w">    </span><span class="n">数据类型</span><span class="w"> </span><span class="n">成员变量名</span><span class="p">;</span>
+<span class="w">    </span><span class="err">……</span>
+<span class="p">};</span><span class="w">  </span><span class="c1">//不能忘记最后的分号</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Studuent</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">height</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>​   结构体实例的声明语法：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Student</span><span class="w"> </span><span class="n">MaxChen</span><span class="p">;</span><span class="c1">//C语言不使用typedef时必须加上struct</span>
+<span class="w">       </span><span class="n">Student</span><span class="w"> </span><span class="n">CiaoLi</span><span class="p">;</span><span class="w"> </span><span class="c1">//C++和使用了typedef的C语言可以直接用结构体名+结构体实例名声明结构体实例</span>
+</code></pre></div>
+<p>​   如此声明之后，结构体内的成员变量只是开辟了内存空间，但是内存空间中并没有存储任何“有效的”值，程序员必须要保证它们被赋予了合适的值之后再去使用。</p>
+<p>​   以下是访问结构体成员变量来给它们复制的方式。如此访问结构体的成员变量就相当于得到了一个变量，可以对该种类型的变量进行该种类型的变量合适的操作（运算）。 </p>
+<p>​   结构体成员变量的访问方式：</p>
+<div class="highlight"><pre><span></span><code><span class="n">MaxChen</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MaxChen&quot;</span><span class="p">;</span>
+<span class="n">MaxChen</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.78</span><span class="p">;</span>
+<span class="n">MaxChen</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xxx</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">BMI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaxChen</span><span class="p">.</span><span class="n">weight</span><span class="o">/</span><span class="p">(</span><span class="n">MaxChen</span><span class="p">.</span><span class="n">height</span><span class="o">*</span><span class="n">MaxChen</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="_23">结构体指针</h4>
+<p>​   结构体是一种数据类型，也可以有指针。</p>
+<div class="highlight"><pre><span></span><code>Student * MaxChenPtr = MaxChen;
+</code></pre></div>
+<p><strong>用结构体指针访问结构成员变量：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">MaxChenPtr</span><span class="o">-&gt;</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;MaxChen&quot;</span><span class="p">;</span><span class="c1">//和使用&#39;.&#39;类似地，使用&#39;-&gt;&#39;(像一个指针一样)可以访问结构体成员</span>
+</code></pre></div>
+<h4 id="_24">结构体作为结构体成员变量</h4>
+<p>​   结构体中可以嵌套结构体作为成员变量，可以无限套娃。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Birthday</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Studuent</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">height</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Birthday</span><span class="w"> </span><span class="n">birthday</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">//结构体作为结构体成员时的访问方式本质上是一样的</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Student</span><span class="w"> </span><span class="n">MaxChen</span><span class="p">;</span>
+<span class="n">MaxChen</span><span class="p">.</span><span class="n">birthday</span><span class="p">.</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2005</span><span class="p">;</span>
+<span class="n">MaxChen</span><span class="p">.</span><span class="n">birthday</span><span class="p">.</span><span class="n">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+<span class="n">MaxChen</span><span class="p">.</span><span class="n">birthday</span><span class="p">.</span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span>
+</code></pre></div>
+<p>​   在面向对象编程中，结构体还有更加丰富的特性和行为，我们将在下一个部分学习了“类和对象”之后再做补充。</p>
+<h3 id="_25">阶段性结语</h3>
+<p>​   恭喜你，学习完以上的知识，你已经入门了程序设计了，你已经可以快乐地在计算机的海洋里开始探索了，后续我们将进一步介绍C++中的面向对象编程的思想和新的知识。下个Part再见吧！</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.instant", "search.hightlight"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

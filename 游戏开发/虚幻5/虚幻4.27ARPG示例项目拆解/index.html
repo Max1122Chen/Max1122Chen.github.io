@@ -1,0 +1,3687 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Max1122Chen">
+      
+      
+      
+        <link rel="prev" href="../%E8%99%9A%E5%B9%BB2D%E6%B8%B8%E6%88%8F/">
+      
+      
+        <link rel="next" href="../%E8%99%9A%E5%B9%BB5.5Lyra%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>虚幻4.27ARPG示例项目拆解 - Max1122Chen's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#427arpg" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Max1122Chen&#39;s Blog" class="md-header__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Max1122Chen's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              虚幻4.27ARPG示例项目拆解
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Max1122Chen&#39;s Blog" class="md-nav__button md-logo" aria-label="Max1122Chen's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Max1122Chen's Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Max1122Chen/Max1122Chen.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Max1122Chen.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    这是Max1122Chen的个人网站
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Unity
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Unity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/RPG%20Core%20Combat%20Creator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RPG Core Combat Creator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/Unity%20RPG%20%E6%95%99%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity RPG 教程跟学笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unity/Unity%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unity基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏开发编程基础
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            游戏开发编程基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20I/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part I
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E4%B8%BA%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1Part%20II/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    为游戏开发学习程序设计Part II
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    游戏设计艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            游戏设计艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Idea
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Idea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/The%20Magic%20of%20Delicacy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Magic of Delicacy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%A7%91%E6%8A%80%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏开发科技树
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏机制
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%84%9A%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88001/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏脚本设计方案001
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/Idea/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E5%88%9B%E6%84%8F%E7%BB%83%E4%B9%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏设计创意练习
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    像素艺术
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            像素艺术
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E4%B9%8B%E7%AD%89%E8%B7%9D%E7%93%A6%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    像素艺术之等距视图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF/%E6%B8%B8%E6%88%8F%E5%83%8F%E7%B4%A0%E8%89%BA%E6%9C%AF%E5%88%9B%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏像素艺术创作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    分析
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E8%89%BA%E6%9C%AF/%E5%88%86%E6%9E%90/%E6%B8%B8%E6%88%8F%E5%BE%AA%E7%8E%AF%E8%AE%BE%E8%AE%A1Chapter01-Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏循环设计Chapter01-Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    现代游戏引擎
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            现代游戏引擎
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES104
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES104
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/00%20%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AF%BC%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎导论
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/01%20%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01 引擎架构分层
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/02%20%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02 如何构建游戏世界
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E5%BC%95%E6%93%8E%E5%B7%A5%E5%85%B7%E9%93%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    引擎工具链
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8EGameplay%E7%8E%A9%E6%B3%95%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    游戏引擎Gameplay玩法基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04 游戏引擎的渲染实践
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E/GAMES104/%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E6%9E%B6%E6%9E%84%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    网络游戏架构基础
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    虚幻5
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            虚幻5
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ALS学习笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../InventorySystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InventorySystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8UE%E5%BC%80%E5%8F%91%E6%B8%B8%E6%88%8F%E5%89%8D%E7%BD%AE%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用UE开发游戏前置软件安装
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB2D%E6%B8%B8%E6%88%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻2D游戏
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    虚幻4.27ARPG示例项目拆解
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻4.27ARPG示例项目拆解
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-i-inventory-item" class="md-nav__link">
+    <span class="md-ellipsis">
+      PART I Inventory &amp; Item
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PART I Inventory &amp; Item">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 整体概览：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-itemuitemitemtypeitemslotitemdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Item起源：UItem，ItemType：ItemSlot，ItemData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-playercontrollerbase" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PlayerControllerBase重点拆解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PlayerControllerBase重点拆解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-addinventoryitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 AddInventoryItem()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-fillemptyslotwithitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 FillEmptySlotWithItem()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-getslotteditems" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 GetSlottedItems
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-save-game-game-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      PART II Save Game &amp; Game Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PART II Save Game &amp; Game Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rpgsavegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. RPGSaveGame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rpggameinstance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. RPGGameInstance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-playercontrollersavegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PlayerController中关于SaveGame的逻辑
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PlayerController中关于SaveGame的逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-saveinventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 SaveInventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-loadinventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 LoadInventory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 LoadInventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-itemprimaryassetid" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1 Item的PrimaryAssetId 的实现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5.5Lyra%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5.5Lyra示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5.5%E5%8E%9F%E7%94%9F%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻原生源码分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5CropOut%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E6%8B%86%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5CropOut示例项目拆解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5GAS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5GAS(GameplayAbilitySystem)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5%E5%85%B3%E5%8D%A1%E7%99%BD%E7%9B%92%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5关卡白盒搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5骨骼网格体动画系统
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5%E5%A2%9E%E5%BC%BA%E8%BE%93%E5%85%A5%E6%98%A0%E5%B0%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5增强输入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB5%E6%9D%90%E8%B4%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻5材质
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BBAI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BBGAS%E8%AF%BE%E7%A8%8B%E8%B7%9F%E5%AD%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻GAS课程跟学笔记（UE开发最佳实践）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BBGamplay%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻Gamplay框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BBUI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻UI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E4%B8%8EC%2B%2B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻与C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E5%99%A8%E5%92%8C%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻接口和委托
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E5%85%B3%E5%8D%A1%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻关卡序列
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻场景搭建
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻基本要素
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻学习心得
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻开发策略
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E6%B8%B8%E6%88%8F%E5%AD%98%E6%A1%A3%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻游戏存档方式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%99%9A%E5%B9%BB%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虚幻设计模式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    计算机图形学
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            计算机图形学
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/Make%20a%20Software%20Renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Make a Software Renderer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GAMES101
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            GAMES101
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Advanced%20Topics%20in%20Rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics in Rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Animation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Animation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Cameras%2C%20Lense%20%26%20Light%20Fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cameras, Lense & Light Fields
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Color%20and%20Perception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color and Perception
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/GAMES101%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GAMES101 作业笔记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Materials%20and%20Apperance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Material and Appearance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Rasterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rasterization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Ray%20Tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ray Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Shading%20%26%20Texture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shading &amp; Texture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/Viewing%20Transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Viewing Transformations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GAMES101/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    线性代数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_3" id="__nav_2_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GraphicsAPI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            GraphicsAPI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/GraphicsAPI/OpenGL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenGL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-i-inventory-item" class="md-nav__link">
+    <span class="md-ellipsis">
+      PART I Inventory &amp; Item
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PART I Inventory &amp; Item">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 整体概览：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-itemuitemitemtypeitemslotitemdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Item起源：UItem，ItemType：ItemSlot，ItemData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-playercontrollerbase" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PlayerControllerBase重点拆解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PlayerControllerBase重点拆解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-addinventoryitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 AddInventoryItem()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-fillemptyslotwithitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 FillEmptySlotWithItem()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-getslotteditems" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 GetSlottedItems
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-save-game-game-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      PART II Save Game &amp; Game Instance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PART II Save Game &amp; Game Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rpgsavegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. RPGSaveGame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rpggameinstance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. RPGGameInstance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-playercontrollersavegame" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PlayerController中关于SaveGame的逻辑
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. PlayerController中关于SaveGame的逻辑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-saveinventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 SaveInventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-loadinventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 LoadInventory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 LoadInventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-itemprimaryassetid" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1 Item的PrimaryAssetId 的实现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="427arpg">虚幻4.27ARPG示例项目拆解</h1>
+<h2 id="part-i-inventory-item">PART I Inventory &amp; Item</h2>
+<h3 id="1">1. 整体概览：</h3>
+<p>​   ARPG示例中，把武器、药水、货币、技能都抽象成了“物品”（Item），以下是该项目认为的他们所共有的属性：</p>
+<ul>
+<li>
+<p><strong>所属Item类别（FPrimaryAssetType ItemType）</strong></p>
+</li>
+<li>
+<p><strong>自己的名字（FText ItemName）</strong></p>
+</li>
+<li>
+<p>对物品的描述（FText ItemDescription）（可在蓝图中编辑并查看）</p>
+</li>
+<li>
+<p>在编辑器中的图标（FSlateBrush ItemIcon）</p>
+</li>
+<li>
+<p>购买价格（int32 Price）</p>
+</li>
+<li>
+<p><strong>最大数量（int32 MaxCount）</strong></p>
+</li>
+<li>
+<p>最大等级（int32 MaxLevel）</p>
+</li>
+<li>
+<p>获取该物品可授予玩家的GameplayAbility（TSubclassOf<URPGGameplayAbility> GrantedAbility）</p>
+</li>
+<li>
+<p>授予技能的最大等级（int32 AbilityLevel）</p>
+</li>
+</ul>
+<p>​ 只需关注加粗条目，它们在各个项目中具有共通性。你可能好奇，为什么没有物品的数量？物品的持有者，物品的来历，获得物品的时间等等，这是因为这些属性并非一类物品的自有属性，就比如你在讨论常规语境下“书”是什么时，讨论的不是具体某一本书，而是对于所有物理意义上的书一般会有的属性，例如书一般是纸做的，是什么类型的纸另说，书一般是用来看的，书一般会有文字和图像，而书的数量是讨论一堆书的时候涉及的，书的持有者、来历等等是具体到某一本或几本书时才有意义的。</p>
+<p>​ 而我们要构建一个物品管理系统Inventory，那肯定要涉及到“管什么”（已回答，就是上面的Item）“怎么管”和“管多少”。</p>
+<p>​ 作为一位管理员，我已经明确我要管辖的范围了，就是上面的Item的全体，那我总需要记录每类物品有多少吧，甚至具体某件物品的具体信息吧，每类物品放在哪吧。ARPG示例项目的Inventory这位管理员给出了它的方案：</p>
+<p>​ 它说：</p>
+<p>​ 我定义两种基本数据结构：</p>
+<ol>
+<li>
+<p>ItemData，用来记录某种Item的具体信息，在这里我只需要记录Item的数量ItemCount，ItemData本身与具体的Item无关，需要有人来给他们建立关系，待会我们来做这件事</p>
+</li>
+<li>
+<p>ItemSlot，我把存Item的地方叫做Slot（插槽），这只是一种好记的名字，叫box，chest其实都无所谓，ItemSlot中存了两个信息：</p>
+<ul>
+<li>
+<p>ItemType，当前存储Item的类别，比如是药水、武器、护甲？</p>
+</li>
+<li>
+<p>SlotNumber，这个Slot的编号。</p>
+</li>
+</ul>
+<p>ItemSlot本身也与具体的Item无关，你可能会疑惑，为什么不需要定义Slot的最大存储量呢？</p>
+<p>​    试想这样的情形：你在Minecraft中，普通方块的最大堆叠数是64，告示牌、末影珍珠等的最大堆叠数是16，武器、护甲、附魔书的最大堆叠数是1，而它们存储的空间都是物品栏的一个格子，是格子决定了它们的最大堆叠数吗？很显然当然不是，它们堆叠多少，必然是一个游戏规则赋予它们的”属性“了，这就是说最大堆叠数是游戏物品的一个常有属性，我们有没有呢?有!在上面已经列出来了。但是这样我们怎么控制Item的最大堆叠数呢？</p>
+<p>​  实际上，在该项目的inventory管理思想中，Slot仅仅只是一个地址，Item的数量由ItemData管理，我们只需要在改变ItemData时，控制ItemData的ItemCount不能超过它关联的Item的MaxCount就可以了。</p>
+<p>​  但是Item，ItemData，ItemSlot怎么关联呢？</p>
+<p>​  这就需要管理员Inventory的参与了。</p>
+<p>​  Inventory做了两张表：每张表涉及两种不同的元素，不妨一个叫Key，一个叫Value，每张表的单个元素有一个唯一对应的另一种元素，Key到Value构成了一种一一映射。且我们规定已知Key可以找到对应的Value，反过来不允许。</p>
+<ol>
+<li>
+<p>第一张表，叫做InventoryData，Key是Item，Value是ItemData</p>
+</li>
+<li>
+<p>第二张表，叫做SlottedItem，Key是ItemSlot，Value是Item</p>
+<p>​   这样，我们对于一个Slot（如果这个Slot已经在表上了），我们能通过查表知道它存的物品（可能不存在），再进一步InventoryData知道它在Inventory中有几个了。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-itemuitemitemtypeitemslotitemdata">2. Item起源：UItem，ItemType：ItemSlot，ItemData</h3>
+<p>​   ARPG示例中，选择从UPrimaryDataAsset中派生出来UItem，这里的Item是抽象的，并不需要实体，所以选择派生自一个非Actor类，并且Item继承FPrimaryAsset使其能够与一个FPrimaryAssetId结构体关联，实际上是因为重写了父类PrimaryAsset中的GetPrimaryAssetId()方法，重写代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">FPrimaryAssetId</span><span class="w"> </span><span class="nf">URPGItem::GetPrimaryAssetId</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This is a DataAsset and not a blueprint so we can just use the raw FName</span>
+<span class="w">    </span><span class="c1">// For blueprints you need to handle stripping the _C suffix</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FPrimaryAssetId</span><span class="p">(</span><span class="n">ItemType</span><span class="p">,</span><span class="w"> </span><span class="n">GetFName</span><span class="p">());</span><span class="c1">//这是FPrimaryAssetId(ItemType, GetFName())的有参构造</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   可以看到struct FPrimaryAssetId主要就是含有两个成员PrimaryAssetType，PrimaryAssetName，所以FPrimaryAssetId其实是把Item中的FPrimaryAssetType ItemType和FText ItemName打包了一下。</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">FPrimaryAssetId</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/** An FName describing the logical type of this object, usually the name of a base UClass. For example, any Blueprint derived from APawn will have a Primary Asset Type of &quot;Pawn&quot;.</span>
+<span class="cm">    &quot;PrimaryAssetType:PrimaryAssetName&quot; should form a unique name across your project. */</span>
+<span class="w">    </span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">PrimaryAssetType</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/** An FName describing this asset. This is usually the short name of the object, but could be a full asset path for things like maps, or objects with GetPrimaryId() overridden.</span>
+<span class="cm">    &quot;PrimaryAssetType:PrimaryAssetName&quot; should form a unique name across your project. */</span>
+<span class="w">    </span><span class="n">FName</span><span class="w"> </span><span class="n">PrimaryAssetName</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Static names to represent the AssetRegistry tags for the above data */</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">COREUOBJECT_API</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FName</span><span class="w"> </span><span class="n">PrimaryAssetTypeTag</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">COREUOBJECT_API</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FName</span><span class="w"> </span><span class="n">PrimaryAssetNameTag</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">FPrimaryAssetId</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">FPrimaryAssetId</span><span class="p">(</span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">InAssetType</span><span class="p">,</span><span class="w"> </span><span class="n">FName</span><span class="w"> </span><span class="n">InAssetName</span><span class="p">)</span>
+<span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="n">PrimaryAssetType</span><span class="p">(</span><span class="n">InAssetType</span><span class="p">),</span><span class="w"> </span><span class="n">PrimaryAssetName</span><span class="p">(</span><span class="n">InAssetName</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="p">[</span><span class="err">……</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>UItem</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Copyright Epic Games, Inc. All Rights Reserved.</span>
+
+<span class="cp">#pragma once</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ActionRPG.h&quot;</span><span class="c1">//重要</span>
+<span class="c1">//在该示例中，&quot;ActionRPG.h&quot;用于引入一些频繁要用到的头文件，类似一个“头文件夹”</span>
+<span class="c1">//其中包含了头文件&quot;RPGTypes.h&quot;，放在后面</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Engine/DataAsset.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Styling/SlateBrush.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGAssetManager.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGItem.generated.h&quot;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">URPGGameplayAbility</span><span class="p">;</span>
+
+<span class="cm">/** Base class for all items, do not blueprint directly */</span>
+<span class="n">UCLASS</span><span class="p">(</span><span class="n">Abstract</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ACTIONRPG_API</span><span class="w"> </span><span class="n">URPGItem</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UPrimaryDataAsset</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="cm">/** Constructor */</span>
+<span class="w">    </span><span class="n">URPGItem</span><span class="p">()</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Price</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">MaxCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">MaxLevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">AbilityLevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="cm">/** Type of this item, set in native parent class */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">ItemType</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** User-visible short name */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FText</span><span class="w"> </span><span class="n">ItemName</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** User-visible long description */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FText</span><span class="w"> </span><span class="n">ItemDescription</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Icon to display */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FSlateBrush</span><span class="w"> </span><span class="n">ItemIcon</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Price in game */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">Price</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Maximum number of instances that can be in inventory at once, &lt;= 0 means infinite */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">MaxCount</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Returns if the item is consumable (MaxCount &lt;= 0)*/</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintPure</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsConsumable</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Maximum level this item can be, &lt;= 0 means infinite */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">MaxLevel</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Ability to grant if this item is slotted */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Abilities</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">URPGGameplayAbility</span><span class="o">&gt;</span><span class="w"> </span><span class="n">GrantedAbility</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Ability level this item grants. &lt;= 0 means the character level */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Abilities</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">AbilityLevel</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Returns the logical name, equivalent to the primary asset id */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">GetIdentifierString</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Overridden to use saved type */</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">FPrimaryAssetId</span><span class="w"> </span><span class="nf">GetPrimaryAssetId</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>​   URPGItem类声明了Item所共有的基本属性，包括</p>
+<ul>
+<li>
+<p>所属Item类别（FPrimaryAssetType ItemType），</p>
+</li>
+<li>
+<p>自己的名字（FText ItemName）</p>
+</li>
+<li>
+<p>对物品的描述（FText ItemDescription）（可在蓝图中编辑并查看）</p>
+</li>
+<li>
+<p>在编辑器中的图标（FSlateBrush ItemIcon）</p>
+</li>
+<li>
+<p>购买价格（int32 Price）</p>
+</li>
+<li>
+<p>最大数量（int32 MaxCount）</p>
+</li>
+<li>
+<p>最大等级（int32 MaxLevel）</p>
+</li>
+<li>
+<p>获取该物品可授予玩家的GameplayAbility（TSubclassOf<URPGGameplayAbility> GrantedAbility）</p>
+</li>
+<li>
+<p>授予技能的最大等级（int32 AbilityLevel）</p>
+</li>
+</ul>
+<p>​ 这些就构成了一个Item所需的基本属性，而Item的数量，与Inventory的互通等，都在"RPGType.h"中通过结构ItemData和ItemSlot负责，可以说RPGType.h才是实现了Item的融合骨肉，同时，"RPGType.h"声明了许多动态多播委托，这些委托与Inventory的更新，加载，以及SaveGame的加载有关。说明Inventory的实现是交给PlayerController来做的，事实正是如此，在后面继续拆解。</p>
+<p>​ ItemType中ItemData与ItemSlot分别管理Item在Inventory中的实际数量与在Inventory中占据的“槽位”（Slot）。ItemData与它表现的Item无关，它只是一个用来表达Item在Inventory中的值的“工具人”，并没有得到特定Item的青睐。</p>
+<p>​ 而ItemSlot只存储一个FPrimaryAssetType ItemType和一个int32 SlotNumber（可见下）</p>
+<p>RPGType.h</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Copyright Epic Games, Inc. All Rights Reserved.</span>
+
+<span class="cp">#pragma once</span>
+
+<span class="c1">// ----------------------------------------------------------------------------------------------------------------</span>
+<span class="c1">// This header is for enums and structs used by classes and blueprints accross the game</span>
+<span class="c1">// Collecting these in a single header helps avoid problems with recursive header includes</span>
+<span class="c1">// It&#39;s also a good place to put things like data table row structs</span>
+<span class="c1">// ----------------------------------------------------------------------------------------------------------------</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;UObject/PrimaryAssetId.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGTypes.generated.h&quot;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">URPGItem</span><span class="p">;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">URPGSaveGame</span><span class="p">;</span>
+
+<span class="cm">/** Struct representing a slot for an item, shown in the UI */</span>
+<span class="n">USTRUCT</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ACTIONRPG_API</span><span class="w"> </span><span class="n">FRPGItemSlot</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="w">    </span><span class="cm">/** Constructor, -1 means an invalid slot */</span>
+<span class="w">    </span><span class="n">FRPGItemSlot</span><span class="p">()</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">SlotNumber</span><span class="p">(</span><span class="mi">-1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">FRPGItemSlot</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FPrimaryAssetType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">InItemType</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">InSlotNumber</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">ItemType</span><span class="p">(</span><span class="n">InItemType</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">SlotNumber</span><span class="p">(</span><span class="n">InSlotNumber</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="cm">/** The type of items that can go in this slot */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">ItemType</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** The number of this slot, 0 indexed */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">SlotNumber</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Equality operators */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemSlot</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ItemType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">.</span><span class="n">ItemType</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">.</span><span class="n">SlotNumber</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemSlot</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/** Implemented so it can be used in Maps/Sets */</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">GetTypeHash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemSlot</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Key</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">uint32</span><span class="w"> </span><span class="n">Hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">Hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashCombine</span><span class="p">(</span><span class="n">Hash</span><span class="p">,</span><span class="w"> </span><span class="n">GetTypeHash</span><span class="p">(</span><span class="n">Key</span><span class="p">.</span><span class="n">ItemType</span><span class="p">));</span>
+<span class="w">        </span><span class="n">Hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashCombine</span><span class="p">(</span><span class="n">Hash</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">uint32</span><span class="p">)</span><span class="n">Key</span><span class="p">.</span><span class="n">SlotNumber</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Hash</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/** Returns true if slot is valid */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ItemType</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="cm">/** Extra information about a URPGItem that is in a player&#39;s inventory */</span>
+<span class="n">USTRUCT</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ACTIONRPG_API</span><span class="w"> </span><span class="n">FRPGItemData</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="w">    </span><span class="cm">/** Constructor, default to count/level 1 so declaring them in blueprints gives you the expected behavior */</span>
+<span class="w">    </span><span class="n">FRPGItemData</span><span class="p">()</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">ItemCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">ItemLevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">FRPGItemData</span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">InItemCount</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">InItemLevel</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">ItemCount</span><span class="p">(</span><span class="n">InItemCount</span><span class="p">)</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">ItemLevel</span><span class="p">(</span><span class="n">InItemLevel</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="cm">/** The number of instances of this item in the inventory, can never be below 1 */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">ItemCount</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** The level of this item. This level is shared for all instances, can never be below 1 */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Item</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">ItemLevel</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Equality operators */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ItemCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">.</span><span class="n">ItemCount</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ItemLevel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">.</span><span class="n">ItemLevel</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Other</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/** Returns true if count is greater than 0 */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ItemCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/** Append an item data, this adds the count and overrides everything else */</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">UpdateItemData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Other</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">MaxCount</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">MaxLevel</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">MaxCount</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">MaxCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_int32</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">MaxLevel</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">MaxLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_int32</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">ItemCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">ItemCount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Other</span><span class="p">.</span><span class="n">ItemCount</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MaxCount</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ItemLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FMath</span><span class="o">::</span><span class="n">Clamp</span><span class="p">(</span><span class="n">Other</span><span class="p">.</span><span class="n">ItemLevel</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MaxLevel</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//这些委托在PlayerControllerBase.h中绑定，Inventory的逻辑由PlayerCOntrolled实现</span>
+
+<span class="cm">/** Delegate called when an inventory item changes */</span>
+<span class="n">DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</span><span class="p">(</span><span class="n">FOnInventoryItemChanged</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="n">bAdded</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">Item</span><span class="p">);</span>
+<span class="n">DECLARE_MULTICAST_DELEGATE_TwoParams</span><span class="p">(</span><span class="n">FOnInventoryItemChangedNative</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*</span><span class="p">);</span>
+
+<span class="cm">/** Delegate called when the contents of an inventory slot change */</span>
+<span class="n">DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams</span><span class="p">(</span><span class="n">FOnSlottedItemChanged</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">ItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">Item</span><span class="p">);</span>
+<span class="n">DECLARE_MULTICAST_DELEGATE_TwoParams</span><span class="p">(</span><span class="n">FOnSlottedItemChangedNative</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*</span><span class="p">);</span>
+
+<span class="cm">/** Delegate called when the entire inventory has been loaded, all items may have been replaced */</span>
+<span class="n">DECLARE_DYNAMIC_MULTICAST_DELEGATE</span><span class="p">(</span><span class="n">FOnInventoryLoaded</span><span class="p">);</span>
+<span class="n">DECLARE_MULTICAST_DELEGATE</span><span class="p">(</span><span class="n">FOnInventoryLoadedNative</span><span class="p">);</span>
+
+<span class="cm">/** Delegate called when the save game has been loaded/reset */</span>
+<span class="n">DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam</span><span class="p">(</span><span class="n">FOnSaveGameLoaded</span><span class="p">,</span><span class="w"> </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">);</span>
+<span class="n">DECLARE_MULTICAST_DELEGATE_OneParam</span><span class="p">(</span><span class="n">FOnSaveGameLoadedNative</span><span class="p">,</span><span class="w"> </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="3-playercontrollerbase">3. PlayerControllerBase重点拆解</h3>
+<p>​   再看PlayerControllerBase.h，PlayerControllerBase中有两个TMap成员属性，这两个成员属性由于只是VisibleAnyWhere只显示在类默认值中且不可编辑，他们负责管理Inventory中真实的物品类别的逻辑上的数据和物品在Inventory的Slot中的存储表现，可以说，即使没有Slot，Item在Inventory中仍有其逻辑上的数据，只不过无法与其在Inventory中的逻辑“位置”相关。</p>
+<div class="highlight"><pre><span></span><code><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="n">TMap</span><span class="o">&lt;</span><span class="n">URPGItem</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">InventoryData</span><span class="p">;</span>
+<span class="c1">//可以通过Inventory.Find(Item)来获取Item对应的ItemData，这样特定的Item才与一个ItemData产生关联</span>
+
+<span class="cm">/** Map of slot, from type/num to item, initialized from ItemSlotsPerType on RPGGameInstanceBase */</span>
+<span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="n">TMap</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">SlottedItems</span><span class="p">;</span>
+<span class="c1">//可以通过SlottedItems.Find.(ItemSlot)找到对应槽位的Item.</span>
+</code></pre></div>
+<h4 id="31-addinventoryitem">3.1 AddInventoryItem()</h4>
+<p>这个方法管理的是某个Item在Inventory中的逻辑上的数量，与它在Slot中的表现无关。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">ARPGPlayerControllerBase::AddInventoryItem</span><span class="p">(</span><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="n">NewItem</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">ItemCount</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">ItemLevel</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bAutoSlot</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bChanged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">NewItem</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogActionRPG</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;AddInventoryItem: Failed trying to add null item!&quot;</span><span class="p">));</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ItemCount</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ItemLevel</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogActionRPG</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;AddInventoryItem: Failed trying to add item %s with negative count or level!&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">NewItem</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">());</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Find current item data, which may be empty</span>
+<span class="w">    </span><span class="n">FRPGItemData</span><span class="w"> </span><span class="n">OldData</span><span class="p">;</span><span class="c1">//创建一个中介变量OldData</span>
+<span class="w">    </span><span class="n">GetInventoryItemData</span><span class="p">(</span><span class="n">NewItem</span><span class="p">,</span><span class="w"> </span><span class="n">OldData</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//GetInventoryItemData()的实现：这里的临时变量命名不太好，FoundItem明明存储的是形参Item映射到的ItemData，叫FoundItemData更好，该方法并非“获取”InventoryItemData，而是先检查输入的Item是否存在，存在的判定依据为是否能找到其映射出的ItemData，如可以，返回true表示存在，如找不到，把传入的ItemData设置为（0，0），便于新建一个关于该Item的ItemData</span>
+<span class="w">    </span><span class="cm">/*bool ARPGPlayerControllerBase::GetInventoryItemData(URPGItem* Item, FRPGItemData&amp; ItemData) const</span>
+<span class="cm">{</span>
+<span class="cm">    const FRPGItemData* FoundItem = InventoryData.Find(Item);</span>
+
+<span class="cm">    if (FoundItem)</span>
+<span class="cm">    {</span>
+<span class="cm">        ItemData = *FoundItem;</span>
+<span class="cm">        return true;</span>
+<span class="cm">    }</span>
+<span class="cm">    ItemData = FRPGItemData(0, 0);</span>
+<span class="cm">    return false;</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+
+<span class="w">    </span><span class="c1">// Find modified data</span>
+<span class="w">    </span><span class="n">FRPGItemData</span><span class="w"> </span><span class="n">NewData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OldData</span><span class="p">;</span><span class="c1">//依据GetInventoryItem处理得到的OldData设置NewData</span>
+<span class="w">    </span><span class="n">NewData</span><span class="p">.</span><span class="n">UpdateItemData</span><span class="p">(</span><span class="n">FRPGItemData</span><span class="p">(</span><span class="n">ItemCount</span><span class="p">,</span><span class="w"> </span><span class="n">ItemLevel</span><span class="p">),</span><span class="w"> </span><span class="n">NewItem</span><span class="o">-&gt;</span><span class="n">MaxCount</span><span class="p">,</span><span class="w"> </span><span class="n">NewItem</span><span class="o">-&gt;</span><span class="n">MaxLevel</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//UpdateItemData的实现,在此根据传入的参数增加NewData的值</span>
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">    void UpdateItemData(const FRPGItemData&amp; Other, int32 MaxCount, int32 MaxLevel)</span>
+<span class="cm">    {</span>
+<span class="cm">        if (MaxCount &lt;= 0)</span>
+<span class="cm">        {</span>
+<span class="cm">            MaxCount = MAX_int32;</span>
+<span class="cm">        }</span>
+
+<span class="cm">        if (MaxLevel &lt;= 0)</span>
+<span class="cm">        {</span>
+<span class="cm">            MaxLevel = MAX_int32;</span>
+<span class="cm">        }</span>
+
+<span class="cm">        ItemCount = FMath::Clamp(ItemCount + Other.ItemCount, 1, MaxCount);</span>
+<span class="cm">        ItemLevel = FMath::Clamp(Other.ItemLevel, 1, MaxLevel);</span>
+<span class="cm">    }</span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="c1">//应该是防止无端的使用造成无效更新和回调吧，虽然默认参数增加的数目是1</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">OldData</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NewData</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// If data changed, need to update storage and call callback</span>
+<span class="w">       </span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">NewItem</span><span class="p">,</span><span class="w"> </span><span class="n">NewData</span><span class="p">);</span>
+<span class="w">       </span><span class="n">NotifyInventoryItemChanged</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">NewItem</span><span class="p">);</span>
+<span class="w">       </span><span class="n">bChanged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">//需不需要自动为新加入到Inventory的Item增加Inventory槽位</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bAutoSlot</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Slot item if required</span>
+<span class="w">       </span><span class="n">bChanged</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">FillEmptySlotWithItem</span><span class="p">(</span><span class="n">NewItem</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bChanged</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// If anything changed, write to save game</span>
+<span class="w">       </span><span class="n">SaveInventory</span><span class="p">();</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="32-fillemptyslotwithitem">3.2 FillEmptySlotWithItem()</h4>
+<p>​   这个方法实现的是把新的物品填进Inventory中的空的Slot，不过ARPG示例中并没有规定Inventory中的最大Slot数，所以只要有新的未加入Inventory的item来者不拒。这个方法就很好地体现了为什么ItemSlot结构中只存储了一个FPrimaryAssetType ItemType，也就是只关心Item的大类，而不是一个具体的Item个体。下面的方法通过遍历TMap SlottedItems，先依据FPrimaryAssetType ItemType做初步筛选，一个条件判断就排除了其他类，接下来在NewItem的ItemType的该层级下寻找是否已经有NewItem这个物品占据的Slot了，如果有，无需填入新Slot，fill失败，如果没有在NewItem的ItemType中找到该种物品，且有ItemType这个分类的空Slot，</p>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">ARPGPlayerControllerBase::FillEmptySlotWithItem</span><span class="p">(</span><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="n">NewItem</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Look for an empty item slot to fill with this item</span>
+<span class="w">    </span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">NewItemType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewItem</span><span class="o">-&gt;</span><span class="n">GetPrimaryAssetId</span><span class="p">().</span><span class="n">PrimaryAssetType</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FRPGItemSlot</span><span class="w"> </span><span class="n">EmptySlot</span><span class="p">;</span><span class="c1">//新增一个空Slot，作为预备</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*&gt;&amp;</span><span class="w"> </span><span class="n">Pair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SlottedItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">ItemType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">NewItemType</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">NewItem</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="c1">// Item is already slotted</span>
+<span class="w">             </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">EmptySlot</span><span class="p">.</span><span class="n">IsValid</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">EmptySlot</span><span class="p">.</span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">SlotNumber</span><span class="p">))</span>
+<span class="w">              </span><span class="cm">/*ItemSlot的valid判定是&lt;=0为valid，而ItemSlot的默认构造只初始化SlotNumber为-1，这里的&amp;&amp;后的条件相当于要                保证默认构造产生的是一个无效的Slot，避免破坏其他的可能存有item的Slot*/</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="c1">// We found an empty slot worth filling</span>
+<span class="w">             </span><span class="n">EmptySlot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">;</span>
+<span class="w">             </span><span class="c1">//把找到的NewItem.ItemType类别的Slot赋值给EmptySlot，表示它是空的</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">EmptySlot</span><span class="p">.</span><span class="n">IsValid</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">SlottedItems</span><span class="p">[</span><span class="n">EmptySlot</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NewItem</span><span class="p">;</span>
+<span class="w">        </span><span class="n">NotifySlottedItemChanged</span><span class="p">(</span><span class="n">EmptySlot</span><span class="p">,</span><span class="w"> </span><span class="n">NewItem</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">//在SlottedItems中把NewItem绑定给EmptySlot，并广播，返回插入成功</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="33-getslotteditems">3.3 GetSlottedItems</h4>
+<p>​   这个方法在蓝图的BP_PlayerCharacter中被调用，神奇的是这个方法被蓝图调用的时候是不需要传递TArray Items的，也就是说这个方法是根据传入的ItemType来筛选所需要的Item类别，最后”返回“一个TArray</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">ARPGPlayerControllerBase::GetSlottedItems</span><span class="p">(</span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">URPGItem</span><span class="o">*&gt;&amp;</span><span class="w"> </span><span class="n">Items</span><span class="p">,</span><span class="w"> </span><span class="n">FPrimaryAssetType</span><span class="w"> </span><span class="n">ItemType</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bOutputEmptyIndexes</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*&gt;&amp;</span><span class="w"> </span><span class="n">Pair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SlottedItems</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">.</span><span class="n">ItemType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ItemType</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">ItemType</span><span class="p">.</span><span class="n">IsValid</span><span class="p">())</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">Items</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="part-ii-save-game-game-instance">PART II Save Game &amp; Game Instance</h2>
+<p>​   ARPG示例项目的Save Game主要涉及的就是Save玩家的Inventory中的Items，这部分涉及到了USaveGame，UGameInstance，AssetManager。PrimaryDataAsset等内容。</p>
+<p>​   首先我们来着眼于SaveGame，通过它我们能够了解到ARPG示例项目保存的内容。</p>
+<h3 id="1-rpgsavegame">1. RPGSaveGame</h3>
+<p>RPGSaveGame.h</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ActionRPG.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Items/RPGItem.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;GameFramework/SaveGame.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGSaveGame.generated.h&quot;</span>
+
+<span class="cm">/** List of versions, native code will handle fixups for any old versions */</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">ERPGSaveGameVersion</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="nc">type</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Initial version</span>
+<span class="w">       </span><span class="n">Initial</span><span class="p">,</span>
+<span class="w">       </span><span class="c1">// Added Inventory</span>
+<span class="w">       </span><span class="n">AddedInventory</span><span class="p">,</span>
+<span class="w">       </span><span class="c1">// Added ItemData to store count/level</span>
+<span class="w">       </span><span class="n">AddedItemData</span><span class="p">,</span>
+
+<span class="w">       </span><span class="c1">// -----&lt;new versions must be added before this line&gt;-------------------------------------------------</span>
+<span class="w">       </span><span class="n">VersionPlusOne</span><span class="p">,</span>
+<span class="w">       </span><span class="n">LatestVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VersionPlusOne</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="cm">/** Object that is written to and read from the save game archive, with a data version */</span>
+<span class="n">UCLASS</span><span class="p">(</span><span class="n">BlueprintType</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ACTIONRPG_API</span><span class="w"> </span><span class="n">URPGSaveGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">USaveGame</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="cm">/** Constructor */</span>
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Set to current version, this will get overwritten during serialization when loading</span>
+<span class="w">       </span><span class="n">SavedDataVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ERPGSaveGameVersion</span><span class="o">::</span><span class="n">LatestVersion</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/** Map of items to item data */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FPrimaryAssetId</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">InventoryData</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Map of slotted items */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">FPrimaryAssetId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SlottedItems</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** User&#39;s unique id */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">UserId</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="cm">/** Deprecated way of storing items, this is read in but not saved out */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="n">TArray</span><span class="o">&lt;</span><span class="n">FPrimaryAssetId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">InventoryItems_DEPRECATED</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** What LatestVersion was when the archive was saved */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">SavedDataVersion</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Overridden to allow version fixups */</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Serialize</span><span class="p">(</span><span class="n">FArchive</span><span class="o">&amp;</span><span class="w"> </span><span class="n">Ar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>​   可以看到，SaveGame主要通过两个TMap来保存玩家的Inventory物品信息。我们可以注意到，SaveGame中使用了FPrimaryAssetId而非PrimaryAsset，这点我们会在之后去分析。</p>
+<p>​   所以，SaveGame其实主要就是通过Map保存了ItemAsset即PrimaryDataAsset和Item的实际数量即ItemData或和ItemSlot的关系。ARPG项目中，Item的Data和Item的存储的Slot是分开管理的。</p>
+<p>​   事实上，GameInstance主要只负责SaveGame的加载和保存，也就是把某个槽位上的SaveGame拿出来或者放进去，真正的去把新的游戏状态写入或读取的逻辑是在PlayerController中完成的，其实PlayerController在Inventory系统的角度它就是充当了Inventory的管理员。</p>
+<h3 id="2-rpggameinstance">2. RPGGameInstance</h3>
+<p>​   简单看一下GameInstance：</p>
+<p>URPGGameInstanceBase.h</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ActionRPG.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Engine/GameInstance.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGGameInstanceBase.generated.h&quot;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">URPGItem</span><span class="p">;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">URPGSaveGame</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Base class for GameInstance, should be blueprinted</span>
+<span class="cm"> * Most games will need to make a game-specific subclass of GameInstance</span>
+<span class="cm"> * Once you make a blueprint subclass of your native subclass you will want to set it to be the default in project settings</span>
+<span class="cm"> */</span>
+<span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ACTIONRPG_API</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UGameInstance</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Constructor</span>
+<span class="w">    </span><span class="n">URPGGameInstanceBase</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/** List of inventory items to add to new players */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FPrimaryAssetId</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DefaultInventory</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Number of slots for each type of item */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span><span class="w"> </span><span class="n">BlueprintReadOnly</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="w">    </span><span class="n">TMap</span><span class="o">&lt;</span><span class="n">FPrimaryAssetType</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ItemSlotsPerType</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** The slot name used for saving */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FString</span><span class="w"> </span><span class="n">SaveSlot</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** The platform-specific user index */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">BlueprintReadWrite</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="n">int32</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Delegate called when the save game has been loaded/reset */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">(</span><span class="n">BlueprintAssignable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="w">    </span><span class="n">FOnSaveGameLoaded</span><span class="w"> </span><span class="n">OnSaveGameLoaded</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Native delegate for save game load/reset */</span>
+<span class="w">    </span><span class="n">FOnSaveGameLoadedNative</span><span class="w"> </span><span class="n">OnSaveGameLoadedNative</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * Adds the default inventory to the inventory array</span>
+<span class="cm">     * @param InventoryArray Inventory to modify</span>
+<span class="cm">     * @param RemoveExtra If true, remove anything other than default inventory</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddDefaultInventory</span><span class="p">(</span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bRemoveExtra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/** Returns true if this is a valid inventory slot */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Inventory</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsValidItemSlot</span><span class="p">(</span><span class="n">FRPGItemSlot</span><span class="w"> </span><span class="n">ItemSlot</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Returns the current save game, so it can be used to initialize state. Changes are not written until WriteSaveGame is called */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">GetCurrentSaveGame</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/** Sets rather save/load is enabled. If disabled it will always count as a new character */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">SetSavingEnabled</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">bEnabled</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/** Synchronously loads a save game. If it fails, it will create a new one for you. Returns true if it loaded, false if it created one */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">LoadOrCreateSaveGame</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/** Handle the final setup required after loading a USaveGame object using AsyncLoadGameFromSlot. Returns true if it loaded, false if it created one */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">HandleSaveGameLoaded</span><span class="p">(</span><span class="n">USaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">SaveGameObject</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/** Gets the save game slot and user index used for inventory saving, ready to pass to GameplayStatics save functions */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">GetSaveSlotInfo</span><span class="p">(</span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">&amp;</span><span class="w"> </span><span class="n">UserIndex</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Writes the current save game object to disk. The save to disk happens in a background thread*/</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">WriteSaveGame</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/** Resets the current save game to it&#39;s default. This will erase player data! This won&#39;t save to disk until the next WriteSaveGame */</span>
+<span class="w">    </span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Save</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">ResetSaveGame</span><span class="p">();</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="cm">/** The current save game object */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Rather it will attempt to actually save to disk */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bSavingEnabled</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** True if we are in the middle of doing a save */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bCurrentlySaving</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** True if another save was requested during a save */</span>
+<span class="w">    </span><span class="n">UPROPERTY</span><span class="p">()</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bPendingSaveRequested</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/** Called when the async save happens */</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">HandleAsyncSave</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">UserIndex</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bSuccess</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>URPGGameInstanceBase.cpp</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGGameInstanceBase.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGAssetManager.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;RPGSaveGame.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Items/RPGItem.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Kismet/GameplayStatics.h&quot;</span>
+
+<span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">URPGGameInstanceBase</span><span class="p">()</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">SaveSlot</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;SaveGame&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">AddDefaultInventory</span><span class="p">(</span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">SaveGame</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bRemoveExtra</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// If we want to remove extra, clear out the existing inventory</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bRemoveExtra</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">SaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Now add the default inventory, this only adds if not already in hte inventory</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FPrimaryAssetId</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">Pair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">DefaultInventory</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">SaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">))</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">SaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Pair</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">IsValidItemSlot</span><span class="p">(</span><span class="n">FRPGItemSlot</span><span class="w"> </span><span class="n">ItemSlot</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ItemSlot</span><span class="p">.</span><span class="n">IsValid</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">int32</span><span class="o">*</span><span class="w"> </span><span class="n">FoundCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ItemSlotsPerType</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">ItemSlot</span><span class="p">.</span><span class="n">ItemType</span><span class="p">);</span>
+
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FoundCount</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">ItemSlot</span><span class="p">.</span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">FoundCount</span><span class="p">;</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">GetCurrentSaveGame</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">SetSavingEnabled</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">bEnabled</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">bSavingEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bEnabled</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">LoadOrCreateSaveGame</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">LoadedSave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">UGameplayStatics</span><span class="o">::</span><span class="n">DoesSaveGameExist</span><span class="p">(</span><span class="n">SaveSlot</span><span class="p">,</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bSavingEnabled</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">LoadedSave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">URPGSaveGame</span><span class="o">&gt;</span><span class="p">(</span><span class="n">UGameplayStatics</span><span class="o">::</span><span class="n">LoadGameFromSlot</span><span class="p">(</span><span class="n">SaveSlot</span><span class="p">,</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">HandleSaveGameLoaded</span><span class="p">(</span><span class="n">LoadedSave</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">HandleSaveGameLoaded</span><span class="p">(</span><span class="n">USaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">SaveGameObject</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bLoaded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bSavingEnabled</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// If saving is disabled, ignore passed in object</span>
+<span class="w">       </span><span class="n">SaveGameObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Replace current save, old object will GC out</span>
+<span class="w">    </span><span class="n">CurrentSaveGame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">URPGSaveGame</span><span class="o">&gt;</span><span class="p">(</span><span class="n">SaveGameObject</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Make sure it has any newly added default inventory</span>
+<span class="w">       </span><span class="n">AddDefaultInventory</span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">       </span><span class="n">bLoaded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// This creates it on demand</span>
+<span class="w">       </span><span class="n">CurrentSaveGame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">URPGSaveGame</span><span class="o">&gt;</span><span class="p">(</span><span class="n">UGameplayStatics</span><span class="o">::</span><span class="n">CreateSaveGameObject</span><span class="p">(</span><span class="n">URPGSaveGame</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">()));</span>
+
+<span class="w">       </span><span class="n">AddDefaultInventory</span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">OnSaveGameLoaded</span><span class="p">.</span><span class="n">Broadcast</span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">);</span>
+<span class="w">    </span><span class="n">OnSaveGameLoadedNative</span><span class="p">.</span><span class="n">Broadcast</span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bLoaded</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">GetSaveSlotInfo</span><span class="p">(</span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">&amp;</span><span class="w"> </span><span class="n">UserIndex</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">SlotName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SaveSlot</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UserIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">WriteSaveGame</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bSavingEnabled</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bCurrentlySaving</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Schedule another save to happen after current one finishes. We only queue one save</span>
+<span class="w">          </span><span class="n">bPendingSaveRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="c1">// Indicate that we&#39;re currently doing an async save</span>
+<span class="w">       </span><span class="n">bCurrentlySaving</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">       </span><span class="c1">// This goes off in the background</span>
+<span class="w">       </span><span class="n">UGameplayStatics</span><span class="o">::</span><span class="n">AsyncSaveGameToSlot</span><span class="p">(</span><span class="n">GetCurrentSaveGame</span><span class="p">(),</span><span class="w"> </span><span class="n">SaveSlot</span><span class="p">,</span><span class="w"> </span><span class="n">SaveUserIndex</span><span class="p">,</span><span class="w"> </span><span class="n">FAsyncSaveGameToSlotDelegate</span><span class="o">::</span><span class="n">CreateUObject</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">HandleAsyncSave</span><span class="p">));</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">ResetSaveGame</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Call handle function with no loaded save, this will reset the data</span>
+<span class="w">    </span><span class="n">HandleSaveGameLoaded</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">URPGGameInstanceBase</span><span class="o">::</span><span class="n">HandleAsyncSave</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">SlotName</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">int32</span><span class="w"> </span><span class="n">UserIndex</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bSuccess</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ensure</span><span class="p">(</span><span class="n">bCurrentlySaving</span><span class="p">);</span>
+<span class="w">    </span><span class="n">bCurrentlySaving</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bPendingSaveRequested</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Start another save as we got a request while saving</span>
+<span class="w">       </span><span class="n">bPendingSaveRequested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">       </span><span class="n">WriteSaveGame</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3-playercontrollersavegame">3. PlayerController中关于SaveGame的逻辑</h3>
+<h4 id="31-saveinventory">3.1 SaveInventory</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">ARPGPlayerControllerBase::SaveInventory</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">UWorld</span><span class="o">*</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">();</span>
+<span class="w">    </span><span class="n">URPGGameInstanceBase</span><span class="o">*</span><span class="w"> </span><span class="n">GameInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">GetGameInstance</span><span class="o">&lt;</span><span class="n">URPGGameInstanceBase</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GameInstance</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">GetCurrentSaveGame</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Reset cached data in save game before writing to it</span>
+<span class="w">       </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+<span class="w">       </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">SlottedItems</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+
+<span class="w">       </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">URPGItem</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">ItemPair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">InventoryData</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">FPrimaryAssetId</span><span class="w"> </span><span class="n">AssetId</span><span class="p">;</span>
+
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ItemPair</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="n">AssetId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ItemPair</span><span class="p">.</span><span class="n">Key</span><span class="o">-&gt;</span><span class="n">GetPrimaryAssetId</span><span class="p">();</span>
+<span class="w">             </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">AssetId</span><span class="p">,</span><span class="w"> </span><span class="n">ItemPair</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">URPGItem</span><span class="o">*&gt;&amp;</span><span class="w"> </span><span class="n">SlotPair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SlottedItems</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">FPrimaryAssetId</span><span class="w"> </span><span class="n">AssetId</span><span class="p">;</span>
+
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="n">AssetId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Value</span><span class="o">-&gt;</span><span class="n">GetPrimaryAssetId</span><span class="p">();</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">          </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">SlottedItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">AssetId</span><span class="p">);</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="c1">// Now that cache is updated, write to disk</span>
+<span class="w">       </span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">WriteSaveGame</span><span class="p">();</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   可以看到，PlayerController中的每一次的SaveInventory实际上就是把当前玩家持有的Inventory以覆写的方式存入GameInstance当前持有的SaveGame（CurrentSaveGame）。</p>
+<p>​   要注意SaveGame中没有具体的PrimaryAsset，只有FPrimaryAssetId，所以从PlayerController向SaveGame保存信息时需要从PrimaryAsset拿到它的FPrimaryAssetId。</p>
+<h4 id="32-loadinventory">3.2 LoadInventory</h4>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="nf">ARPGPlayerControllerBase::LoadInventory</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+<span class="w">    </span><span class="n">SlottedItems</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Fill in slots from game instance</span>
+<span class="w">    </span><span class="n">UWorld</span><span class="o">*</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetWorld</span><span class="p">();</span>
+<span class="w">    </span><span class="n">URPGGameInstanceBase</span><span class="o">*</span><span class="w"> </span><span class="n">GameInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">World</span><span class="o">-&gt;</span><span class="n">GetGameInstance</span><span class="o">&lt;</span><span class="n">URPGGameInstanceBase</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GameInstance</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Bind to loaded callback if not already bound</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">OnSaveGameLoadedNative</span><span class="p">.</span><span class="n">IsBoundToObject</span><span class="p">(</span><span class="k">this</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">OnSaveGameLoadedNative</span><span class="p">.</span><span class="n">AddUObject</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ARPGPlayerControllerBase</span><span class="o">::</span><span class="n">HandleSaveGameLoaded</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FPrimaryAssetType</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">Pair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">ItemSlotsPerType</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">int32</span><span class="w"> </span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">SlotNumber</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Pair</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w"> </span><span class="n">SlotNumber</span><span class="o">++</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">SlottedItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">FRPGItemSlot</span><span class="p">(</span><span class="n">Pair</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">SlotNumber</span><span class="p">),</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">URPGSaveGame</span><span class="o">*</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">GetCurrentSaveGame</span><span class="p">();</span>
+<span class="w">    </span><span class="n">URPGAssetManager</span><span class="o">&amp;</span><span class="w"> </span><span class="n">AssetManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URPGAssetManager</span><span class="o">::</span><span class="n">Get</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CurrentSaveGame</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// Copy from save game into controller data</span>
+<span class="w">       </span><span class="kt">bool</span><span class="w"> </span><span class="n">bFoundAnySlots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">       </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FPrimaryAssetId</span><span class="p">,</span><span class="w"> </span><span class="n">FRPGItemData</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">ItemPair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">InventoryData</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="n">LoadedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AssetManager</span><span class="p">.</span><span class="n">ForceLoadItem</span><span class="p">(</span><span class="n">ItemPair</span><span class="p">.</span><span class="n">Key</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LoadedItem</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="n">InventoryData</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">LoadedItem</span><span class="p">,</span><span class="w"> </span><span class="n">ItemPair</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TPair</span><span class="o">&lt;</span><span class="n">FRPGItemSlot</span><span class="p">,</span><span class="w"> </span><span class="n">FPrimaryAssetId</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">SlotPair</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">CurrentSaveGame</span><span class="o">-&gt;</span><span class="n">SlottedItems</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">IsValid</span><span class="p">())</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">             </span><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="n">LoadedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AssetManager</span><span class="p">.</span><span class="n">ForceLoadItem</span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<span class="w">             </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GameInstance</span><span class="o">-&gt;</span><span class="n">IsValidItemSlot</span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">LoadedItem</span><span class="p">)</span>
+<span class="w">             </span><span class="p">{</span>
+<span class="w">                </span><span class="n">SlottedItems</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">SlotPair</span><span class="p">.</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">LoadedItem</span><span class="p">);</span>
+<span class="w">                </span><span class="n">bFoundAnySlots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">             </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bFoundAnySlots</span><span class="p">)</span>
+<span class="w">       </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Auto slot items as no slots were saved</span>
+<span class="w">          </span><span class="n">FillEmptySlots</span><span class="p">();</span>
+<span class="w">       </span><span class="p">}</span>
+
+<span class="w">       </span><span class="n">NotifyInventoryLoaded</span><span class="p">();</span>
+
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Load failed but we reset inventory, so need to notify UI</span>
+<span class="w">    </span><span class="n">NotifyInventoryLoaded</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>​   可以注意到，从SaveGame中LoadInventory要稍微复杂一点，需要通过PrimaryAssetId，用AssetManager把对应的PrimaryAsset加载出来，本质上是要根据PrimaryAssetId得到PrimaryAsset的资源路径，然后通过资源路径得到这个Asset，这需要调用AssetManager的方法GetPrimaryAssetPath().</p>
+<p>URPGAssetManager::ForceLoadItem的定义</p>
+<div class="highlight"><pre><span></span><code><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="nf">URPGAssetManager::ForceLoadItem</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">FPrimaryAssetId</span><span class="o">&amp;</span><span class="w"> </span><span class="n">PrimaryAssetId</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bLogWarning</span><span class="p">)</span>
+<span class="p">{</span><span class="w">   </span>
+<span class="w">    </span><span class="n">FSoftObjectPath</span><span class="w"> </span><span class="n">ItemPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetPrimaryAssetPath</span><span class="p">(</span><span class="n">PrimaryAssetId</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// This does a synchronous load and may hitch</span>
+<span class="w">    </span><span class="n">URPGItem</span><span class="o">*</span><span class="w"> </span><span class="n">LoadedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cast</span><span class="o">&lt;</span><span class="n">URPGItem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ItemPath</span><span class="p">.</span><span class="n">TryLoad</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bLogWarning</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">LoadedItem</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">       </span><span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogActionRPG</span><span class="p">,</span><span class="w"> </span><span class="n">Warning</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Failed to load item for identifier %s!&quot;</span><span class="p">),</span><span class="w"> </span><span class="o">*</span><span class="n">PrimaryAssetId</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">LoadedItem</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="311-itemprimaryassetid">3.1.1 Item的PrimaryAssetId 的实现</h5>
+<p>​   Item的PrimaryAssetId要实现需要为其定义PrimaryAssetType，因为FPrimaryAssetId()要用它来生成Id，所以需要为其定义一个AssetType。</p>
+<p>​   ARPG示例项目中，选择了通过AssetManager统一定义Item的一系列AssetType静态成员变量，以便可以在项目中通过调用AssetManager静态对象方便地获取到它。</p>
+<p>.h</p>
+<p><img alt="image-20250215154357652" src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250215154357652.png" /></p>
+<p>.cpp</p>
+<p><img alt="image-20250215154447133" src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250215154447133.png" /></p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>​ 注意注意，使用PrimaryAsset需要在config中配置对应的扫描资产的信息，需要手动修改DefaultGame中的内容，如ARPG中：</p>
+<p>[/Script/Engine.AssetManagerSettings]
+-PrimaryAssetTypesToScan=(PrimaryAssetType="Map",AssetBaseClass=/Script/Engine.World,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game/Maps")))
+-PrimaryAssetTypesToScan=(PrimaryAssetType="PrimaryAssetLabel",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game")))
++PrimaryAssetTypesToScan=(PrimaryAssetType="Map",AssetBaseClass=/Script/Engine.World,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game/Maps")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=Unknown))
++PrimaryAssetTypesToScan=(PrimaryAssetType="PrimaryAssetLabel",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path="/Game")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=Unknown))
++PrimaryAssetTypesToScan=(PrimaryAssetType="Potion",AssetBaseClass=/Script/ActionRPG.RPGPotionItem,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path="/Game/Items/Potions")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=AlwaysCook))
++PrimaryAssetTypesToScan=(PrimaryAssetType="Skill",AssetBaseClass=/Script/ActionRPG.RPGSkillItem,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path="/Game/Items/Skills")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=AlwaysCook))
++PrimaryAssetTypesToScan=(PrimaryAssetType="Token",AssetBaseClass=/Script/ActionRPG.RPGTokenItem,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path="/Game/Items/Tokens")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=AlwaysCook))
++PrimaryAssetTypesToScan=(PrimaryAssetType="Weapon",AssetBaseClass=/Script/ActionRPG.RPGWeaponItem,bHasBlueprintClasses=False,bIsEditorOnly=False,Directories=((Path="/Game/Items/Weapons")),SpecificAssets=,Rules=(Priority=-1,bApplyRecursively=True,ChunkId=-1,CookRule=AlwaysCook))
+bOnlyCookProductionAssets=False
+bShouldGuessTypeAndNameInEditor=True
+bShouldAcquireMissingChunksOnLoad=False</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.instant", "search.hightlight"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
