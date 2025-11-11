@@ -75,11 +75,11 @@ Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 ​	在动画蓝图的事件图表中初始化其所属的Character，CharacterMovement
 
-<img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219133941466.png" alt="image-20241219133941466" style="zoom: 80%;" />
+<img src="assets\image-20241219133941466.png" alt="image-20241219133941466" style="zoom: 80%;" />
 
 设置角色速度更新，非常基础
 
-<img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219134250701.png" alt="image-20241219134250701" style="zoom:80%;" />
+<img src="docs/游戏开发/虚幻5/assetsimage-20241219134250701.png" alt="image-20241219134250701" style="zoom:80%;" />
 
 #### 1.3.2 Enemy的动画蓝图
 
@@ -107,9 +107,9 @@ Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 ​	创建新C++类AuraPlayerController，我们需要为其编写构造函数和BeginPlay，并且创建IMC成员变量。注意到这里的未声明错误，解决此不需要添加头文件，我们使用了TObjectPtr，只需要在类定义前做一个UInputMappingContext的**前置类声明**就可以解决这个问题，此外必须在.Build.cs中包含关于增强输入的模块，以便我们有权访问它。
 
-<img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219145357130.png" alt="image-20241219145357130" style="zoom: 80%;" />
+<img src="assets\image-20241219145357130.png" alt="image-20241219145357130" style="zoom: 80%;" />
 
-![image-20241219150036589](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219150036589.png)
+![image-20241219150036589](assets\image-20241219150036589.png)
 
 ​	在构造函数中，我们需要把Controller的bReplicates设置成**true**，这将允许服务器上的改变发送到所有连接的客户端，这将为多人游戏打好基础。
 
@@ -121,7 +121,7 @@ Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 ​	还有一些其他小的输入设置，详情看注释，注意头文件包含了“EnhancedInputSubsystem”
 
-![image-20241219153600244](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219153600244.png)
+![image-20241219153600244](assets\image-20241219153600244.png)
 
 ​	
 
@@ -135,27 +135,27 @@ Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 ​	IA_Move中的设置：
 
-<img src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126143754655.png" alt="image-20250126143754655" style="zoom: 80%;" />
+<img src="/assets/image-20250126143754655.png" alt="image-20250126143754655" style="zoom: 80%;" />
 
 ​	由于我们使用增强输入系统，需要用到InputAction，也要把这个类**前置声明**。并创建一些需要的InputAction指针，如MoveAction
 
-<img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219170957239.png" alt="image-20241219170957239" style="zoom:80%;" />
+<img src="assets\image-20241219170957239.png" alt="image-20241219170957239" style="zoom:80%;" />
 
 还要声明一些对应于输入的行为函数，如Move，声明如下：
 
-![image-20241219171355347](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219171355347.png)
+![image-20241219171355347](assets\image-20241219171355347.png)
 
 **知识点：**一般来说，结构体FInputActionValue也是需要包含头文件的，但这里的Struct语法起到了前置声明的作用，或类似于UIMC的前置类声明的方式也可以，如果这样做就不需要加这个struct关键字。
 
 ​	接下来我们需要通过EnhancedInputComponent将Move函数与MoveAction绑定起来，在此之前它们没有任何关联。这和我们在蓝图中绑定行为到IA是类似的。这一点可以在SetupInputComponent中完成。在SetupInputComponent中我们能把InputComponent强转成一个UEnhancedInputComponent是因为在项目默认设置中，输入设置默认使用了增强输入。
 
-![image-20241219173322780](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219173322780.png)
+![image-20241219173322780](assets\image-20241219173322780.png)
 
 Move的具体逻辑如下：
 
 这里采取if条件判断而不像之前一样用断言是因为Controller是允许没有控制着Pawn的，这并非一个“错误”，不应该用强力的断言处理
 
-![image-20241219191150020](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219191150020.png)
+![image-20241219191150020](assets\image-20241219191150020.png)
 
 ### 1.5 创建GameMode
 
@@ -169,7 +169,7 @@ Move的具体逻辑如下：
 
 ​	之后在PlayerCharacter的cpp中在构造函数中使用一些逻辑设置Player的移动相关的内容，如下。其中确保了角色的旋转朝向移动，角色的旋转速率只有Yaw上有旋转固定在平面上，并在刚开始的时候设置到平面上
 
-<img src="C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241219230146342.png" alt="image-20241219230146342" style="zoom:80%;" />
+<img src="assets\image-20241219230146342.png" alt="image-20241219230146342" style="zoom:80%;" />
 
 ### 1.7 增加高亮敌人的功能
 
@@ -177,7 +177,7 @@ Move的具体逻辑如下：
 
 ​	新建一个EnemyInterface接口类，声明一个HighlightActor()纯虚函数和UnHighlightActor()纯虚函数：
 
-![image-20241220090842150](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241220090842150.png)
+![image-20241220090842150](assets\image-20241220090842150.png)
 
 **知识点：**继承接口类却不实现的话，会导致报错，这是因为接口声明了纯虚函数使其变成抽象类，我们无法在不覆写纯虚函数的情况下实例化抽象类。所以必须实现这些纯虚函数，即使你在方法中什么东西都不写，这样就可以解决报错了。
 
@@ -192,23 +192,23 @@ GetHitResultUnderCursor(ECC_Visibility,false,CursorHit);
 
 ​	首先PlayerController需要两个私有的成员变量记录鼠标指针底下的Actor。LastActor表示上一帧鼠标下的Avtor，ThisActor表示当前帧鼠标底下的Actor。
 
-![image-20250110180750582](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110180750582.png)
+![image-20250110180750582](/assets/image-20250110180750582.png)
 
 ​	即可获取鼠标下方的Actor，三个参数分别是通道类型，是否使用复杂碰撞，产生的信息赋值给谁
 
-![image-20241229101147668](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229101147668.png)
+![image-20241229101147668](assets\image-20241229101147668.png)
 
-![image-20241229101236144](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229101236144.png)
+![image-20241229101236144](assets\image-20241229101236144.png)
 
 EnemyBase中的设置，只需改变Character的Highlighted状态，具体会发生什么可以在蓝图写
 
-![image-20241229102343225](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229102343225.png)
+![image-20241229102343225](assets\image-20241229102343225.png)
 
-![image-20241229102326450](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229102326450.png)
+![image-20241229102326450](assets\image-20241229102326450.png)
 
 蓝图中使用测试球体，测试一下效果
 
-![image-20241229102302034](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229102302034.png)
+![image-20241229102302034](assets\image-20241229102302034.png)
 
 #### 1.7.2 使用后处理体积高亮敌人
 
@@ -280,7 +280,7 @@ EnemyBase中的设置，只需改变Character的Highlighted状态，具体会发
 
 构造函数中调整NetUpdateFrequency，以加快网络更新频率，使客户端和服务端的数据更新速度更快
 
-![image-20241229111441454](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229111441454.png)
+![image-20241229111441454](assets\image-20241229111441454.png)
 
 ##### ASC和Attribute Set
 
@@ -316,7 +316,7 @@ PlayerState既存在于Server也存在于Client，且每个Client都拥有其他
 
 ​	首先为CharacterBase添加ASC和ABS成员（指针），并且实现AS的接口，接口只有一个纯虚函数，用来GetASC，再自己写一个GetABS的函数
 
-![image-20241229125944526](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229125944526.png)
+![image-20241229125944526](assets\image-20241229125944526.png)
 
 ​	在PlayerState中我们同样需要如此，以存储Player的AS相关的变量，请注意，此时我们只是给PlayerState挂上了ASC和ABS，但PlayerState上的ASC和ABS均未与确切的PlayerCharacter构建关联，我们将在后面讨论如何让它们知道谁是它们的拥有者。后续初始化PlayerCharacter上的ASC和ABS用的就是PlayerState上已经初始化完的ASC和ABS，所以PlayerCharacter和PlayerState用的ASC和ABS是同一套。
 
@@ -324,13 +324,13 @@ PlayerState既存在于Server也存在于Client，且每个Client都拥有其他
 >
 > ​	这里的CharacterBase和PlayerState上的ASC和AttributeSet指针都可以定义成游戏的**自定义的C++基类**，例如ASC是LyraAbilitySystemComponent。
 
-![image-20241229130214736](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229130214736.png)
+![image-20241229130214736](assets\image-20241229130214736.png)
 
-![image-20241229130447012](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229130447012.png)
+![image-20241229130447012](assets\image-20241229130447012.png)
 
 Enemy直接在Pawn上挂ASC和ABS
 
-![image-20241229130535931](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20241229130535931.png)
+![image-20241229130535931](assets\image-20241229130535931.png)
 
 ##### 复制模式
 
@@ -370,7 +370,7 @@ Enemy直接在Pawn上挂ASC和ABS
 
 ​	为玩家角色在客户端和服务器上都初始化ASC，为了不在成员函数中写重复的代码，我们选择将初始化的实际工作写在 一个私有函数InitialAbilityActorInfo中。
 
-![image-20250106155310676](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250106155310676.png)
+![image-20250106155310676](assets\image-20250106155310676.png)
 
 #### 2.3.5 Attribute
 
@@ -431,7 +431,7 @@ FGameplayAttributeData Health;
 
 ​	我们还需要定义一下OnRep_Health这个函数，它可以不接受参数，也可以接受一个参数，如果它接受一个参数，参数类型必须是被复制的变量的类型，它可以是一个常量引用，在发生复制时，OnRep_Health会被调用，并且接受被复制变量的旧的值，这对比较变量旧值和比较变量新值很有用。
 
-![image-20250108101840001](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108101840001.png)
+![image-20250108101840001](assets\image-20250108101840001.png)
 
 ​	（OnRep_Health应该是一个const函数，尾部要加一个const）（其实也可以不加，Lyra示例项目没加）
 
@@ -439,29 +439,29 @@ FGameplayAttributeData Health;
 
 ​	当我们为Attribute设置Rep_Notify时，我们必须把Attribute的变化通知给对应的AbilitySystem，这样AS才能完成在幕后的记录工作以便保持系统的协同工作。为此我们需要使用一个宏：
 
-![image-20250108102646155](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108102646155.png)
+![image-20250108102646155](assets\image-20250108102646155.png)
 
-![image-20250108102625798](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108102625798.png)
+![image-20250108102625798](assets\image-20250108102625798.png)
 
 ​	这个宏会通知AS我们正在复制一个值，它的值刚刚从服务器下来并进行了更改，现在AS可以注册该更改并保持跟踪它的旧值（OldHealth）以防万一要回滚。
 
 ​	除了以上的工作以外，类还需要一个特定的函数才能注册变量来复制它们，这个函数是复制任何内容所必须的，我们需要重写它，来注册所有我们想要的复制的变量。
 
-![image-20250108103641705](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108103641705.png)
+![image-20250108103641705](assets\image-20250108103641705.png)
 
-![image-20250108103803685](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108103803685.png)
+![image-20250108103803685](assets\image-20250108103803685.png)
 
 ​	宏DOREPLIFETIME_CONDITION_NOTIFY第一个参数是当前类的类名，第二个是要复制的变量，第三个是复制的条件，在这里是无条件复制，其他的条件例如“只复制给所有者”，第四个参数意味着始终执行“如果在服务端上设置了该值，则复制它，并在客户端上该值会被更新和设置”，这个参数的默认值是OnChanged，意味着只有在服务端上改变时才会在客户端上更新和设置，如果服务端上的设置没有导致“改变”，那么就不会复制，这可能是一种优化，但是在GAS中我们可能想要响应“设置”这一个行为，即使值没有改变，所以我们使用Always。
 
 ​	再完善一下元数据标识符，Attribute的设置就完成了。
 
-![image-20250108104714690](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108104714690.png)
+![image-20250108104714690](assets\image-20250108104714690.png)
 
 ​	按照以上的步骤就可以设置其他的Attribute了。记得要单独设置一个MaxAttribute来表示一个属性的最大值。
 
-![image-20250108105327227](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108105327227.png)
+![image-20250108105327227](assets\image-20250108105327227.png)
 
-![image-20250108105423597](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108105423597.png)
+![image-20250108105423597](assets\image-20250108105423597.png)
 
 #### 2.3.7 为Attribute添加Attribute Accessor
 
@@ -469,7 +469,7 @@ FGameplayAttributeData Health;
 
 ​	我们可以使用一些宏来帮助我们做到这一点：
 
-![image-20250108110718276](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108110718276.png)
+![image-20250108110718276](assets\image-20250108110718276.png)
 
 ​	第一个宏就囊括了后四个宏的功能，所以直接使用第一个宏即可。
 
@@ -485,19 +485,19 @@ FGameplayAttributeData Health;
 
 ​	给EffectActor添加一个staticmesh组件和Sphere组件。
 
-![image-20250108141239999](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108141239999.png)
+![image-20250108141239999](assets\image-20250108141239999.png)
 
 ​	构造函数中对应初始化：
 
-![image-20250108141324216](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108141324216.png)
+![image-20250108141324216](assets\image-20250108141324216.png)
 
 ​	我们还需要自定义两个函数，用来处理Sphere和其他组件碰撞的逻辑，这两个函数会被绑定到Sphere的相关委托上，在正确的时机执行。（形参列表有点长，这个参数列表是取决于要绑定到的委托的声明宏的参数列表）
 
-![image-20250108141807828](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108141807828.png)
+![image-20250108141807828](assets\image-20250108141807828.png)
 
 ​	在Beginplay中执行绑定：
 
-![image-20250108141950650](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108141950650.png)
+![image-20250108141950650](assets\image-20250108141950650.png)
 
 ​	以上的委托绑定是为一个Component的重叠事件委托绑定函数的一个标准的模板。
 
@@ -505,7 +505,7 @@ FGameplayAttributeData Health;
 
 ​	接下来使用AbilitySystemComponent的接口来尝试调用重叠的Actor的相关成员。
 
-​	![image-20250108185045099](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108185045099.png)
+​	![image-20250108185045099](assets\image-20250108185045099.png)
 
 ​	虽然这样可以获得重叠Actor上的ABS（如果有的话），但是实际上这样是没有意义的，因为GetAttributeSet返回的是一个常量指针，不允许修改其指向的对象，也不能调用非const成员函数。
 
@@ -549,11 +549,11 @@ FGameplayAttributeData Health;
 
 ​	我们希望我们的UserWidget具有Controller的概念，所有的Widget都应该设置其Controller，当Controller广播数据时，widget就可以接受这些数据并且对其做出响应。这样的话就只会建立起从Widget到Controller的单向依赖。WidgetController不必知道它与哪些widget相关联。
 
-​	![image-20250108200123960](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108200123960.png)
+​	![image-20250108200123960](assets\image-20250108200123960.png)
 
 ​	我们的UserWidget需要一个UObject类型指针存储其WidgetController。SetWidgetController函数是用来设置WidgetController的一个方法，它可以在蓝图中被调用，并且它会调用函数WidgetControllerSet，这个函数用来响应WidgetController被设置这个事情，具体如何响应我们可以在蓝图中实现。
 
-![image-20250108200430368](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108200430368.png)
+![image-20250108200430368](assets\image-20250108200430368.png)
 
 ##### 创建AuraWidgetController
 
@@ -566,7 +566,7 @@ FGameplayAttributeData Health;
 3. PlayerState
 4. PlayerController
 
-![image-20250108201206603](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108201206603.png)
+![image-20250108201206603](assets\image-20250108201206603.png)
 
 ​	在游戏中，我们可以有不止一个WidgetController，像玩家的生命值，游戏菜单等UI都可以给一个设置一个Controller
 
@@ -578,11 +578,11 @@ FGameplayAttributeData Health;
 
 ​	我们可以通过Event Pre Construct来设置它们：
 
-![image-20250108203031241](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108203031241.png)
+![image-20250108203031241](assets\image-20250108203031241.png)
 
 ​	还需要添加一个“Overlay”，Overlay可以让东西能够被叠放在一起。还有一个”Image“，并且要把它设置成”Is Variable“。还要新增一个”Slate Brush“类型的变量来方便设置”Image“，这样就可以在蓝图子类设置它们。
 
-![image-20250108204047786](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250108204047786.png)
+![image-20250108204047786](assets\image-20250108204047786.png)
 
 ​	接着我们需要添加一个”Progress Bar“。
 
@@ -614,11 +614,11 @@ FGameplayAttributeData Health;
 
 ​	我们要为HUD类添加一个变量存储Overlay，一个变量来存储我们使用的Overlay Class。
 
-![image-20250109080437221](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109080437221.png)
+![image-20250109080437221](assets\image-20250109080437221.png)
 
 ​	让Overlay Class EditAnywhere，使得我们可以在编辑器、蓝图等任何地方编辑它。它会决定我们用哪个类来创建一个OverlayWidget。
 
-​	接着我们重写Beginplay方法，在Beginplay中，创建一个UUserWidget，它的所有者是World，类别是OverlayWidget中存储的类，然后把它添加到视口。![image-20250109082603646](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109082603646.png)
+​	接着我们重写Beginplay方法，在Beginplay中，创建一个UUserWidget，它的所有者是World，类别是OverlayWidget中存储的类，然后把它添加到视口。![image-20250109082603646](assets\image-20250109082603646.png)
 
 ​	派生一个蓝图类BP_AuraHUD，把BP_Overlay设置给它，再在GameMode中把BP_AuraHUD设置成默认HUD类，点击play就能看到和在关卡蓝图中看到的一样了。
 
@@ -626,13 +626,13 @@ FGameplayAttributeData Health;
 
 ​	首先，先前我们为WidgetController添加了一些成员变量，但是我们可以把它们打包成一个结构体来方便使用。
 
-![image-20250109084253166](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109084253166.png)
+![image-20250109084253166](assets\image-20250109084253166.png)
 
 ​	再给WidgetController添加一个函数SetWidgetController来通过这个结构体初始化自己的这四个变量。
 
-![image-20250109084708127](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109084708127.png)
+![image-20250109084708127](assets\image-20250109084708127.png)
 
-![image-20250109084611961](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109084611961.png)
+![image-20250109084611961](assets\image-20250109084611961.png)
 
 ##### 从WidgetController派生OverlayWidgetController专门管理Overlay
 
@@ -640,29 +640,29 @@ FGameplayAttributeData Health;
 
 ​	在HUD类中为Widget创建其WidgetController是一个不错的方式，我们在AuraHUD中自定义一个**函数**用来为Overlay创建一个WidgetController，如果Overlay已经拥有了一个WidgetController，那么就将它返回而不是再创建，并且我们要在HUD中新增一个指针变量来存储Overlay的Controller，以便HUD跟踪它。
 
-![image-20250109091128256](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109091128256.png)
+![image-20250109091128256](assets\image-20250109091128256.png)
 
 ​	还需要一个TSubClass来决定Overlay的WidgetController是哪个类。
 
-![image-20250109113844166](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109113844166.png)
+![image-20250109113844166](assets\image-20250109113844166.png)
 
 ​	函数内的逻辑：
 
-![image-20250109113949336](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109113949336.png)
+![image-20250109113949336](assets\image-20250109113949336.png)
 
 ​	但是这时，我们还没有一个方式来初始化这个WidgetController，尽管我们已经可以在Beginplay中创建了Overlay。这时我们需要一个函数专门实现Overlay的一次性初始化，包括初始化它本身，初始化它的Controller，并且把它们绑定起来。这时我们就不需要在Beginplay中做这些事了，也不需要Beginplay了。
 
 
 
-![image-20250109115650631](C:\Users\Max1122Chen\AppData\Roaming\Typora\typora-user-images\image-20250109115650631.png)
+![image-20250109115650631](assets\image-20250109115650631.png)
 
 ​	但是我们要在哪里调用这个函数呢？要在什么时机调用它们呢？我们关注到这个函数涉及到了ASC和ABS，这两个东西的设置是有其固定时机的，我们会想起它们在AuraPlayerCharacter中有特定的时机创建，我们来回顾一下在AuraPlayerCharacter中它们是如何创建的。
 
-![image-20250109125525349](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250109125525349.png)
+![image-20250109125525349](/assets/image-20250109125525349.png)
 
 ​	我们可以在InitAbilityActorInfo中选择调用HUD的InitOverlay函数。具体的方法如下：
 
-![image-20250110173500235](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110173500235.png)
+![image-20250110173500235](/assets/image-20250110173500235.png)
 
 ​	在InitAbilityActorInfo中首先已经得到了PlayerState，并且通过PlayerState获得了ASC和ABS，现在正好缺一个参数PlayerContoller而正好PlayerController可以拿到当前的HUD，恰好可以用来调用InitOverlay，一切都是刚刚好。
 
@@ -680,23 +680,23 @@ FGameplayAttributeData Health;
 
 ​	首先为WidgetController类添加一个虚函数，用来广播Model的初始值。这个函数对于其子类可以重写以适应不同的Model初始值广播。这个函数在AuraWidgetController中没有具体实现，这个函数本质上就是一次若干委托的广播。所以就需要声明一些合适的委托并在合适的时机响应。
 
-![image-20250110185554491](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110185554491.png)
+![image-20250110185554491](/assets/image-20250110185554491.png)
 
 ​	现在我们只有OverlayWidgetController这一个WidgetController具体类，所以我们先来实现OverlayWidgetController中的广播。
 
 ​	现在在OverlayWidgetController中要添加一些动态多播委托，之所以是动态的，是希望能在蓝图中分配事件，之所以是多播的，是希望能够被多个其他函数调用。
 
-![image-20250110191750491](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110191750491.png)
+![image-20250110191750491](/assets/image-20250110191750491.png)
 
 ​	我们暂时只添加了两个一个参数的动态多播委托，用来委托Player的Health和MaxHealth的变化，并分别声明了两个对应的委托类型的“函数签名”。由于其有一个参数，我们需要传递一个正确的参数给它，也就是Health和MaxHealth的正确的值。在BroadcastInitialValue中，我们会调用它们一次，来将Widget上的表现初始化。
 
-![image-20250110193113264](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110193113264.png)
+![image-20250110193113264](/assets/image-20250110193113264.png)
 
 ​	现在我们已经完成了BroadcastInitialValues的编写，但下一个问题是：我们应该在哪里调用这个函数？我们注意到这里要广播Health和MaxHealth，那么起码要在Health和MaxHealth被正确设置好了才行，再考虑我们现在是要广播这两个属性，那肯定要广播给合适的对象，那我们知道我们现在讨论的是UI的问题，那就是要广播给Widget了。那么在哪个地方做这件事比较好呢？
 
 ​	可以在HUD的InitOverlay中调用，首先此时ASC和ABS肯定已经创建了，而在InitOverlay也会开始初始化Overlay，正好这是一个不错的节点。
 
-![image-20250110235821963](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250110235821963.png)
+![image-20250110235821963](/assets/image-20250110235821963.png)
 
 ​	接下来，就需要在BP_Overlay中设置委托的监听了。
 
@@ -704,11 +704,11 @@ FGameplayAttributeData Health;
 
 ​	但是又有一个问题，我们在代码中并不知道OverlayWidget有哪些Widget需要被指定Controller，我们没办法把它们写死在代码里，需要很灵活地变通。这时，先前我们在AuraUserWidget中声明的一个蓝图可实现的函数就可以派上用场了，它原来什么代码都没有，就是为了在蓝图中实现。
 
-![image-20250111000813334](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111000813334.png)
+![image-20250111000813334](/assets/image-20250111000813334.png)
 
 ​	它会在SetWidgetController函数中被调用，换而言之也就是在Widget被设置WidgetController时被调用。
 
-![image-20250111000936149](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111000936149.png)
+![image-20250111000936149](/assets/image-20250111000936149.png)
 
 ​	当Overlay的Controller被设置了，其下的小组件也可以立刻紧随其后跟上老大的步伐设置Controller。这样，这些小组件也会触发一次自己的WidgetControllerSet，它们又可以执行自己的逻辑。
 
@@ -720,11 +720,11 @@ FGameplayAttributeData Health;
 
 ​	BP_Overlay:
 
-![image-20250111093820616](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111093820616.png)
+![image-20250111093820616](/assets/image-20250111093820616.png)
 
 ​	BP_HealthBar:
 
-​	![image-20250111094055024](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111094055024.png)
+​	![image-20250111094055024](/assets/image-20250111094055024.png)
 
 ​	现在我们实现了Widget对Controller广播的Attribute的初始化的监听，但是，实际上，现在Controller还并没有实现对Attribute的变化的实时监听。上面的“初始化”是Attribute从无到有的一次更新，所以在初始化Widget的时候就可以广播Attribute的初始值。我们接下来要实现Controller对ASC的Attribute的实时监听。
 
@@ -732,13 +732,13 @@ FGameplayAttributeData Health;
 
 ​	这需要使用一个ASC自有的委托，但这个委托只是一个多播委托，并非动态，不能在蓝图中绑定，所以我们不能把它直接用来向Widget广播。这也符合MVC的设计模式，如果让Model的ASC能直接向View广播，这就违背了MVC的框架。所以我们需要借助Controller的中间层实现类似于中转的效果。
 
-![image-20250111131335816](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111131335816.png)
+![image-20250111131335816](/assets/image-20250111131335816.png)
 
 ​	这个委托声明在“GameplayEffectTypes.h”中，可以通过AbilitySystemComponent的这个函数去获得它的一个实例。
 
-![image-20250111131511045](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111131511045.png)
+![image-20250111131511045](/assets/image-20250111131511045.png)
 
-![image-20250111131634192](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111131634192.png)
+![image-20250111131634192](/assets/image-20250111131634192.png)
 
 ​	这个委托实际上是属于ActiveGameplayEffectContainer结构体下的一个委托。它接受一个FGameplayAttribute类型的参数，虽然我们没有主动创建它，我们创建的属性只是FGameplayAttributeData类型的，但是我们在使用帮助宏创建Accessor时帮助宏就完成了它的创建，这也进一步说明Attribute的Accessor是很有必要的。GetGameplayAttributeValueChangeDelegate会去维护了一系列Attribute和FOnGameplayAttributeValueChange类型委托的映射集（Map）中试图寻找传入的Attribute类型绑定的委托，如果没有找到，就会新增一组相应的映射，也就为Attribute新增一个委托。
 
@@ -746,11 +746,11 @@ FGameplayAttributeData Health;
 
 ​	我们可以想到，其实在所有的UserWidget中，都可能有**绑定回调函数到委托**的需求，这一点我们可以专门在WidgetController中定义一个函数统一完成。WidgetControllerClass提供其声明和空定义，其具体实现由子类自己完成。
 
-![image-20250111144252545](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111144252545.png)
+![image-20250111144252545](/assets/image-20250111144252545.png)
 
 ​	但是现在我们还要绑定什么回调函数到依赖呢？我们需要对每种有需要的Attribute定义一个专门的回调函数。我们以xxxChanged的格式命名这些回调函数。
 
-![image-20250111145647447](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111145647447.png)
+![image-20250111145647447](/assets/image-20250111145647447.png)
 
 ​	请注意，这些函数接受的参数类型并非FGameplayAttributeData。这些函数要接受委托传递给他们的Attribute的”变化“
 
@@ -758,13 +758,13 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	现在Controller能够通过绑定回调函数到AttributeChange时的委托去响应Attribute的变化，也应该让Widget去了解到这一点，Widget要响应Controller了解到的变化。Widget是如何了解Controller告诉它的变化的？也是通过委托对吧。所以在Controller响应Attribute的变化时，也广播Controller对Widget的委托就好了。
 
-![image-20250111150525237](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111150525237.png)
+![image-20250111150525237](/assets/image-20250111150525237.png)
 
-![image-20250111150604524](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111150604524.png)
+![image-20250111150604524](/assets/image-20250111150604524.png)
 
 ​	最后，就要把回调函数通过BindCallbackToDependencies绑定到委托，要为它的调用选择一个合适的时机。想一下，这也需要有效的ASC和ABS被创建对吧。我们仍然可以在HUD中完成这件事。我们想到在生成OverWidgetController时，ASC，ABS当然还有PlayerController和PlayerState都已经是有效的了。所以在为Overlay创建OverlayWidgetController后立即绑定回调函数是不错的。
 
-![image-20250111153140384](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250111153140384.png)
+![image-20250111153140384](/assets/image-20250111153140384.png)
 
 ​	现在，我们就完成了从View到Controller的单向依赖，Controller到Modle的单向依赖。ASC对Widget和Controller一无所知，但是它的变化通过Controller的中介传递给了Widget，Controlled对Widget也一无所知，它只负责监听ASC的变化和广播变化触发的委托，Widget同样对ASC一无所知，它只负责监听广播响应变化。
 
@@ -834,35 +834,35 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	我们想要EffectActor能够拥有一个可在蓝图类默认值中设置（EditAnywhere）和在蓝图中查看（BlueprintRead）的GEClass属性（，和一个GameplayEffectClass的ApplyGE的函数。
 
-![image-20250113094503935](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113094503935.png)
+![image-20250113094503935](/assets/image-20250113094503935.png)
 
 ​	在ApplyEffectToTarget函数中，我们可以通过强转成ASC接口类来尝试获取Target的ASC，但是这种方式要求Target要实现了ASInterface才能获取到ASC。
 
-![image-20250112150639800](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112150639800.png)
+![image-20250112150639800](/assets/image-20250112150639800.png)
 
 ​	而GAS给我们提供了一个蓝图函数库方法可以不管是否实现了ASInterface，都可以尝试获取ASC，其本质也是先看有没有ASInterface，如果没有，再试图直接在Component中找ASC，且这个函数是可以在蓝图中直接调用的。
 
-![image-20250112151943719](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112151943719.png)
+![image-20250112151943719](/assets/image-20250112151943719.png)
 
 ​	接下来实现应用GE到Target，当我们输入关键字时我们可以看到有4个类似的函数。
 
-![image-20250112151929788](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112151929788.png)
+![image-20250112151929788](/assets/image-20250112151929788.png)
 
 ​	我们选择使用ApplyGameplayEffectSpecToSelf（这里的Self是Target）。实际上，如果选择ApplyGameplayEffect的话，也是离不开要有GEContext，level之类的参数。
 
-![image-20250112152339497](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112152339497.png)
+![image-20250112152339497](/assets/image-20250112152339497.png)
 
 ​	从其形参列表可以看到它需要一个FGameplayEffcetSpec的引用类型，还有一个可选的Prediction Key。但是我们只有GE二没有GESpec，没关系，ASC有其依据一个GEClass”制造“出一个“GESpec”的能力，我们要借助这个能力去获得一个GESpec。
 
-![image-20250112152703656](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112152703656.png)
+![image-20250112152703656](/assets/image-20250112152703656.png)
 
 ​	我们可以通过MakeOutgoingSpec方法制造出一个GESpecHandle，注意，是Handle！可以看到其接受一个GEClass，一个Level，还有一个FGameplayEffectContextHandle，GEContext是GE施加时的”情况“。我们还需要去获得一个FGameplayEffectContextHandle，”Handle“也是一种更轻量级的存储GEContext的版本，本质就是一种包装，ASC也有”制作“GEContextHandle的能力。
 
-![image-20250112153419159](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112153419159.png)
+![image-20250112153419159](/assets/image-20250112153419159.png)
 
 ​	通过查看FGameplayEffectContextHandle的定义，我们了解到其只有一个成员变量，也就是其代表的GEContext本身。其中有很多成员方法其实就是在调用GEContext的对应方法。GESpecHandle也是类似的。
 
-![image-20250112154112275](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112154112275.png)
+![image-20250112154112275](/assets/image-20250112154112275.png)
 
 ​	现在我们有一个GESpecHandle，但是它不是我们需要的FGameplayEffcetSpec的引用类型，但是GESpecHandle中的Data是一个FGameplayEffcetSpec类别的TSharedPtr，需要通过其Get方法获取到FGameplayEffcetSpec**指针**，但是仍不是一个FGameplayEffcetSpec的引用类型，所以还要*去解引用。
 
@@ -870,25 +870,25 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	ApplyEffectToTarget的完整代码：
 
-![image-20250112160139774](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250112160139774.png)
+![image-20250112160139774](/assets/image-20250112160139774.png)
 
 ​	现在可以转到蓝图中去设计一些派生自EffectActor的Actor了。
 
 ​	在蓝图中可以看到C++代码的效果。
 
-​	![image-20250113084519096](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113084519096.png)
+​	![image-20250113084519096](/assets/image-20250113084519096.png)
 
 #### 2.5.2 创建GameplayEffect
 
 ​	值得注意的是，新版本的GameplayEffect相较旧版有所变化，之前会把所有的类默认值条目列出来，现在可以在组件（Component）处选择需要的内容，才会显示出对应的部分。很多设置需要选中了对应的选项才会显示出来。
 
-![image-20250113092750696](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113092750696.png)
+![image-20250113092750696](/assets/image-20250113092750696.png)
 
 ​	创建一个新的GE_Heal，直接派生自GameplayEffect，然后将其持续时间设置为**Instant**（实时），选择Modifier作用的Attribute为Health，它会自动显示我们已有的Attribute。硬编码一个“回复值”给它（25）
 
 ​	EffectActor(Heal)中的蓝图逻辑：
 
-![image-20250113104304248](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113104304248.png)
+![image-20250113104304248](/assets/image-20250113104304248.png)
 
 ​	记得把EffectActor的StaticMesh的碰撞设置成不要阻挡的类型。接下来开始游戏，并且showdebug abilitysystem，就能看到Health增加了25（如果MaxHealth没有设置的话，MaxHealth是0，这时HealthBar的Progress会是0%）
 
@@ -935,21 +935,21 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	由于一个EffectActor可能有三种持续时间策略的GE，这些不同持续时间类型的GE的Apply和Remove的策略也应该分开。
 
-![image-20250113160323130](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113160323130.png)
+![image-20250113160323130](/assets/image-20250113160323130.png)
 
 ​	注意到这里枚举的报错，需要在枚举类后加一个uint8，像这样：
 
-![image-20250113160527808](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113160527808.png)
+![image-20250113160527808](/assets/image-20250113160527808.png)
 
 ​	给EffectActor的每种持续时间策略加上相应的Apply或Remove的策略的一个成员枚举变量，这样在蓝图中派生子类设计起来就会很容易，默认值给一个DoNotApply可以防止错误调用未设置的EffectClass。
 
-![image-20250113161018407](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113161018407.png)
+![image-20250113161018407](/assets/image-20250113161018407.png)
 
 ​	接下来写两个函数处理Overlap和EndOverlap的情况，此外还有一个小小的bool用来决定是不是要在EndOverlap时Destroy自身。这样的话ApplyEffectToTarget的逻辑就在C++中实现了而蓝图则只需决定是OnOverlap还是OnEndOverlap，以及它们的Apply和Remove的策略是如何的。
 
 ​	如下我们实现了Instant和HasDuration的不同时机的Apply，它们不需要Remove，但是如何Remove一个Infinite GE是我们还不知道的。
 
-![image-20250113162621657](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113162621657.png)
+![image-20250113162621657](/assets/image-20250113162621657.png)
 
 #### 2.5.3 GameplayEffect的Remove
 
@@ -965,7 +965,7 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	如何检查一个GE的持续时间类型是否是Infinite？
 
-![image-20250113171642314](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113171642314.png)
+![image-20250113171642314](/assets/image-20250113171642314.png)
 
 ​	我们在ApplyEffectToTarget方法中，接受了一个GEClass并用它来制造了一个EffectSpecHandle，我们需要从它入手，去了解这个GEClass的持续时间类型，这个”持续时间类型“是一个枚举类型。
 
@@ -975,7 +975,7 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	接下来要给EffectActor添加一个TMap来存储FActiveGameplayEffectHandle和其影响的Actor，实际上我们只需关心Actor上的ASC就可以了，而不需要完整的Actor，所以TMap将关联FActiveGameplayEffectHandle和其影响的Actor的ASC。
 
-![image-20250113173918584](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113173918584.png)
+![image-20250113173918584](/assets/image-20250113173918584.png)
 
 > [!IMPORTANT]
 >
@@ -985,17 +985,17 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ​	我们把调用ApplyEffectToTarget方法返回的FActiveGameplayEffectHandle暂存在一个该类型的局部变量中，如果GE确实是Infinite的，且还要满足该GE是需要被Remove的那么就将其加到TMap中管理。
 
-![image-20250113174213698](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113174213698.png)
+![image-20250113174213698](/assets/image-20250113174213698.png)
 
 ​	现在来看如何移除Infinite的GE，由于我们这里设定EffectActor的InfiniteGE只有在OnEndOverlap时才可能被移除，所以这时需要在OnEndOverlap方法中完成的。
 
-![image-20250113175600738](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113175600738.png)
+![image-20250113175600738](/assets/image-20250113175600738.png)
 
 ​	首先判断InfiniteGE是否需要在EndOverlap时移除，如果需要的话，就根据TargetActor的ASC去在TMap中遍历出要移除的GE，由于在移除GE之后我们还要在Map中删除这个联系，所以我们还想把要移除的键值对给记录一下（在遍历TMap时删除是不可取的），所以我们制作了一个临时的数组记录要删除的”键“，之后再遍历这个数组并删除其键相关的键值对。
 
 ​	值得注意的一件事是，如果要设计一种可以堆叠的infiniteGE，在移除GE的方法RemoveActiveGameplayEffect中，其实它还有一个参数，其默认值是-1.当其为-1时，它会把该GE相关的所有堆栈删掉，这会导致一些逻辑上的bug。GE的Stack的一个特性此时就能体现出来，GE不会把多个相同的GE认为是分开如果你使用了Stack的一种策略的话，而是会把同一个GE的多次Apply归在一起。
 
-![image-20250113194710633](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250113194710633.png)
+![image-20250113194710633](/assets/image-20250113194710633.png)
 
 ​	现在我们的EffectActor每次只能Apply一个GE，想要可以施加多个GE，需要使用GE的数组。
 
@@ -1013,7 +1013,7 @@ FOnAttributeChangeData结构体存储了Attribute变化前后的值，它专门�
 
 ##### PreAttributeChange的细节
 
-![image-20250114104408973](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114104408973.png)
+![image-20250114104408973](/assets/image-20250114104408973.png)
 
 ​	注意这是两个引用类型，但只有New Value是可更改的，它就是可以做夹值的东西。
 
@@ -1034,15 +1034,15 @@ PreAttributeChange有以下细节
 
 ##### PostGameEffectExecute的细节
 
-![image-20250114104841509](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114104841509.png)
+![image-20250114104841509](/assets/image-20250114104841509.png)
 
 ​	首先应关注到其接受的参数是一个FGameplayEffectModCallbackData结构体，其包含了很多有用的关于GameplayEffect执行的信息，我们可以通过访问Data来拿到它们。
 
-![image-20250114105233655](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114105233655.png)
+![image-20250114105233655](/assets/image-20250114105233655.png)
 
 ​	在此我们可以看到我们有三个属性可以访问，其中EvaluatedData就是被修改的Attribute的信息，我们可以从中了解到哪个Attribute正在被修改，可以看到它的注释。
 
-![image-20250114105603743](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114105603743.png)
+![image-20250114105603743](/assets/image-20250114105603743.png)
 
 ​	FGameplayEffectModCallbackData结构体包含了众多有用的信息，可以通过设置断点查看其涵盖的各方面信息，我们几乎可以涉及GameplayEffect中涉及的所有实体，这在实现Combat时很有效。
 
@@ -1050,7 +1050,7 @@ PreAttributeChange有以下细节
 
 ##### 在PostGameEffectExecute中夹值的代码：
 
-![image-20250118090539944](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118090539944.png)
+![image-20250118090539944](/assets/image-20250118090539944.png)
 
 #### 2.5.5 为Scalable Floats使用CurveTable
 
@@ -1060,9 +1060,9 @@ PreAttributeChange有以下细节
 
 ​	插入一些合适的值，注意到一个CurveTable实际上可以添加多条曲线，可以把同种事物的数值曲线都写在一张CurveTable。行表示数值，列表示等级，其看似是离散的，但由于其是一个CurveTable，离散的键之间会建立直线，使得有连续的值。曲线上的点可以拖动，来“拟合”出某些曲线。
 
-![image-20250114112745012](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114112745012.png)
+![image-20250114112745012](/assets/image-20250114112745012.png)
 
-<img src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114114144944.png" alt="image-20250114114144944" style="zoom: 80%;" />	
+<img src="/assets/image-20250114114144944.png" alt="image-20250114114144944" style="zoom: 80%;" />	
 
 ​	把CurveTable应用给GE_Heal，可以看到其效果。使用CurveTable为GE赋值时，这时GE的Magnitude就变成了一个乘数因子。	
 
@@ -1092,39 +1092,39 @@ PreAttributeChange有以下细节
 
 ​	在编辑器的”Project Settings“中的”Project“类别的”GameplayTag“中可以创建GameplayTag。
 
-![image-20250114185125452](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114185125452.png)
+![image-20250114185125452](/assets/image-20250114185125452.png)
 
 ​	创建新的GameplayTag时需要思考一下合适的层级结构。
 
 ​	给Health加一个GameplayTag，要注意选择一下源文件，在添加源文件之前我们只有DefaultGameplayTages.ini。
 
-![image-20250114185646647](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114185646647.png)
+![image-20250114185646647](/assets/image-20250114185646647.png)
 
 ​	创建成功。可以看到GameplayTag来自不同的源文件。
 
-![image-20250114185748706](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114185748706.png)
+![image-20250114185748706](/assets/image-20250114185748706.png)
 
 ​	可以为已有的Tag添加子标签：
 
-![image-20250114185954907](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114185954907.png)
+![image-20250114185954907](/assets/image-20250114185954907.png)
 
 ​	可以在”config“文件夹内看到GameplayTags现在的源文件，并且可以打开它看到其中的信息，并且可以直接编辑它。
 
-![image-20250114191314086](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114191314086.png)
+![image-20250114191314086](/assets/image-20250114191314086.png)
 
 ##### 在DataTable中创建GameplayTag
 
 ​	创建一个DataTable，并且选择GameplayTagTableRow的行结构。
 
-![image-20250114191722921](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114191722921.png)
+![image-20250114191722921](/assets/image-20250114191722921.png)
 
 创建新的Tag道理一样：
 
-![image-20250114192202243](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114192202243.png)
+![image-20250114192202243](/assets/image-20250114192202243.png)
 
 ​	仍然回到编辑器的”Project Settings“中的”Project“类别的”GameplayTag“中，可以选择增加一个GameplayTagList，添加后就能看到我们在表格中新增的Tag。
 
-![image-20250114192352530](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114192352530.png)
+![image-20250114192352530](/assets/image-20250114192352530.png)
 
 ​	使用DataTable来创建GameplayTag更加方便灵活，更易于统一管理Tag。
 
@@ -1134,9 +1134,9 @@ PreAttributeChange有以下细节
 
 ​	新版本需要手动添加关于Tag的组件，使得Tag部分东一块西一块……
 
-![image-20250114194008545](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114194008545.png)
+![image-20250114194008545](/assets/image-20250114194008545.png)
 
-![image-20250114193733597](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250114193733597.png)
+![image-20250114193733597](/assets/image-20250114193733597.png)
 
 ​	资产标签只是GE自己拥有，而不会授予应用了GE的对象。其中三个选项和继承有关，但是对于GE我们一般不设置继承层级，所以不会从父类继承标签，可以鼠标放上去查看说明。其他类型的标签自行查看。
 
@@ -1160,7 +1160,7 @@ PreAttributeChange有以下细节
 
 ​	我们声明一个将要绑定的回调函数：
 
-![image-20250115092549728](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115092549728.png)
+![image-20250115092549728](/assets/image-20250115092549728.png)
 
 ​	但是在什么**时机**去进行绑定是值得我们考虑的。我们希望在游戏实际开始的时候才去绑定而不是在构造函数中绑定。使用我们需要设置一个函数来专门用来进行绑定回调函数到委托，然后在合适的时机执行它。
 
@@ -1170,31 +1170,31 @@ PreAttributeChange有以下细节
 
 ​	CharacterBase：
 
-![image-20250115094045210](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115094045210.png)
+![image-20250115094045210](/assets/image-20250115094045210.png)
 
 ​	EnemyCharacter:
 
-![image-20250115094150425](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115094150425.png)
+![image-20250115094150425](/assets/image-20250115094150425.png)
 
 ​	此外，我们还想为ASC新增一个函数，用于处理ActorInfo被设置好时，就和SetWidgetController与WidgetControllerSet类似。
 
-![image-20250115094533453](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115094533453.png)
+![image-20250115094533453](/assets/image-20250115094533453.png)
 
 ​	在ASC的ActorInfo被设置好的时候，我们就调用一下：
 
 ​	PlayerCharacter：
 
-![image-20250115094755856](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115094755856.png)
+![image-20250115094755856](/assets/image-20250115094755856.png)
 
 ​	EnemyCharacter：
 
-![image-20250115095058190](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115095058190.png)
+![image-20250115095058190](/assets/image-20250115095058190.png)
 
 ​	现在Character正式开始对ASC有了依赖，但是ASC不必了解它关联的Character，以此形成了一种单向依赖。
 
 ​	现在我们有了一个函数AbilityActorInfoSet，这个函数的调用时机很适合我们进行绑定回调函数。
 
-![image-20250115100047127](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115100047127.png)
+![image-20250115100047127](/assets/image-20250115100047127.png)
 
 ​	现在在Player的ASC Apply GE给自己的时候，就会触发这个函数了，这将对我们非常有用。
 
@@ -1206,21 +1206,21 @@ PreAttributeChange有以下细节
 
 ​	在EffectApplied函数中，我们可以接收到以恶搞EffectSpec，从这个EffectSpec中，我们能够拿到GE的AssetTags，而这需要一个TagContainer的一个引用来接收他们。
 
-![image-20250115161405586](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115161405586.png)
+![image-20250115161405586](/assets/image-20250115161405586.png)
 
 ​	接下来我们希望在获取到AssetTag之后把他们都广播给WidgetController，我们选择直接把从EffectSpec中得到的AssetTags全部打包在TagContainer中用委托广播出去，我们在EffectApplied中广播它。
 
-![image-20250115164137741](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115164137741.png)
+![image-20250115164137741](/assets/image-20250115164137741.png)
 
-​	![image-20250117103106285](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117103106285.png)
+​	![image-20250117103106285](/assets/image-20250117103106285.png)
 
 ​	在OverlayWidgetController中，我们原来已经有一个专门用来绑定回调函数的地方了：
 
-![image-20250115164551297](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115164551297.png)
+![image-20250115164551297](/assets/image-20250115164551297.png)
 
 ​	我们不一定要使用AddUObject，而可以使用AddLambda，这个方法接收一个Lambda函数，Lambda函数是一种匿名函数，不需要函数名，但是有函数的形参列表和具体实现：
 
-![image-20250115165515339](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115165515339.png)
+![image-20250115165515339](/assets/image-20250115165515339.png)
 
 > [!NOTE]
 >
@@ -1230,19 +1230,19 @@ PreAttributeChange有以下细节
 
 ​	随着我们向View广播的信息越多，我们现在可以考虑创建一种**资产**来记录查找可以广播到Widget的信息。我们可以使用一个DataTable来记录这些信息，我们可以在C++中定义它的行结构，我们可以在OverlayWidgetController.h中定义其行结构。
 
-![image-20250115174237524](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115174237524.png)
+![image-20250115174237524](/assets/image-20250115174237524.png)
 
 ​	这个结构体定义了我们将要根据GameplayTag的类型去在UI中**显示信息**的方式，注意其继承了FTableRowBase，这个方式将被我们在DataTable中用来方便地配置显示的信息。我们可以看到其中包含了GameplayTag，一个FText用来面向玩家显示文字，一个AuraUserWidget的子类用来决定用什么UserWidget来显示信息，一个Texture2D的指针用来决定显示的图片。
 
 ​	接下来在编辑器中，我们在"UI"文件夹下，新建一个”Data“文件夹用来存储和UI相关的数据资产或DataTable。新建一个DataTable，现在我们可以很容易地在其中找到我们新定义的UIWidgetRow。我们命名新的DataTable为DT_MessageWidgetTable，我们用它来配置”Message“类的Widget要表现的内容。我们也新建一些”Message“类的标签来贴合MessageWidget。
 
-![image-20250115180226367](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115180226367.png)
+![image-20250115180226367](/assets/image-20250115180226367.png)
 
 ​	接下来我们就要考虑在ASC向WidgetController广播GE携带的AssetTags时，如果WidgetController查找到AssetTags中有”Message“Tag，那么就在DataTable中查找其对应的相关的信息。
 
 ​	现在我们需要在OverlayWidgetController中新增一个成员变量用于存储这个DataTable，便于从中搜索信息，这样我们就可以在OverlayWidgetController的蓝图派生类中配置对应的表格了。
 
-![image-20250115221554172](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250115221554172.png)
+![image-20250115221554172](/assets/image-20250115221554172.png)
 
 ​	在DataTable中搜索行可以按照行的命名来搜索，所以我们可以把行的名字用Tag的名字命名，记得要在蓝图中给BP_OverlayWidgetController挂上这个DataTable。
 
@@ -1252,37 +1252,37 @@ PreAttributeChange有以下细节
 
 ​	OverlayWidgetController中：（protected）
 
-![image-20250116124841690](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116124841690.png)
+![image-20250116124841690](/assets/image-20250116124841690.png)
 
 ​	模板函数的定义会直接出现在头文件中。其实在自己的函数库中编写这样的模板函数会是一个更好的选择。
 
-​	![image-20250116130229139](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116130229139.png)
+​	![image-20250116130229139](/assets/image-20250116130229139.png)
 
 ​	其中，TEXT("")输入了一个空字符串，这个参数是一个上下文，可以不输入任何有效字符串。
 
-![image-20250116130909167](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116130909167.png)
+![image-20250116130909167](/assets/image-20250116130909167.png)
 
 ​	Lambda函数虽然被定义在OverlayWidgetController这个类中，但是实际上它对这个类一无所知，所以它不知道OverlayWidgetController类中的成员，我们需要让它知道，而方法就是在[ ]中告知它，我们只需在[ ]中加入一个this，它就能了解到我们使用的类成员实际上是谁。
 
-![image-20250116143818788](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116143818788.png)
+![image-20250116143818788](/assets/image-20250116143818788.png)
 
 ​	现在我们需要广播这个Row给Widget，所以需要委托。
 
-![image-20250116144421715](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116144421715.png)
+![image-20250116144421715](/assets/image-20250116144421715.png)
 
-![image-20250116144554355](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116144554355.png)
+![image-20250116144554355](/assets/image-20250116144554355.png)
 
 ##### Tag是否存在的判断
 
 ​	在现在的这个Lambda函数中有一些问题，我们没办法保证遍历到的Tag都是MessaegTag，如果遍历到了别的类型Tag，那么根据GetDataTableRowByTag就无从谈起。所以我们需要判断得到的Tag是否是MessageTag，否则我们不应该进行错误的操作。索性FGameplay有一个函数可以帮到我们：
 
-![image-20250116145657856](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116145657856.png)
+![image-20250116145657856](/assets/image-20250116145657856.png)
 
 ​	这个函数需要传入一个FGameplayTag去判断是否与之匹配，我们可以用FGameplayTag的一个静态类成员函数来根据FName制造一个Tag，来输入进去。
 
-![image-20250116145831663](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116145831663.png)
+![image-20250116145831663](/assets/image-20250116145831663.png)
 
-![image-20250116150016030](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116150016030.png)
+![image-20250116150016030](/assets/image-20250116150016030.png)
 
 ​	这样就可以只根据MessageTag广播DataTableRow了。
 
@@ -1292,35 +1292,35 @@ PreAttributeChange有以下细节
 
 ​	我们可以用一个水平框（Horizontal Box）来组织我们的MessageWiget中呈现的信息，这个Horizontal Box还需要一个Overlay来包裹来避免其中的Image错误拉伸，水平框内的Widget不能随意控制间隔，但是我们在其中加入一个”Spacer“（垫片），通过调整其大小来空出一些空间。
 
-![image-20250116152516319](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116152516319.png)
+![image-20250116152516319](/assets/image-20250116152516319.png)
 
 ​	我们不想在Pre Construction中设置MessageWidget的各种变量，所以我们新建一个函数来完成这些事。
 
-![image-20250116153925134](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250116153925134.png)
+![image-20250116153925134](/assets/image-20250116153925134.png)
 
 ​	还记得我们在一个DataTable中存储了关于MessageTag的一系列信息吗？其中包含了一项MessageWidget，它描述了用什么Widget来呈现这个MessageTag相关的信息。现在我们可以在WBP_Overlay中通过OverlayWidgetController接收MessageRow的广播，我们可以利用其中的关于MessageWidget的信息来为新的Message创建对应的MessageWidget。
 
-​	![image-20250117103651627](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117103651627.png)	
+​	![image-20250117103651627](/assets/image-20250117103651627.png)	
 
 ​	但是现在这样新创建的MessageWidget会直接出现在屏幕左上角，而且位置不受控，我们需要调整其生成位置。
 
 ​	使用一些临时的策略调整它，下面的蓝图会使MessageWidget生成在屏幕中心。
 
-![image-20250117104224707](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117104224707.png)
+![image-20250117104224707](/assets/image-20250117104224707.png)
 
 ##### 制作MessageWidget的动画
 
 ​	现在我们的MessageWidget只会凭空产生然后留在屏幕上，不会消失。我们希望给它制作一个逐渐消失的效果，这需要使用Widget的动画，甚至我们还可以分开制作Image和Text的动画。Widget的动画在下方。
 
-![image-20250117130907429](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117130907429.png)
+![image-20250117130907429](/assets/image-20250117130907429.png)
 
 ​	新建一个Animation，并且为其添加一条Track，首先制作Text的动画。
 
-![image-20250117131053813](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117131053813.png)
+![image-20250117131053813](/assets/image-20250117131053813.png)
 
 ​	这条Track控制Text的Transform。
 
-![image-20250117131230789](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117131230789.png)
+![image-20250117131230789](/assets/image-20250117131230789.png)
 
 ​	Widget的动画制作其实就是K帧，对着各种属性K帧，缩放时间轴需要按ctrl+滚轮。
 
@@ -1328,11 +1328,11 @@ PreAttributeChange有以下细节
 
 ​	做好的动画需要在Widget的时间图表中播放才有效果。
 
-![image-20250117154238264](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117154238264.png)
+![image-20250117154238264](/assets/image-20250117154238264.png)
 
 ​	接下来还需要在之后延迟一小会“销毁”它，“销毁”Widget其实是需要将其从父项移除（Viewport），而且由于Delay不能再函数中使用，所以需要自定义一个新的事件。
 
-![image-20250117154857346](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117154857346.png)
+![image-20250117154857346](/assets/image-20250117154857346.png)
 
 ​	在被RemoveFromParent后，Widget会自己销毁。
 
@@ -1342,9 +1342,9 @@ PreAttributeChange有以下细节
 
 ​	实际上这些函数都可以用Lambda函数替换掉。
 
-![image-20250117161226872](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117161226872.png)
+![image-20250117161226872](/assets/image-20250117161226872.png)
 
-![image-20250117161254898](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250117161254898.png)
+![image-20250117161254898](/assets/image-20250117161254898.png)
 
 ​	它们的代码都很简单，没必要占据这么多地方使得代码臃肿。
 
@@ -1358,7 +1358,7 @@ PreAttributeChange有以下细节
 
 ​	一种实现思路是，在每次设置实际进度条的进度时，延迟一下下，然后设置一个浮点变量为GhostBar的进度条**目标的**进度值。然后使用Tick对这个目标进行插值，使用FInterp to节点：
 
-![image-20250118082224126](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118082224126.png)
+![image-20250118082224126](/assets/image-20250118082224126.png)
 
 ​	Current使用当前进度条的进度，Target就是目标进度，DeltaTime就使用Tick传入的InDeltaTime，Speed设置一个合适的就行，然后把返回值作为进度值就行了传给Ghost ProgressBar就行了。
 
@@ -1378,21 +1378,21 @@ PreAttributeChange有以下细节
 
 ​	由于它们和之前的Attribute的各种声明准备不同的只有名字，所以可以复制之前的东西，然后使用快捷替换，选择含有要替换的Attribute名字的代码 ，然后CTRL+H可以呼出搜索框。
 
-![image-20250118092331704](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118092331704.png)
+![image-20250118092331704](/assets/image-20250118092331704.png)
 
-![image-20250118092521634](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118092521634.png)
+![image-20250118092521634](/assets/image-20250118092521634.png)
 
 ​	这个功能甚至可以保持一段时间内一直进行而不需要多次呼出这个面板，非常适合替换文本。剩下的内容都可以这样完成。
 
 ​	新增的四个属性：
 
-![image-20250118093807338](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118093807338.png)
+![image-20250118093807338](/assets/image-20250118093807338.png)
 
 ​	要用DataTable配置Attribute，需要把ASC暴露给蓝图。因为我们采用的方式是PlayerState作为OwnerActor，所以只需要暴露PlayerState上的ASC，把其UPROPERTY改成VisibleAnywhere。这样就可以在完整的蓝图视图的Component栏目下看到它。
 
 ​	在“属性测试”一栏可以看到关于AttributeSet的配置信息。
 
-![image-20250118095132089](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118095132089.png)
+![image-20250118095132089](/assets/image-20250118095132089.png)
 
 ​	创建一个以AttributeMetaData为行结构的DataTable，当前该行结构只有BaseValue是有效的，bro还没开发完。
 
@@ -1404,11 +1404,11 @@ PreAttributeChange有以下细节
 
 ​	由于我们使用GE来初始化Character的Attribute，所以每个Character都应该有其初始化的GE，而我们也需要能够容易地配置它，所以我们可以在CharacterBase中添加一个成员属性，来设置使用的GEClass。
 
-![image-20250118174505772](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118174505772.png)
+![image-20250118174505772](/assets/image-20250118174505772.png)
 
 ​	然后我们再写一个内部函数用来Apply GamplayEffect初始化Attribute，这里使用ToTarget单纯只是为了练习使用一下它，ToTarget其实本质也是ToSelf，看源码就知道。
 
-![image-20250118120654190](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250118120654190.png)
+![image-20250118120654190](/assets/image-20250118120654190.png)
 
 ​	这个函数适合在InitAbilityActorInfo中调用。
 
@@ -1430,11 +1430,11 @@ PreAttributeChange有以下细节
 
 ​	当选择Attribute Based就会出现很多新内容：
 
-![image-20250120172531121](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120172531121.png)
+![image-20250120172531121](/assets/image-20250120172531121.png)
 
 ​	在“支持属性”（Backing Attribute）选择“属性源”为“Target”，因为我们想要基于Aura自己的属性来修改，我们选择捕获属性为“Vigor”（初始化为9）。
 
-![image-20250120173129243](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120173129243.png)
+![image-20250120173129243](/assets/image-20250120173129243.png)
 
 ​	因为我们选择的属性操作是“加”，“基于属性的幅度”的系数是1.0，所以对Aura应用这个GE的效果就是给Aura的Health加9（Vigor的值）。
 
@@ -1446,7 +1446,7 @@ PreAttributeChange有以下细节
 
 ##### Modifier Coefficient
 
-![image-20250120175354653](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120175354653.png)
+![image-20250120175354653](/assets/image-20250120175354653.png)
 
 ​	属性乘数。
 
@@ -1464,13 +1464,13 @@ PreAttributeChange有以下细节
 
 ​	在GAS中，基于Primary Attribute决定Secondary Attribute可以使用Infinite的GE，这可以使Primary Attribute改变时Secondary Attribute跟着改变，这样就不必考虑要在修改Primary Attribute还要去修改Secondary Attribute了，这是一个非常好的性质。这就意味着我们可以通过InfiniteGE来实现Secondary Attribute对Primary Attribute的依赖。这个依赖通过执行一个初始化GE来建立。所以就像我们有InitializePrimaryAttribute，我们也可以有InitializeSecondaryAttribute，对应的也需要一个TSubClassOf<UGameplayEffect>
 
-![image-20250120184303341](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120184303341.png)
+![image-20250120184303341](/assets/image-20250120184303341.png)
 
 ​	可以看出这两个函数其实非常相似，所以可以考虑把它们的本质功能打包成一个新的函数，由于这两个函数作用于Player自己，所以不妨可称ApplyEffectToSelf，这样它也不只是可以做当前这两件事，之后可能还有类似的需求。
 
 ​	优化后：
 
-![image-20250120185159582](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120185159582.png)
+![image-20250120185159582](/assets/image-20250120185159582.png)
 
 ​	现在来新建一个Infinite的GE专门用来修改Secondary Attributes，修改方式是Override。
 
@@ -1488,7 +1488,7 @@ PreAttributeChange有以下细节
 
 ​	对于Player，Level需要在PlayerState上，且需要复制，对于NPC，Level只需要在Character上。
 
-![image-20250120222236654](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250120222236654.png)
+![image-20250120222236654](/assets/image-20250120222236654.png)
 
 > [!CAUTION]
 >
@@ -1508,59 +1508,59 @@ PreAttributeChange有以下细节
 
 ​	接着我们要重载一个函数：
 
-![image-20250121082741131](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121082741131.png)
+![image-20250121082741131](/assets/image-20250121082741131.png)
 
 ​	这个函数返回一个float，即返回计算得出的AttributeValue，接收一个FGameplayEffectSpec，很显然就是和GE的关系。
 
 ​	此外，MMC还可以捕获Attribute，就像Modifier中的AttributeBased一样，这需要为被捕获的Attribute创建一个变量，变量的类型是FGameplayEffectAttributeCaptureDefinition。
 
-![image-20250121083309514](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121083309514.png)
+![image-20250121083309514](/assets/image-20250121083309514.png)
 
 ​	首先我们要捕获Attribute的话，就需要在构造函数中先行配置它。
 
-![image-20250121083505912](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121083505912.png)
+![image-20250121083505912](/assets/image-20250121083505912.png)
 
 ​	再一次，Attribute的Accessor又帮到忙了。
 
 ​	然后再设置捕获的Attribute的来源和是否使用Snapshot。
 
-![image-20250121084423837](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121084423837.png)
+![image-20250121084423837](/assets/image-20250121084423837.png)
 
 ​	Snapshot和捕获Attribute的timing有关，以及何时创建GESpec，何时Apply GESpec。在目前的情况我们都是在创建完GESpec后立即应用它，但是在其他的一些情况下我们不一定是这样的。例如我们释放一个火球，那么就要在完成吟唱的时候在火球上创建GESpec，而在火球命中目标时才Apply GESpec。而SnapShot就是捕获创建GESpec时的Attribute的状态。
 
 ​	MMC可以捕获多个Attribute，捕获到的Attribute需要我们将其添加到一个捕获Attribute数组中。
 
-![image-20250121090432274](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121090432274.png)
+![image-20250121090432274](/assets/image-20250121090432274.png)
 
 ​	接着我们就来进行实际的计算的实现，首先我们需要先准备一些参数用于填入一个函数：
 
-![image-20250121092723163](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121092723163.png)
+![image-20250121092723163](/assets/image-20250121092723163.png)
 
 ​	Def和Spec我们都已经有了，现在来看第三个参数的制作：
 
-![image-20250121092902979](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121092902979.png)
+![image-20250121092902979](/assets/image-20250121092902979.png)
 
 ​	我们从GESpec中可以得知Source和Target上聚合的标签，我们获取它并将它们赋予给一个临时的用作填写参数的结构体。
 
 ​	接着通过这个函数，我们可以捕获到到满足参数条件的Attribute的值，并且把它赋予给临时用作接收的变量Vigor。
 
-![image-20250121093349276](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121093349276.png)
+![image-20250121093349276](/assets/image-20250121093349276.png)
 
 ​	这样我们就完成了Vigor实际值的捕获。假设进行捕获时，要捕获的Vigor是10，那么这个float Vigor在捕获后就会变成10.
 
 ​	还可以对它进行一个合适的限制取值，避免出现一些完全错误的值，在这里因为Vigor没有最大值，所以在Vigor和0之间取一个最大值。
 
-![image-20250121093837235](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121093837235.png)
+![image-20250121093837235](/assets/image-20250121093837235.png)
 
 ​	捕获完了Backing Attribute之后，我们就可以去捕获非Attribute的值，例如上面说的Level，这就体现出AddSourceObject的作用了，我们通过CombatInterface来可以很容易地获取到它。（这里之前还没有定义CombatInterface，所以报红色）
 
-![image-20250121094403157](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121094403157.png)
+![image-20250121094403157](/assets/image-20250121094403157.png)
 
 ​	最后我们再将计算得到的值返回即可：
 
-![image-20250121094652094](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121094652094.png)
+![image-20250121094652094](/assets/image-20250121094652094.png)
 
-​	再在编辑器中配置GE，我们甚至还可以为其设置**乘算系数**、**预乘加值**和**后乘加值**。![image-20250121103706888](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250121103706888.png)
+​	再在编辑器中配置GE，我们甚至还可以为其设置**乘算系数**、**预乘加值**和**后乘加值**。![image-20250121103706888](/assets/image-20250121103706888.png)
 
 ### 2.8 Attribute Menu
 
@@ -1637,7 +1637,7 @@ PreAttributeChange有以下细节
 
 ​	接下来我们要为所有我们需要在C++中使用的GameplayTag创建一个**单例的**变量源，它可以是一个类或结构体，它不继承任何已有的引擎类，我们直接把它放在C++文件夹第一层即可。我们将其命名为“AuraGameplayTags”。
 
-![image-20250125111208723](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125111208723.png)
+![image-20250125111208723](/assets/image-20250125111208723.png)
 
 ​	我们选择把它变成一个结构体而不是类，所以我们要把自带的东西删掉。
 
@@ -1647,53 +1647,53 @@ PreAttributeChange有以下细节
 
 ​	（不需要USTRUCT反射宏）
 
-![image-20250125112114688](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125112114688.png)
+![image-20250125112114688](/assets/image-20250125112114688.png)
 
 ​	然后再在源文件中写以下的声明语句，这是在类外为静态成员变量分配内存。
 
-![image-20250125112257715](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125112257715.png)
+![image-20250125112257715](/assets/image-20250125112257715.png)
 
 ​	接下来我们再定义一个静态函数来初始化我们的GameplayTag
 
-![image-20250125113637929](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125113637929.png)
+![image-20250125113637929](/assets/image-20250125113637929.png)
 
 ​	我们知道，我们的在创建GameplayTag的时候，它会在UGameplayTagManager中注册，它会管理GameplayTag，我们可以用它来增加也就是新创建一些GameplayTags，我们可以在InitializeNativeGameplayTags中利用它来添加我们在C++中定义的原生的（Native）GameplayTag。
 
-![image-20250125114503151](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125114503151.png)
+![image-20250125114503151](/assets/image-20250125114503151.png)
 
 ​	但是我们该在哪里调用这个InitializeNativeGameplayTags呢？我们得尽可能先于它们被使用时去调用这个初始化对吧？这可以用到AssetManager去帮助我们。
 
 ​	接下来我们来创建自己的一个AssetManager，AssetManager也是一个单例（Singleton），整个项目中AssetManager只会有一个，AssetManager是在项目级别上设置的，我们会在项目的设置中设置它，然后我们的引擎就会去使用它作为一个AssetManager，于是我们就可以通过引擎（GEngine）去得到它，所以首先我们也要给它定义一个Getter。
 
-​	![image-20250125121609337](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125121609337.png)
+​	![image-20250125121609337](/assets/image-20250125121609337.png)
 
 ​	接下来我们需要去重写一些AssetManager的函数。
 
-![image-20250125121822278](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125121822278.png)
+![image-20250125121822278](/assets/image-20250125121822278.png)
 
 ​	这个函数是我们开始加载游戏资源的地方，所以在这里很适合去创建我们的原生GameplayTags。
 
-![image-20250125122024984](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125122024984.png)
+![image-20250125122024984](/assets/image-20250125122024984.png)
 
 ​	然后我们需要去把AuraAssetManager设置成我们项目的AssetManager，这需要在文件的层级上去修改，我们要去修改项目的Config中的“DefaultEngine.ini”在[/Script/Engine.Engine]一栏下添加：
 
 ​	AssetManagerClassName=/Script/Aura.AuraAssetManager（根据实际情况来）
 
-![image-20250125122643206](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125122643206.png)
+![image-20250125122643206](/assets/image-20250125122643206.png)
 
 ​	之后重新在Rider启动引擎，就可以在ProjectSettings中看到我们新添加的Tags了，它被显示为Native
 
-![image-20250125123130629](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125123130629.png)
+![image-20250125123130629](/assets/image-20250125123130629.png)
 
 ##### 获取原生GameplayTags
 
 ​	之后我们就可以通过这个单例的“AuraGameplayTags”来在C++中轻松地访问我们的GameplayTags。但是首先我们还需要在该结构中添加一些和Tag相关的变量来方便我们去以访问成员变量的方式去得到它们。这样的访问方式可以避免我们在调用它们时打错字导致的错误。我们最多只会在定义它们也就是在FAuraGameplayTags单例结构体中定义时。
 
-![image-20250125124015661](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125124015661.png)
+![image-20250125124015661](/assets/image-20250125124015661.png)
 
 ​	调用GameplayTagManager的AddNativeGameplayTag时它会返回一个该种Tag，所以我们可以把它存在我们的成员变量中。
 
-![image-20250125124232507](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125124232507.png)
+![image-20250125124232507](/assets/image-20250125124232507.png)
 
 ​	学习了创建原生GameplayTag之后，我们可能有必要把所有的Attribute的Tag都改成原生的，或是给没有创建原生Tag的Attribute都创建原生Tag。
 
@@ -1709,25 +1709,25 @@ PreAttributeChange有以下细节
 
 ​	首先先来创建一个派生自DataAsset的类，我们命名其为AttributeInfo，并且将其放在AbilitySystem文件夹下的Data文件夹下。
 
-![image-20250125130126775](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125130126775.png)
+![image-20250125130126775](/assets/image-20250125130126775.png)
 
 ​	然后我们再为AttributeInfo定义一个结构体用于存储我们想要在UI中显示出来的信息。
 
-![image-20250125130740196](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125130740196.png)
+![image-20250125130740196](/assets/image-20250125130740196.png)
 
 ​	注意AttributeValue的反射宏的元数据标识符有些不同，我们不希望去修改它，而是应该让它显示一个实际的游戏内的值。
 
 ​	接着我们在我们的DataAsset中创建一个FAuraAttributeInfo的数组用于存储所有这些Attribute的信息，并且我们还要写一个配套的函数去允许我们能够通过Tag找到对应的这个信息。
 
-![image-20250125132110772](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125132110772.png)
+![image-20250125132110772](/assets/image-20250125132110772.png)
 
 ​	这个函数我们提供了一个可选的参数用来设置是否要在查找失败时发送log。
 
 ​	接下来我们就可以在编辑器中去填写一下这些信息，只需要创建一个DataAsset，选择使用我们定义好的FAttributeInfo，可以放在content中的GAS的Data文件夹中。
 
-![image-20250125132622700](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125132622700.png)
+![image-20250125132622700](/assets/image-20250125132622700.png)
 
-![image-20250125132834456](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125132834456.png)
+![image-20250125132834456](/assets/image-20250125132834456.png)
 
 ##### 创建AttributeMenuWidgetController
 
@@ -1735,7 +1735,7 @@ PreAttributeChange有以下细节
 
 ​	先把必要的需要重写的函数写出来，但是此时它们还没有定义。
 
-![image-20250125133706105](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125133706105.png)
+![image-20250125133706105](/assets/image-20250125133706105.png)
 
 ​	接下来考虑我们应该在什么地方创建这一个WidgetController呢？我们可以想到OverlayWidgetController是在HUD中创建的。但是这是因为我们的Overlay和HUD是强烈相关的，而且我们的WidgetController在游戏中只有唯一的一个，我们的生命值进度条之类的小的Widget也是使用的OverlayWidget的Controller，但是AttributeMenu则不然。
 
@@ -1745,23 +1745,23 @@ PreAttributeChange有以下细节
 
 ​	蓝图函数库本质上还是一个有很多静态函数的C++类，我们选择把它放在AbilitySystem文件夹中，基类是BlueprintFunctionLibrary。
 
-![image-20250125141040953](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125141040953.png)
+![image-20250125141040953](/assets/image-20250125141040953.png)
 
 ​	由于蓝图函数库中的函数都是静态函数，它们都不能去访问任何已存在的实例，因为蓝图函数库这个类本身可能不存在于世界上，所以为了能够去寻找别的对象，蓝图函数库中的函数往往会接收一个世界上下文对象（WorldContextObject），这样静态函数就可以根据它去追踪我们希望去访问的东西。
 
-![image-20250125142035202](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125142035202.png)
+![image-20250125142035202](/assets/image-20250125142035202.png)
 
 ​	这里的BlueprintPure的意思就是没有一个顺序执行引脚
 
-![image-20250125141838166](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125141838166.png)
+![image-20250125141838166](/assets/image-20250125141838166.png)
 
 ​	就像这种：
 
-![image-20250125141923061](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125141923061.png)
+![image-20250125141923061](/assets/image-20250125141923061.png)
 
 写好的逻辑：
 
-![image-20250125143223423](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125143223423.png)
+![image-20250125143223423](/assets/image-20250125143223423.png)
 
 ​	这个函数相当于是借用了一下HUD中的函数GetOverlayWidgetController来获取一个OverlayWidgetController，本质上还是通过HUD去实现了这一点，但是我们现在通过把它写成一个蓝图函数库函数，现在我们在蓝图中想要获得OverlayWidgetController就不必要写很多关于HUD的逻辑了。
 
@@ -1793,25 +1793,25 @@ PreAttributeChange有以下细节
 
 ​	接着我们就要给CharacterBase添加一个Ability的数组用于确定初始化时要给Character授予哪些Abilities。
 
-![image-20250125182914254](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125182914254.png)
+![image-20250125182914254](/assets/image-20250125182914254.png)
 
 ​	并且我们需要让ASC获得这些技能，就需要把这些技能赋予ASC，所以我们需要创建一个函数来完成这件事，而这个函数实际上是需要去调用ASC的一个专门的函数去完成这件事，所以我们还要在ASC中定义一个**公共的**函数去初始化Abilities。
 
-![image-20250125223900058](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125223900058.png)
+![image-20250125223900058](/assets/image-20250125223900058.png)
 
 ​	要把Abilities授予给ASC，就需要为Ability制作对应的AbilitySpec，制作一个AbilitySpec比之前制作一个GESpec简单很多。我们只需要调用ASC的GiveAbility函数就可以将一个GA授予它。
 
-![image-20250125224459984](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125224459984.png)
+![image-20250125224459984](/assets/image-20250125224459984.png)
 
 ​	ASC还有一个授予Ability的函数：GiveAbilityAndActiveOnce，但这个函数所使用的GASpec就不能是const的了。
 
 ​	接下来回到CharacterBase，在AddCharacterAbilities中调用ASC的AddCharacterAbilities：
 
-![image-20250125225229744](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125225229744.png)
+![image-20250125225229744](/assets/image-20250125225229744.png)
 
 ​	在Player中Add初始Abilities的好地方是在PossessedBy中：
 
-![image-20250125225459611](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125225459611.png)
+![image-20250125225459611](/assets/image-20250125225459611.png)
 
 ##### 创建一个蓝图GameplayAbility测试效果
 
@@ -1821,7 +1821,7 @@ PreAttributeChange有以下细节
 
 ​	其中OnEndAbility需要显式地调用“EndAbility”才会执行。
 
-<img src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250125230252911.png" alt="image-20250125230252911" style="zoom:80%;" />
+<img src="/assets/image-20250125230252911.png" alt="image-20250125230252911" style="zoom:80%;" />
 
 #### 2.9.2 Settings on Gameplay Abilities
 
@@ -1829,27 +1829,27 @@ PreAttributeChange有以下细节
 
 ​	首先可以看到GameplayAbility有很多的标签相关的内容，它们的介绍都很简单易懂，不多介绍。
 
-<img src="C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126113640188.png" alt="image-20250126113640188" style="zoom:80%;" />
+<img src="/assets/image-20250126113640188.png" alt="image-20250126113640188" style="zoom:80%;" />
 
 ​	一些和网络游戏相关的内容：
 
-![image-20250126113945186](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126113945186.png)
+![image-20250126113945186](/assets/image-20250126113945186.png)
 
 ​	使用Ability可以有“开销”（Cost），例如释放魔法消耗“魔力”（Mana）
 
-![image-20250126114058159](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126114058159.png)
+![image-20250126114058159](/assets/image-20250126114058159.png)
 
 ​	触发器是指该Ability能够根据其他要素被触发。
 
-![image-20250126120654144](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126120654144.png)
+![image-20250126120654144](/assets/image-20250126120654144.png)
 
 ​	GameplayAbility可以有“冷却时间”
 
-![image-20250126121442548](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126121442548.png)
+![image-20250126121442548](/assets/image-20250126121442548.png)
 
 
 
-![image-20250126122845583](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126122845583.png)
+![image-20250126122845583](/assets/image-20250126122845583.png)
 
 ##### Instancing Policy
 
@@ -1891,35 +1891,35 @@ PreAttributeChange有以下细节
 
 ​	创建新C++DataAsset类：
 
-![image-20250126134852960](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126134852960.png)
+![image-20250126134852960](/assets/image-20250126134852960.png)
 
 ​	首先我们需要一个结构体来关联InputAction和GameplayTag
 
-![image-20250126142321824](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126142321824.png)
+![image-20250126142321824](/assets/image-20250126142321824.png)
 
 ​	然后我们的DataAsset需要一个FAuraInputAction数组
 
-![image-20250126142536598](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126142536598.png)
+![image-20250126142536598](/assets/image-20250126142536598.png)
 
 ​	我们提供了一个用来凭Tag寻找InputConfig中的FAuraInputAction的方法，其带一个可选的是否log的参数：
 
-![image-20250126141355667](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126141355667.png)
+![image-20250126141355667](/assets/image-20250126141355667.png)
 
 ​	我们还需要一系列的和InputAction相关的Tag，我们可以把它添加到C++原生Tag中，不要忘记初始化了。（这里比较懒只搞了一个）
 
-![image-20250126141956374](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126141956374.png)
+![image-20250126141956374](/assets/image-20250126141956374.png)
 
-![image-20250126142043662](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126142043662.png)
+![image-20250126142043662](/assets/image-20250126142043662.png)
 
 ​	接下来我们就可以在编辑器中新增一些InputAction。
 
 ​	首先创建DataAsset，称DA_AuraInputConfig
 
-![image-20250126143141956](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126143141956.png)
+![image-20250126143141956](/assets/image-20250126143141956.png)
 
 ​	再新增InputAction，并且要配置到**输入映射上下文**，然后把InputAction配置到DA_AuraInputConfig中。
 
-![image-20250126144144028](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126144144028.png)
+![image-20250126144144028](/assets/image-20250126144144028.png)
 
 #### 2.9.4 Aura Input Component
 
@@ -1927,29 +1927,29 @@ PreAttributeChange有以下细节
 
 ​	创建一个新C++类：
 
-![image-20250126145035030](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126145035030.png)
+![image-20250126145035030](/assets/image-20250126145035030.png)
 
 ​	定义一个函数用来绑定回调函数，这是一个模板函数，模板有几个方面，其中有关于UserClass和各种回调函数都是模板，注意我们在此需要添加AuraInputAction的头文件。
 
-![image-20250126145820121](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126145820121.png)
+![image-20250126145820121](/assets/image-20250126145820121.png)
 
 ​	这个函数接收三个要绑定的回调函数，它们代表了不同输入情况下的对应的操作
 
-![image-20250126151112842](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126151112842.png)
+![image-20250126151112842](/assets/image-20250126151112842.png)
 
 ​	这个函数会接收一个InputConfig，而InputConfig**接下来**只在**PlayerController**中有出现，然后给InputConfig中所有的InputAction都绑定输入的函数，但是由于我们的AbilityInput需要特定的Tag才能触发，所以只有特定的Input才能**触发特定的Ability**。注意这里的BindAction的最后一个参数，我们把Action.InputTag作为一个参数传入进来，实际上这个参数会传递给前面的参数Func。
 
 ​	接下来我们需要给PlayerController添加一个UAuraInputConfig指针成员变量：
 
-![image-20250126165636763](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126165636763.png)
+![image-20250126165636763](/assets/image-20250126165636763.png)
 
 ​	然后添加AbilityInputTag的三种回调函数，注意这里的参数类型并非引用，引用会导致错误！！！：
 
-![image-20250126213806857](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126213806857.png)
+![image-20250126213806857](/assets/image-20250126213806857.png)
 
 ​	接着再从PlayerController中将三个函数利用AuraInputComponent的BindAbilityAction绑定到所有的InputAction上即可。不要忘记之后要在编辑器中改变游戏使用的默认InputComponent类，以及**给PlayerController挂上InputConfig（DataAsset）**，可以给回调函数上打一些log来检测效果，暂时我们还没有在里面进行有意义的逻辑，但我们很快会回来。绑定回调函数到InputAction我们在PlayerController的**SetupInputComponent**中完成：
 
-![image-20250130232749272](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250130232749272.png)
+![image-20250130232749272](/assets/image-20250130232749272.png)
 
 ​	有趣的是，InputComponent是一个AActor所拥有的字段属性，也就是说所有的AActor都可以有一个InputComponent。
 
@@ -1959,37 +1959,37 @@ PreAttributeChange有以下细节
 
 ​	我们希望我们的**一开始就有的**（即Startup）GameplayAbility可以在游戏最开始的时候有一种**默认**的InputTag，现在让我们来给AuraGameplayAbility增加一个GameplayTag成员属性。
 
-![image-20250126173948922](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126173948922.png)
+![image-20250126173948922](/assets/image-20250126173948922.png)
 
 ​	接着，虽然我们把它加到了我们的GAClass中，但是我们在游戏中授予技能的方式是给予一个GASpec，所以，我们需要把这个Tag添加到GASpec的一个TagContainer中去，这样GASpec才能去依据这个Tag去进行之后的Input检测。
 
-![image-20250126175853060](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126175853060.png)
+![image-20250126175853060](/assets/image-20250126175853060.png)
 
 ​	接下来我们想要给AuraAbilitySystemComponent定义几个函数来便于PlayerController中绑定的回调函数去激活Ability。
 
 ​	不过此时我们的PlayerController中还没有存储AuraAbilitySystemComponent的成员变量，我们希望可以将其存储一下，避免每次用到都要重新获取一次，于是我们还可以定义一个GetASC来初始化一下这个成员变量，之后我们就可以随意使用它来访问PlayerController控制的Pawn上的ASC（通过蓝图函数库的函数）
 
-![image-20250126183311904](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126183311904.png)
+![image-20250126183311904](/assets/image-20250126183311904.png)
 
-![image-20250126183344037](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126183344037.png)
+![image-20250126183344037](/assets/image-20250126183344037.png)
 
 ​	现在在ASC中声明一下对应于PlayerController的三种回调函数中的两种，注意，这里的参数可以是引用！！！：
 
-![image-20250126201458978](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126201458978.png)
+![image-20250126201458978](/assets/image-20250126201458978.png)
 
 ​	对应在PlayerController中的InputAction回调函数：
 
-![image-20250126201552970](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126201552970.png)
+![image-20250126201552970](/assets/image-20250126201552970.png)
 
 ##### AuraAbilitySystem中的AbilityInputTagHeld定义
 
 ​	现在来看在AuraAbilitySystem中如何定义AbilityInputTagHeld
 
-![image-20250126202806377](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126202806377.png)
+![image-20250126202806377](/assets/image-20250126202806377.png)
 
 ​	它会遍历ASC中可以被激活（没有被Block）的Abilities，然后去**尝试激活**任何带有"InputTag"的Ability，并且会通过ASC自有的函数**AbilitySpecInputPressed**来将一个bool变量设置为真，来告知”现在这个Ability正在被Pressed“
 
-![image-20250126203120306](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126203120306.png)
+![image-20250126203120306](/assets/image-20250126203120306.png)
 
 ##### AuraAbilitySystem中的AbilityInputTagReleased定义
 
@@ -1997,7 +1997,7 @@ PreAttributeChange有以下细节
 
 ​	由于并不是所有的Ability都会在释放按键时取消，所以在此我们不会去选择取消它们，而是只是如AbilityInputTagHeld中先做一些必要的检查，然后通过**AbilitySpecInputReleased**来告知其状态为”被释放“
 
-![image-20250126203552528](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250126203552528.png)
+![image-20250126203552528](/assets/image-20250126203552528.png)
 
 ​	接着我们可以使用GA_TestGameplayAbility测试一下，测试之前不要忘记检查一下有没有把GA_TestGameplayAbility挂给PlayerCharacter，InputConfig有没有设置好，InputTag有没有创建好，不然可能测试不出来。
 
@@ -2036,21 +2036,21 @@ PreAttributeChange有以下细节
 5. 一个可接受的接近目标范围
 6. 一个样条线组件
 
-![image-20250127093632488](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250127093632488.png)
+![image-20250127093632488](/assets/image-20250127093632488.png)
 
 ​	样条线组件需要在构造函数中初始化：
 
-![image-20250127093705420](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250127093705420.png)
+![image-20250127093705420](/assets/image-20250127093705420.png)
 
 ​	但是，现在再考虑多一点，我们的鼠标可以能有多个任务要完成，首先是这里的移动到点击处，另一个可能是激活Ability，激活Ability可能是针对例如Enemy的。那么我们可能需要增加一个变量来判断我们此时鼠标点击应该要做的事是移动还是针对目标激活Ability，我们可以增加一个bool判断我们此时是否在focus在一个”目标“上。
 
-![image-20250127094414788](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250127094414788.png)
+![image-20250127094414788](/assets/image-20250127094414788.png)
 
 ​	如何设置bTargeting呢？换句话说，我们如何知道我们当前鼠标下的是一个”非地板“Actor呢？
 
 ​	我们还记得在实现”鼠标高亮敌人“时，我们会每帧捕捉鼠标底下的目标，如果捕捉到的Actor是一个IEnemyInterface，”ThisActor“才会有指，否则它就会是一个空指针。
 
-![image-20250127095023323](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250127095023323.png)
+![image-20250127095023323](/assets/image-20250127095023323.png)
 
 ​	所以我们可以通过ThisActor是否是一个空指针来在AbilityInputTagPressed中判定bTargeting是真还是假。同时在AbilityInputTagPressed中我们还需要把bAutoRunning设置成false，因为我们还不知道我们此时的按键持续有多长？需不需要自动奔跑？还是沿着鼠标方向走？
 
@@ -2277,7 +2277,7 @@ protected:
 
 ​	PlayMontageAndWait这个AbilityTask会在Activate函数中利用自己存储的AbilitySystemComponent去执行一个播放Montage，以下是AbilityTask父类中的ASC成员出处：
 
-![image-20250131170937736](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131170937736.png)
+![image-20250131170937736](/assets/image-20250131170937736.png)
 
 PlayMontageAndWait的**CreatePlayMontageAndWaitProxy**的实现：
 
@@ -2378,7 +2378,7 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	我们要做的就是在Montage的合适的位置发送一个AnimNotify，用其来发送一个GameplayEvent，由GA来监听这个Event，GA可以通过WaitForGameplayEvent这个GameplayTask来**监听Event**。
 
-![image-20250131173640538](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131173640538.png)
+![image-20250131173640538](/assets/image-20250131173640538.png)
 
 ​	WaitGameplayEvent这个Task通过EventTag（GameplayTag）来识别一个GameplayEvent，由于我们不需要在C++中访问这个Tag，我们可以只是在Project Settings中设置它。
 
@@ -2388,23 +2388,23 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	我们需要去重载AN中的函数ReceivedNotify，首先，基本的Sending GameplayEvent To Actor，此时我们还未指定EventTag给它
 
-![image-20250131175447090](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131175447090.png)
+![image-20250131175447090](/assets/image-20250131175447090.png)
 
 ​	GameplayEvent除了识别的EventTag以外，还可以传入一个Payload，这样的话目标的监听Actor就能拿到这个Payload，用它来做别的事，Payload使得GameplayEvent可以携带一些有用的信息。
 
 ​	我们把EventTag提升成AN_MontageEvent的一个公有的变量，这样我们将其暴露出来，就可以在不同的AN中传入不同的EventTag，发送带有不同GameplayTag的GameplayEvent。
 
-![image-20250131175909009](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131175909009.png)
+![image-20250131175909009](/assets/image-20250131175909009.png)
 
 ​	注意右边AN的公开变量EventTag被设置成了一个相应的EventTag。
 
-![image-20250131180518720](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131180518720.png)
+![image-20250131180518720](/assets/image-20250131180518720.png)
 
 ​	给GA_Test加上一个WaitGameplayEvent并带上对应的Tag，我们可以成功在游戏中收到PrintString打出来的信息！
 
-![image-20250131180851729](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131180851729.png)
+![image-20250131180851729](/assets/image-20250131180851729.png)
 
-![image-20250131181214942](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250131181214942.png)
+![image-20250131181214942](/assets/image-20250131181214942.png)
 
 ##### 通过GameplayEvent触发GameplayAbility中定义的函数
 
@@ -2416,25 +2416,25 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	现在我们只能创建一个无法飞向一个合适的方向的Projectile，我们希望能够实现让Projectile能够接受一个目标方向，我们可以自己定义一个AbilityTask来实现这个需求。
 
-![image-20250201215713005](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201215713005.png)
+![image-20250201215713005](/assets/image-20250201215713005.png)
 
 ​	我们此处对其命名TargetData~，而在GAS中TargetData是有所指向的，有其特殊的含义，我们会在后面进行了解。
 
 ​	我们从PlayMontageAndWait知道了AbilityTask采取了一个静态函数生成实例的做法，我们也将跟随这种做法去定义我们自己的AbilityTask。
 
-![image-20250201222740111](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201222740111.png)
+![image-20250201222740111](/assets/image-20250201222740111.png)
 
 ​	这个函数的反射宏有几个新的参数，其中meta中的信息表示其在蓝图中会隐藏参数OwningAbility的针脚，并且默认输入一个蓝图中的“Self”给它，也就是“this”指针，并且我们可以指定它为BlueprintInternalUseOnly，此外我们还可以改变它在蓝图中显示的名字，只需在meta中修改DisplayName：
 
-![image-20250201223027957](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201223027957.png)
+![image-20250201223027957](/assets/image-20250201223027957.png)
 
 ​	接着我们需要去实现它，实现的代码可以很简单，只需创建一个新的AbilityTask：
 
-![image-20250201223332413](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201223332413.png)
+![image-20250201223332413](/assets/image-20250201223332413.png)
 
 ​	这里要用到NewAbilityTask来创建新的AbilityTask，要传入一个GameplayAbility作为新的AbilityTask的OwningAbility，这个参数之后还可以加一个FName定义InstanceName，默认是无。
 
-![image-20250201223515188](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201223515188.png)
+![image-20250201223515188](/assets/image-20250201223515188.png)
 
 ​	虽然我们似乎什么实际的事情都没做，但事实是我们现在确实已经定义好了一个可以在蓝图中调用的AbilityTask，尽管它什么都做不了，它在蓝图中的节点只有一个向后继续执行的针脚，不会有任何其他输出。
 
@@ -2444,13 +2444,13 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	我们定义一个一个参数的动态多播委托，并在类中声明一个该类委托成员变量，反射宏需要加上BlueprintAssignable
 
-![image-20250201224654989](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201224654989.png)
+![image-20250201224654989](/assets/image-20250201224654989.png)
 
-![image-20250201224944523](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201224944523.png)
+![image-20250201224944523](/assets/image-20250201224944523.png)
 
 ​	蓝图中的节点：
 
-![image-20250201224859104](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201224859104.png)
+![image-20250201224859104](/assets/image-20250201224859104.png)
 
 ​	但是此时连接其他节点到这个ValidData节点是没有任何用的，因为我们并没有在AbilityTask中去广播这个委托，这个委托永远不会被调用，所以我们需要在AbilityTask中广播这个委托。
 
@@ -2458,7 +2458,7 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	 我们需要得到PlayerController来获取鼠标指针下的HitResult：
 
-![image-20250201231913088](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250201231913088.png)
+![image-20250201231913088](/assets/image-20250201231913088.png)
 
 > [!NOTE]
 >
@@ -2494,7 +2494,7 @@ void UAbilityTask_PlayMontageAndWait::Activate()
 
 ​	接着，在Activate中我们需要判断触发 触发AbilityTask的Ability 发Actor是否在Client本地，如果是的话，就做Client本地应该去做的事情，是在Server上的话就去做Server应该做的事情。
 
-![image-20250202095050489](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202095050489.png)
+![image-20250202095050489](/assets/image-20250202095050489.png)
 
 ​	这时我们在SendMouseCursor中就需要用到GAS的FGameplayAbilityTargetData了，这是一个结构体，它是一个**通用**的TargetData基类，且它派生了很多具体的不同类型的TargetData，我们要使用其派生的具体子类。
 
@@ -2621,17 +2621,17 @@ struct GAMEPLAYABILITIES_API FGameplayAbilityTargetData
 
 ​	我们需要用到的FGameplayAbilityTargetData子类是FGameplayAbilityTargetData_SingleTargetHit，它有一个FHitResult成员可以被我们用来传递鼠标光标命中位置，于是我们就可以把之前的获取鼠标光标位置的逻辑剪切到这里来，并将其传给一个新的FGameplayAbilityTargetData_SingleTargetHit
 
-![image-20250202100358865](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202100358865.png)
+![image-20250202100358865](/assets/image-20250202100358865.png)
 
 ​	然后我们要把它发送给Server，这需要从ASC调用ServerSetReplicatedTargetData()，AbilityTask自己已经持有了对应的ASC，这方便了我们做这件事。
 
 ​	接下来注意这个函数调用的参数：
 
-![image-20250202100629471](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202100629471.png)
+![image-20250202100629471](/assets/image-20250202100629471.png)
 
 ​	这个函数有好多个特别的参数，我们接下来介绍如何传入参数。
 
-![image-20250202101214931](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202101214931.png)
+![image-20250202101214931](/assets/image-20250202101214931.png)
 
 - 首先AbilityHandle由AbilityTask持有一个，可以直接调用AbilityTask的Getter。
 
@@ -2639,24 +2639,24 @@ struct GAMEPLAYABILITIES_API FGameplayAbilityTargetData
 
 - 再需要一个TargetDataHandle，这个我们必须手动制造一个：
 
-  ![image-20250202101831917](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202101831917.png)
+  ![image-20250202101831917](/assets/image-20250202101831917.png)
 
 - 接着是一个FGameplayTag，暂时可有可无。
 - 最后是一个FPredictionKey，参数名表明它需要一个当前的Key，可以通过ASC的ScopedPredictionKey成员获得它。
 
 ​	现在我们实现了把TargetData发送给了Server，不要忘了我们本地的Client也需要MouseCursor的信息，所以此时我们还应该**广播给本地**，但是在此之前，我们需要调用一下函数ShouldBroadcastAbilityTaskDelegates()来检查Ability是否仍然被激活，从而判断是否应该广播委托，下面的注释可见其用处。
 
-![image-20250202102520008](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202102520008.png)
+![image-20250202102520008](/assets/image-20250202102520008.png)
 
 ​	但是现在我们有了TargetData，我们可以不只是传一个FVector，我们可以把DataHandle广播出去。
 
 ​	现在这里就完成了Client上需要做的事情，且Client也没有忘记把TargetData传给自己。
 
-![image-20250202103141580](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202103141580.png)
+![image-20250202103141580](/assets/image-20250202103141580.png)
 
 ​	但是注意我们这里的AbilitySystemComponent->ScopedPredictionKey，我们需要更新这个变量，我们通过创建一个**ScopedPredictionWindow**，在这个Window之下，我们所做的一切本地化的事情都会被预测。且它是Scoped，即有范围的，它仅限我们创建Window时所在的Scope，所以我们还要在所有逻辑的最上方创建一个Window来更新ASC的ScopedPredictionKey。
 
-![image-20250202104145426](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202104145426.png)
+![image-20250202104145426](/assets/image-20250202104145426.png)
 
 ##### Server：ReceiveTargetData
 
@@ -2664,27 +2664,27 @@ struct GAMEPLAYABILITIES_API FGameplayAbilityTargetData
 
 ​	我们仍然要通过ASC来调用函数AbilityTargetDataSetDelegate，这个函数通过一个AbilitySpecHandle和一个FPreditionKey来在ASC中维护的一个AbilityTargetDataMap中（这个Map以AbilitySpecHandle和PredictionKey建立联系）获取一个FAbilityTargetDataSetDelegate&
 
-![image-20250202104550901](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202104550901.png)
+![image-20250202104550901](/assets/image-20250202104550901.png)
 
-​	![image-20250202105545518](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202105545518.png)
+​	![image-20250202105545518](/assets/image-20250202105545518.png)
 
 ​	现在我们获取到了这个委托，这个委托会广播两个信息：一个TargetDataHandle和一个ActivationTag，正如我们在Client上广播的那样。现在我们就需要为其绑定一个函数签名正确的回调函数。
 
-![image-20250202110153845](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202110153845.png)
+![image-20250202110153845](/assets/image-20250202110153845.png)
 
-![image-20250202110306299](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202110306299.png)
+![image-20250202110306299](/assets/image-20250202110306299.png)
 
 ​	由于我们两次用到AbilitySpecHandle和PredictionKey，为了避免反复调用，将其预存在局部变量中。
 
 ​	我们通过调用ASC上的CallReplicatedTargetDataDelegatesIfSet()函数来试图广播**TargetData上的**TargetDataDelegates，（这里是通过一个AbilitySpecHandle和PredictionKey的组合来在ASC的**AbilityTargetDataMap**中找收到的对应的TargetData）但是我们也提到了，Server上的Activate的执行时间和TargetData从Client上的Activate广播出来的顺序是不知道的，所以这个广播是可能失败的，所以如果暂且没收到TargetData，我们就让Server等一等这个TargetData.
 
-![image-20250202110946837](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202110946837.png)	
+![image-20250202110946837](/assets/image-20250202110946837.png)	
 
 ​	最后还有要定义一下这个回调函数中要做的行为。
 
 ​	由于我们通过Client向Server发送了TargetData，它会被ASC存在AbilityTargetDataMap中作为缓存，我们要在Server接收到TargetData后先将其在AbilityTargetDataMap的缓存释放掉，然后就可以如在Clients的逻辑一样去把ValidData委托给广播出去蓝图中了。
 
-![image-20250202115432624](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202115432624.png)
+![image-20250202115432624](/assets/image-20250202115432624.png)
 
 完整的代码：
 
@@ -2768,7 +2768,7 @@ void UTargetDataUnderMouse::OnTargetDataReplicatedCallBack(const FGameplayAbilit
 
 ​	到目前为止，我们还不能正常使用这个AbilityTask，因为我们需要在AssetManager中初始化GlobalData，这会初始化TargetData静态类，暂时我们不清楚其究竟是干什么的，暂且这样先就好。
 
-![image-20250202120106406](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202120106406.png)	
+![image-20250202120106406](/assets/image-20250202120106406.png)	
 
 ##### 总结
 
@@ -2815,7 +2815,7 @@ void UTargetDataUnderMouse::OnTargetDataReplicatedCallBack(const FGameplayAbilit
 - Client calls TryActivateAbility
 
   - 产生 New PredictionKey——就是我们使用到的ActivationPredictionKey：
-  - ![image-20250202130638942](C:/Users/Max1122Chen/AppData/Roaming/Typora/typora-user-images/image-20250202130638942.png)
+  - ![image-20250202130638942](/assets/image-20250202130638942.png)
 
   - Call RPC——**ServerTryActivateAbility** on Server
 

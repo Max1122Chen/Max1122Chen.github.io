@@ -56,3 +56,21 @@ Inventory Component负责库存系统的Data管理，同时直接控制UI视觉�
 Fast Array Serializer是一个用来实现增量复制的数组（其实它本身不是，你仍然要在FAS中声名一个TArray来实现真正的Array），能够提高性能。
 
 需要配合使用一个继承了FastArraySerializerItemFStruct作为FAS的数组元素
+
+FAS规定了一些接口函数，不是必须实现的，不是虚函数，但是可以实现它们来增加FAS的功能。具体可以看FAS的源码中的说明。
+
+可以在PostReplicatedAdd和PreReplicatedRemove中加上向外广播Inventory变化的委托
+
+最后还需要一个类型萃取来说明我们的自定义FAS需要被增量复制（DeltaReplicate）
+
+
+
+### AddEntry & RemoveEntry
+
+课程有一个值得注意的点是，只允许在服务器上执行AddEntry，因此在逻辑中需要鉴权。
+
+使用FAS的一个要点是需要在增删时把TArray的对应Entry标记为Dirty以便告知FAS哪些东西是需要被网络复制的。
+
+由于你不一定能够添加物品成功，所以在InventoryManagerComponent中调用的函数应该是TryAddItem，尝试去做。
+
+并且我们在InventoryComponent上实际上需要发RPC来让服务器执行权威的Add和Remove逻辑。
