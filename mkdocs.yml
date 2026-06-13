@@ -1,5 +1,7 @@
-site_name: Max1122Chen's Blog
+site_name: Max1122Chen
+site_description: 游戏开发 · 计算机图形学 · 个人主页与学习笔记
 site_author: Max1122Chen
+site_url: https://max1122chen.github.io
 
 repo_name: Max1122Chen.github.io
 repo_url: https://github.com/Max1122Chen/Max1122Chen.github.io
@@ -13,18 +15,25 @@ theme:
   features:
     - header.autohide
     - navigation.instant
-    - search.hightlight
+    - search.highlight
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
 
   palette:
-    primary: red
+    primary: deep-purple
     accent: indigo
 
 markdown_extensions:
   - meta
   - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.details
   - pymdownx.superfences
-
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search
@@ -32,6 +41,9 @@ plugins:
 
 extra:
   generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Max1122Chen
 
 watch: 
   - ./
